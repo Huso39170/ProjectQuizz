@@ -1,0 +1,239 @@
+/* CSS de la page de connexion et d'inscription */
+
+body.active-modal {
+    overflow-y: hidden;
+}
+
+.modal{
+    font-family: 'Poppins', sans-serif;
+}
+
+.modal, .overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlay {
+    background: #fff;
+
+}
+
+.modal-content {
+    position: relative;
+    margin: auto;
+    line-height: 1.4;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+
+}
+
+.modal-content .modal-title{
+    font-size: 35px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 100px;
+    color: #fff;
+    margin-top: 0;
+    user-select: none;
+    background:  #F76059;
+}
+
+
+
+
+.modal-content .LogSub-form{
+    max-width: 580px;
+    min-width: 300px;
+    margin: auto;
+}
+
+
+.modal-content .LogSub-field{
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+    padding-left: 50px;
+    
+}
+
+
+.modal-content .LogSub-field input{
+    height: 35px ;
+    width: 75%;
+    outline: none;
+    font-size: 14px;
+    border: 1px solid lightgrey;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-indent: 20px;
+    
+}
+
+
+.modal-content .LogSub-form .LogSub-field input:focus{
+    border-color: lightblue ;
+}
+
+.modal-content .LogSub-field .inputLogSub_erreur{
+    color: red;
+    margin: 0;
+    padding-left: 20px;
+    top:-22px;
+    font-size: 14px;
+    position: absolute;
+
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 7px;   
+    border: none;
+    background: none;
+}
+
+.close-modal:hover {
+    cursor: pointer;
+}
+
+.LogSub-form .content{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.LogSub-form .content a{
+    color: "";
+}
+
+
+.LogSub-form .LogSub-field input[type="submit"]{
+    color: #fff;
+    border: none;
+    padding-left: 0;
+    margin-top: -10px;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    background: #F76059;
+    transition: all 0.3s ease;
+}
+
+.LogSub-form .LogSub-field input[type="submit"]:active{
+    transform: scale(0.95);
+}
+.LogSub-form .signup-link{
+    color: #262626;
+    margin-top: 20px;
+    text-align: center;
+}
+.LogSub-form .pass-link a,
+.LogSub-form .signup-link a{
+    color: #4158d0;
+    text-decoration: none;
+}
+.LogSub-form .pass-link a:hover,
+.LogSub-form .signup-link a:hover{
+    text-decoration: underline;
+}
+
+
+@media only screen and (min-width: 600px) and (min-height: 910px) {
+    
+    .modal, .overlay {
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+    }
+    
+    .overlay {
+        background: rgba(49,49,49,0.8);
+    }
+    .modal-content {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        line-height: 1.4;
+        background: #fff;
+        border-radius: 15px;
+        width: 100%;
+        height: 720px;
+        max-width: 580px;
+        min-width: 380px;
+        overflow-y: hidden;
+    
+    }
+    
+    .modal-content .modal-title{
+        font-size: 35px;
+        font-weight: 600;
+        text-align: center;
+        line-height: 100px;
+        color: #fff;
+        margin-top: 0;
+        user-select: none;
+        border-radius: 15px 15px 0 0;
+        background:  #F76059;
+    }
+    
+    .modal-content .LogSub-form{
+        padding: 10px 30px 50px 30px;
+    }
+
+    
+    .modal-content .LogSub-field{
+        width: 100%;
+        margin-top: 30px;
+        position: relative;
+        padding: 0;
+    }
+    
+    
+    
+    .modal-content .LogSub-field input{
+        height: 50px ;
+        width: 100%;
+        outline: none;
+        font-size: 17px;
+        border: 1px solid lightgrey;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        text-indent: 20px;
+        
+    }
+    
+    .modal-content .LogSub-form .LogSub-field input:focus{
+      border-color: lightblue ;
+    }
+    
+    .modal-content .LogSub-field .inputLogSub_erreur{
+        color: red;
+        margin: 0;
+        padding-left: 20px;
+        top:-25px;
+        position: absolute;
+    
+    }
+    
+    
+}
+
+
+

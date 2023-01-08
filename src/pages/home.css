@@ -1,0 +1,254 @@
+.home_page_pt1{
+    background: linear-gradient(#F76059, #7500A3);
+    height: auto;
+}
+
+
+/*-------Bar de navigation---------*/
+.navbar{
+    height: 50px;
+    display: flex;
+    align-items: center;
+    width:100%;
+    
+}
+
+.home_page_pt1 h2 {
+    color: white;
+    font-family: "Poppins", sans-serif;
+    margin-left: 10px;
+    width: 100px;
+}
+
+
+.home_page_pt1 .login_button{
+    margin-left: auto;
+    padding:0.5em 3em;
+    border:0.16em solid #FFFFFF;
+    margin-right: 10px;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    color:#FFFFFF;
+    text-align:center;
+    transition: all 0.15s;
+}
+
+.home_page_pt1 .login_button:hover{
+    color:#DDDDDD;
+    border-color:#DDDDDD;
+}
+
+.home_page_pt1 .login_button:active{
+    color:#BBBBBB;
+    border-color:#BBBBBB;
+}
+
+/*-------------------------------------------------*/
+
+
+/*--------------Phrase d'accoroche------------------*/
+.presentation{
+
+    width: 80% ;
+    height: auto;
+    margin: 100px auto;
+    text-align: center;  
+    font-family:'Roboto',sans-serif;
+}
+
+.presentation h1 {
+    height: 50%;
+    width: 100%;
+    color: white;
+    font-size: 2.5em;
+
+}
+
+.presentation h3 {
+
+    color: lightgray;
+    font-size: 1em;
+    font-family:'Roboto',sans-serif;
+}
+
+/*---------------------Boutton d'inscription----------------------------*/
+.home_page_pt1 .sub_section{
+    width: 223px;
+    text-align: center;
+    margin: auto;
+}
+
+.home_page_pt1 .sub_button{
+    display:inline-block;
+    padding:0.3em 1.2em;
+    margin:0 0.3em 0.3em 0;
+    border-radius:2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    background-color:#F2391D;
+    text-align:center;
+    transition: all 0.2s;
+    height: 33px;
+    width: 225px;
+}
+.home_page_pt1 .sub_button:hover{
+    background-color:#F76059;
+}
+@media all and (max-width:30em){
+    .home_page_pt1 .sub_button{
+        display:block;
+        margin:0.2em auto;
+    }
+}
+
+/*-------------Etape-----------------*/
+
+.home_page_pt1 .etape{
+    height: auto;
+    max-width: 500px;
+    min-width: 300px;
+    width: 55%;
+    margin: auto;
+    padding-bottom: 100px;
+}
+
+.home_page_pt1 .etape h2{
+    width: 100%;
+    text-align: center;
+}
+
+.home_page_pt1 .etape_liste{
+    width: 100%;
+    border: solid 1px white;
+    text-align: center;
+    list-style-type: none;
+    line-height: 30px;
+    width: 50%;
+    margin: auto;
+
+    
+}
+
+.home_page_pt1 .etape_liste li{
+    color: white;
+    text-align: left;
+}
+
+.curve_section{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 100px;
+    width: 100%;
+
+}
+.wave_container{
+    height: 250px;
+}
+
+.wave {
+    margin-top: -1px;
+    fill: #7500A3;
+}
+
+.home_page_pt2{
+    height: 500px;
+    width: 100%;
+    /*margin-top: -250px;*/
+
+
+}
+
+.home_page_pt2 .join{
+    width: 30%;
+    height: 40%;
+    min-width: 320px;
+    border-radius: 20px;
+    margin: auto;
+    border: solid 1px black;
+}
+
+.join h2{
+    text-align: center;
+    font-size: 22px;
+}
+
+.join_form{
+
+    text-align: center;
+    display: block;
+}
+
+.join_form .join_text {
+    width: 65%;
+    padding: 6px 12px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    appearance: none;
+    border-radius: 4px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    margin-bottom: 20px;
+}
+
+.join_form .join_text:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+
+.join_form .join_submit{
+    width: 65%;
+    align-items: center;
+    background-clip: padding-box;
+    background-color: #fa6400;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 3rem;
+    padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+    position: relative;
+    text-decoration: none;
+    transition: all 250ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+}
+
+
+.join_form .join_submit:hover, .join_submit:focus {
+  background-color: #fb8332;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+}
+
+.join_form .join_submit:hover {
+  transform: translateY(-1px);
+}
+
+.join_form .join_submit:active {
+  background-color: #c85000;
+  box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+  transform: translateY(0);
+}
