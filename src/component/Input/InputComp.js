@@ -1,12 +1,10 @@
 import React from 'react'
 
-const InputSubLog = ({modalValue,setValue,placeholder,required,erreur,inputType}) => {
-
-
+const InputComp = ({modalValue,setValue,placeholder,required,erreur,inputType,className,label}) => {
     return (
-
-        <div className='LogSub-field'>
-           {erreur.length >0 && <p className='inputLogSub_erreur'>{erreur}</p>}
+        <div className={className} >
+            {label!==undefined && <label> {label} </label>}
+           {erreur.length >0 && <p className='input_erreur'>{erreur}</p>}
             <input
                 type={inputType}
                 required={required}
@@ -18,9 +16,7 @@ const InputSubLog = ({modalValue,setValue,placeholder,required,erreur,inputType}
             />
 
         </div>
-
-
     )
 }
 
-export default InputSubLog
+export default InputComp

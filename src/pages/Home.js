@@ -27,7 +27,7 @@ const Home = () => {
 
 
     return (
-        <main >
+        <main className='home'>
             <div className='home_page_pt1'>
                 <header className='navbar'>
                     <h2>Quizzeo</h2>
@@ -76,10 +76,6 @@ const Home = () => {
                 toggleModal={toggleModal}
                 isLogin={isLogin}
             />
-
-
-            
-
         </main>
 
     )

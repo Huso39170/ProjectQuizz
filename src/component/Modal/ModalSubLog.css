@@ -82,7 +82,7 @@ body.active-modal {
     border-color: lightblue ;
 }
 
-.modal-content .LogSub-field .inputLogSub_erreur{
+.modal-content .LogSub-field .input_erreur{
     color: red;
     margin: 0;
     padding-left: 20px;
@@ -223,7 +223,7 @@ body.active-modal {
       border-color: lightblue ;
     }
     
-    .modal-content .LogSub-field .inputLogSub_erreur{
+    .modal-content .LogSub-field .input_erreur{
         color: red;
         margin: 0;
         padding-left: 20px;

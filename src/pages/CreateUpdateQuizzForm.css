@@ -1,0 +1,66 @@
+.create_update_quizz_form {
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 64px;
+}
+
+.create_update_quizz_form h2{
+    margin-left: 16px;
+}
+
+
+.input_field{
+    margin-left: 16px;
+}
+
+.create_update_quizz_form .input_field input[type=text],textarea  {
+    width: 70%;
+    max-width: 500px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+
+}
+
+.create_update_quizz_form .input_field label {
+    padding: 8px 0px 8px 0;
+    display: block;
+}
+
+.create_update_quizz_form .radio_field{
+    margin-left: 16px;
+    line-height: 2em;
+}
+
+.create_update_quizz_form .timer_field input{
+    width: 50%;
+    max-width: 500px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: block;
+    margin-left: 16px;
+    margin-top: 8px;
+
+}
+
+
+/* Style the submit button */
+.create_update_quizz_form input[type=submit] {
+    background-color: #F76059;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+    width :25%;
+    margin-top: 32px;
+    margin-left: 16px;
+}
+
+.create_update_quizz_form input[type=submit]:hover{
+    background-color: #f78059;
+}

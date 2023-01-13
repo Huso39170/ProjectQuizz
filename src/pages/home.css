@@ -1,3 +1,8 @@
+
+.home{
+    height: 100%;
+    position: relative;
+}
 .home_page_pt1{
     background: linear-gradient(#F76059, #7500A3);
     height: auto;
@@ -152,14 +157,14 @@
 }
 
 .wave {
-    margin-top: -1px;
+    margin-top: -2px;
     fill: #7500A3;
 }
 
 .home_page_pt2{
     height: 500px;
     width: 100%;
-    /*margin-top: -250px;*/
+
 
 
 }

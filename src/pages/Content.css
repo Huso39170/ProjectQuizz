@@ -1,0 +1,460 @@
+.content_main {
+    width: 80%;
+    height: 94.1vh;
+    float: right;
+    background-color: rgba(255, 255, 255, 0.76);
+    border-radius: 3px;
+}
+
+
+
+/* Barre de recherche */
+
+.search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+  }
+  
+  .search__input {
+    font-family: inherit;
+    font-size: inherit;
+    background-color: #f4f2f2;
+    border: none;
+    color: #646464;
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    width: 98%;
+    transition: all ease-in-out .5s;
+    margin-right: -3rem;
+    margin-left: .5rem;
+    margin-top: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .search__input:hover, .search__input:focus {
+    box-shadow: 0 0 1em #00000013;
+  }
+  
+  .search__input:focus {
+    outline: none;
+    background-color: #f0eeee;
+  }
+  
+  .search__input::-webkit-input-placeholder {
+    font-weight: 100;
+    color: #ccc;
+  }
+  
+  .search__input:focus + .search__button {
+    background-color: #f0eeee;
+  }
+  
+  .search__button {
+    border: none;
+    background-color: #f4f2f2;
+    margin-right: 2em
+
+  }
+  
+  .search__button:hover {
+    cursor: pointer;
+  }
+  
+  .search__icon {
+    height: 1.5em;
+    width: 1.5em;
+    fill: #5a5a5a;
+  }
+
+/* les quizz */
+
+.quizz_display, ul{
+  height: auto;
+}
+
+li {
+  height: 10%;
+  width: 70%;
+}
+
+
+.quizz {
+  display: flex;
+  border: solid 1px black;
+  border-radius: 50px;
+  margin-top: 10px;
+  margin-left: 3em;
+}
+
+.quizz_name {
+  width: 70%;
+  height: fit-content;
+  margin-left: 50px;
+  color: black;
+  font-weight: lighter;
+  font-family: "Poppins", sans-serif;
+}
+
+.play_button {
+  width: 10%;
+  position: relative;
+  border-radius: 0px;
+  background-color: #6a097d;
+  border: solid 1px #6a097d;
+  text-align: center;
+  
+}
+
+.play_button:hover {
+  background-color: #6a097dc7;
+  border: solid 1px #6a097dc0;
+}
+
+.edit_button {
+  width: 10%;
+  position: relative;
+  border-radius: 0px;
+  background-color: #c05fa0;
+  border: solid 1px #c05fa0;
+  text-align: center;
+  
+}
+
+.edit_button:hover {
+  background-color: #c05fa0d2;
+  border: solid 1px #c05fa0d0;
+}
+
+
+
+.stats_button {
+  width: 10%;
+  position: relative;
+  border-radius: 0px;
+  background-color: rgba(128, 0, 128, 0.788); 
+  border: solid 1px rgba(128, 0, 128, 0.788); 
+  text-align: center;
+  
+}
+
+.stats_button:hover {
+  background-color: rgba(128, 0, 128, 0.637);
+  border: solid 1px rgba(128, 0, 128, 0.637);
+}
+
+.del_button {
+  width: 6%;
+  position: relative;
+  border-radius: 0px;
+  background-color: rgba(128, 0, 128, 0);
+  border: solid 1px rgba(128, 0, 128, 0);
+  text-align: center;
+  border-radius: 50px;
+}
+
+.del_button:hover {
+  background-color: rgba(255, 255, 255, 0.507);
+}
+
+.Fa {
+  width: 40%;
+  height: 40%;
+  color: white;
+  vertical-align: middle;
+}
+
+.FaTrash {
+  width: 40%;
+  height: 40%;
+  vertical-align: middle;
+}
+
+
+/* Liste de quizz vide */
+
+.empty_quizz {
+  text-align: center;
+  margin-top: 55vh; /* poussé de la moitié de hauteur de viewport */
+  margin-bottom: 25px;
+}
+
+.add_button_content {
+  width: 20em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  background-color: #f7615900;
+  border: solid 1px black;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  height: 49px;
+  color: black;
+  font-size: 20px;
+  transition: all .3s ease-in-out;
+  z-index: 1;
+  overflow: hidden;
+
+}
+
+.add_button_content::before {
+  content: "";
+  background-color:#ce5e58d7;
+  width: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  transition: width 700ms ease-in-out;
+  display: inline-block;
+}
+
+.add_button_content:hover::before {
+  width: 100%;
+}
+
+.add_button_bis {
+  display: none;
+}
+
+/* responsive */
+@media all and (max-width: 1300px) {
+
+  /* Boutons ""CREER QUIZZ */
+  .add_button_content {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 10%;
+    border-radius: 2px;
+    background-color:  #F76059;
+    font-size: 25px;
+  }
+  .add_button_content:before{
+    background-color:#ce5e5800;
+  }
+  .add_button_content:active {
+    transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+    border-bottom: 1px solid;
+  }
+
+  /* Affichage des quizz */
+  li {
+    height: 10%;
+    width: 90%;
+  }
+  
+  
+  .quizz {
+    display: flex;
+    border: solid 1px black;
+    border-radius: 50px;
+    margin-top: 10px;
+    margin-left: 0em;
+  }
+  
+  .quizz_name {
+    width: 80%;
+    height: fit-content;
+    margin-left: 20px;
+    color: black;
+    font-weight: lighter;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .play_button {
+    width: 12%;
+    position: relative;
+    border-radius: 0px;
+    background-color: #6a097d;
+    border: solid 1px #6a097d;
+    text-align: center;
+    
+  }
+  
+  .play_button:hover {
+    background-color: #6a097dc7;
+    border: solid 1px #6a097dc0;
+  }
+
+  .edit_button {
+    width: 12%;
+    position: relative;
+    border-radius: 0px;
+    background-color: #c05fa0;
+    border: solid 1px #c05fa0;
+    text-align: center;
+    
+  }
+  
+  .edit_button:hover {
+    background-color: #c05fa0d2;
+    border: solid 1px #c05fa0d0;
+  }
+  
+  .stats_button {
+    width: 12%;
+    position: relative;
+    border-radius: 0px;
+    background-color: rgba(128, 0, 128, 0.788); 
+    border: solid 1px rgba(128, 0, 128, 0.788);
+    text-align: center;
+    
+  }
+  
+  .stats_button:hover {
+    background-color: rgba(128, 0, 128, 0.637);
+    border: solid 1px rgba(128, 0, 128, 0.637);
+  }
+  
+  .del_button {
+    width: 8%;
+    position: relative;
+    background-color: rgba(128, 0, 128, 0);
+    border: solid 1px rgba(128, 0, 128, 0);
+    text-align: center;
+    border-radius: 100px;
+  }
+  
+  .del_button:hover {
+    background-color: rgba(255, 255, 255, 0.507);
+  }
+  
+}
+
+/****/
+
+@media all and (max-width: 640px) {
+  .content_main {
+    width: 100%;
+    border-radius: 0px;
+  }
+
+  /* Boutons ""CREER QUIZZ */
+  .add_button_content {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 10%;
+    border-radius: 2px;
+    background-color:  #F76059;
+    font-size: 25px;
+  }
+  .add_button_content:before{
+    background-color:#ce5e5800;
+  }
+  .add_button_content:active {
+    transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+    border-bottom: 1px solid;
+  }
+
+  .add_button_bis {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 10%;
+    border: solid 1px;
+    border-radius: 2px;
+    background-color:  #F76059;
+    font-size: 25px;
+  }
+  .add_button_bis:active {
+    transform: translate(0px,5px);
+    -webkit-transform: translate(0px,5px);
+    border-bottom: 1px solid;
+  }
+
+  /* Affichage des quizz */
+  li {
+    height: 10%;
+    width: 90%;
+  }
+  
+  
+  .quizz {
+    display: flex;
+    border: solid 1px black;
+    border-radius: 50px;
+    margin-top: 10px;
+    margin-left: 0em;
+  }
+  
+  .quizz_name {
+    width: 60%;
+    height: fit-content;
+    margin-left: 20px;
+    color: black;
+    font-weight: lighter;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .play_button {
+    width: 15%;
+    position: relative;
+    border-radius: 0px;
+    background-color: #6a097d;
+    border: solid 1px #6a097d;
+    text-align: center;
+    
+  }
+  
+  .play_button:hover {
+    background-color: #6a097dc7;
+    border: solid 1px #6a097dc0;
+  }
+
+  .edit_button {
+    width: 15%;
+    position: relative;
+    border-radius: 0px;
+    background-color: #c05fa0;
+    border: solid 1px #c05fa0;
+    text-align: center;
+    
+  }
+  
+  .edit_button:hover {
+    background-color: #c05fa0d2;
+    border: solid 1px #c05fa0d0;
+  }
+  
+  .stats_button {
+    width: 15%;
+    position: relative;
+    border-radius: 0px;
+    background-color: rgba(128, 0, 128, 0.788); 
+    border: solid 1px rgba(128, 0, 128, 0.788);
+    text-align: center;
+    
+  }
+  
+  .stats_button:hover {
+    background-color: rgba(128, 0, 128, 0.637);
+    border: solid 1px rgba(128, 0, 128, 0.637);
+  }
+  
+  .del_button {
+    width: 11%;
+    position: relative;
+    background-color: rgba(128, 0, 128, 0);
+    border: solid 1px rgba(128, 0, 128, 0);
+    text-align: center;
+    border-radius: 100px;
+  }
+  
+  .del_button:hover {
+    background-color: rgba(255, 255, 255, 0.507);
+  }
+  
+}
+
+
+
+

@@ -1,0 +1,31 @@
+
+/* Header */
+
+.header {
+    height: 55px; /* 7%*/
+    display: flex;
+    align-items: center;
+    width:100%;
+    background-color: #556BFA;
+    
+}
+
+.header > h2 {
+    font-family: "Poppins", sans-serif;
+    margin-left: 10px;
+    color: #fff;
+}
+
+.header_account {
+    width: 25px;
+    height: 25px;
+    margin-left: auto;
+    margin-right: 10px;
+    padding: 3px;
+
+}
+
+.header_account:hover {
+    opacity: 45%;
+}
+

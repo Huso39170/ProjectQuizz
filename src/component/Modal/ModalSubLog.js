@@ -1,18 +1,18 @@
 import React, {useState} from 'react'
 import './ModalSubLog.css'
-import InputSubLog from '../Input/InputSubLog'
+import InputComp from '../Input/InputComp'
 
 
 
 const ModalSubLog = ({modal,toggleModal,isLogin}) => {
    // const [erreurs, setErreurs] = useState([])
-    
+
+
     const [userNameValue, setUserNameValue] = useState('')
     const [userEmailValue, setuserEmailValue] = useState('')
     const [passwordValue, setPasswordValue] = useState('')
     const [passwordAgainValue, setPasswordAgainValue] = useState('')
     const [SubCode, setSubCode] = useState('')
-
 
     if(modal) {
         document.body.classList.add('active-modal')
@@ -39,22 +39,25 @@ const ModalSubLog = ({modal,toggleModal,isLogin}) => {
                         X
                     </button>
                     <form className='LogSub-form' onSubmit={(e) => e.preventDefault()}>
-                        <InputSubLog 
-                            placeholder={"Nom d'utilisateur "}
+                        <InputComp 
+                            placeholder={"Nom d'utilisateur"}
                             setValue={setUserNameValue}
                             modalValue={userNameValue}
                             inputType={"text"}
                             required={true}
                             erreur={""}
+                            className={'LogSub-field'}
                         />
-                        <InputSubLog
+                        <InputComp
                             placeholder={"Mot de passe"}
                             setValue={setPasswordValue}
                             modalValue={passwordValue}
                             inputType={"password"}
                             required={true}
                             erreur={""}
+                            className={'LogSub-field'}
                         />
+                        
 
                         <div className="content">
                             <div className="pass-link"><a href=" ">Mot de passe oublié ?</a></div>
@@ -78,45 +81,50 @@ const ModalSubLog = ({modal,toggleModal,isLogin}) => {
                         X
                     </button>
                     <form className='LogSub-form' onSubmit={(e) => e.preventDefault()}>
-                        <InputSubLog 
+                        <InputComp 
                             placeholder={"Nom d'utilisateur "}
                             setValue={setUserNameValue}
                             inputType={"text"}
                             modalValue={userNameValue}
                             required={true}
                             erreur={""}
+                            className={'LogSub-field'}
                         />
-                        <InputSubLog 
+                        <InputComp 
                             placeholder={"Email "}
                             setValue={setuserEmailValue}
                             inputType={"email"}
                             modalValue={userEmailValue}
                             required={true}
                             erreur={""}
+                            className={'LogSub-field'}
                         />
-                        <InputSubLog
+                        <InputComp
                             placeholder={"Mot de passe"}
                             setValue={setPasswordValue}
                             modalValue={passwordValue}
                             inputType={"password"}
                             required={true}
                             erreur={""}
+                            className={'LogSub-field'}
                         />
-                        <InputSubLog
+                        <InputComp
                             placeholder={"Confirmer le mot de passe"}
                             setValue={setPasswordAgainValue}
                             modalValue={passwordAgainValue}
                             inputType={"password"}
                             required={true}
                             erreur={""}
+                            className={'LogSub-field'}
                         />
 
-                        <InputSubLog 
+                        <InputComp 
                             placeholder={"Code d'inscritpion"}
                             setValue={setSubCode}
                             modalValue={SubCode}
                             required={true}
                             erreur={""}
+                            className={'LogSub-field'}
                         />
 
                         <div className="LogSub-field">
@@ -135,7 +143,3 @@ const ModalSubLog = ({modal,toggleModal,isLogin}) => {
 }
 
 export default ModalSubLog
-
-/*
-
-*/
