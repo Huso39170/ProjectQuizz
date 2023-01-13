@@ -1,6 +1,5 @@
 import React from 'react'
-import './Quizz.css'
-import './Content.css'
+import './MesQuizz.css'
 import { FaPlay, FaEdit, FaEye, FaTrashAlt } from 'react-icons/fa'
 import  { useState } from 'react'
 
@@ -70,9 +69,7 @@ return (
         
         
       )}
-    
-        
-
+  
     </div>
   )
 }
