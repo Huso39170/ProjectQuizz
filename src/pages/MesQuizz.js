@@ -7,7 +7,7 @@ import  { useState } from 'react'
 function MesQuizz() {
  /* Simulation de données de quizz en dur */
 
- const [quizz,setQuizz] = useState([
+ const [quizz] = useState([
     {
       id : 1,
       name : "Le quizz un",

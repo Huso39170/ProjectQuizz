@@ -2,7 +2,7 @@
   "quizz": [
     {
       "id": 1,
-      "name": "tyh",
+      "name": "Quizz sur le test de machin",
       "description": "jtyhrg",
       "type": "timer",
       "timer": "25"
@@ -33,6 +33,29 @@
       "type": "timer",
       "timer": "9",
       "id": 5
+    }
+  ],
+  "question": [
+    {
+      "description": "zaerty",
+      "reponse": "zegdfhsjk",
+      "type": "qcm",
+      "proposition": "2;5;5",
+      "id": 1
+    },
+    {
+      "description": "caca",
+      "reponse": "",
+      "type": "echelle",
+      "proposition": "",
+      "id": 2
+    },
+    {
+      "description": "erefed",
+      "reponse": "gerfsd",
+      "type": "qcm",
+      "proposition": "ggr;dfd",
+      "id": 3
     }
   ]
 }

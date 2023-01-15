@@ -1,0 +1,219 @@
+/* CSS de la page de connexion et d'inscription */
+
+body.active-modal {
+    overflow-y: hidden;
+}
+
+.modal_question{
+    font-family: 'Poppins', sans-serif;
+}
+
+.modal_question, .overlay {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+}
+
+.overlay {
+    background: #fff;
+
+}
+
+.modal_question_content {
+    position: relative;
+    margin: auto;
+    line-height: 1.4;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+
+}
+
+.modal_question_content .modal_question_title{
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 100px;
+    color: #fff;
+    margin-top: 0;
+    user-select: none;
+    background:  #F76059;
+}
+
+
+
+
+.modal_question_content .filter_form{
+    max-width: 580px;
+    min-width: 300px;
+}
+
+
+.modal_question_content .filter_field{
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+    padding-left: 32px;
+    
+}
+
+
+.modal_question_content .filter_field input{
+    height: 35px ;
+    width: 75%;
+    outline: none;
+    font-size: 14px;
+    border: 1px solid lightgrey;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    text-indent: 20px;
+    
+}
+
+
+.modal_question_content .filter_form .filter_field input:focus{
+    border-color: lightblue ;
+}
+
+
+.close_question_modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 7px;   
+    border: none;
+    background: none;
+}
+
+.close_question_modal:hover {
+    cursor: pointer;
+}
+
+.filter_form .content{
+    display: flex;
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.filter_form .content a{
+    color: "";
+}
+
+
+.modal_question_content input[type="submit"]{
+    color: #fff;
+    border: none;
+    margin-left: 32x;
+    font-size: 20px;
+    font-weight: 500;
+    cursor: pointer;
+    background: #F76059;
+    transition: all 0.3s ease;
+    width:200px;
+    float: right;
+    height: 35px ;
+    border-radius: 25px;
+}
+
+.modal_question_content .btn_field{
+    margin-top: 70px;
+    padding-right:20px ;
+}
+
+.modal_question_content  input[type="submit"]:active{
+    transform: scale(0.95);
+}
+
+
+.modal_question_content .questions_list{
+    list-style-type: none;
+}
+
+@media only screen and (min-width: 600px) and (min-height: 910px) {
+    
+    .modal_question, .overlay {
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+    }
+    
+    .overlay {
+        background: rgba(49,49,49,0.8);
+    }
+    .modal_question_content {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        line-height: 1.4;
+        background: #fff;
+        border-radius: 15px;
+        width: 100%;
+        height: 720px;
+        max-width: 580px;
+        min-width: 380px;
+        overflow-y: hidden;
+    
+    }
+    
+    .modal_question_content .modal_question_title{
+        font-size: 35px;
+        font-weight: 600;
+        text-align: center;
+        line-height: 100px;
+        color: #fff;
+        margin-top: 0;
+        user-select: none;
+        border-radius: 15px 15px 0 0;
+        background:  #F76059;
+    }
+    
+    .modal_question_content .filter_form{
+        padding: 0px 32px 0px 32px;
+    }
+
+    
+    .modal_question_content .filter_field{
+        width: 100%;
+        margin-top: 30px;
+        position: relative;
+        padding: 0;
+    }
+    
+    
+    
+    .modal_question_content .filter_field input{
+        height: 50px ;
+        width: 100%;
+        outline: none;
+        font-size: 17px;
+        border: 1px solid lightgrey;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        text-indent: 20px;
+        
+    }
+    
+    .modal_question_content .filter_form .filter_field input:focus{
+      border-color: lightblue ;
+    }
+    
+    
+    
+}
+
+
+

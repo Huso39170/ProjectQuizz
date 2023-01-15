@@ -46,6 +46,15 @@
 
 }
 
+.create_update_quizz_form .timer_field .input_erreur{
+    color: red;
+    margin: 0;
+    top:-25px;
+    font-size: 12px;
+    padding-left: 16px;
+
+}
+
 
 /* Style the submit button */
 .create_update_quizz_form input[type=submit] {
@@ -63,4 +72,12 @@
 
 .create_update_quizz_form input[type=submit]:hover{
     background-color: #f78059;
+}
+
+.create_update_quizz_form .input_erreur{
+    color: red;
+    margin: 0;
+    top:-25px;
+    font-size: 12px;
+
 }

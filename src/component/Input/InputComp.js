@@ -4,7 +4,7 @@ const InputComp = ({modalValue,setValue,placeholder,required,erreur,inputType,cl
     return (
         <div className={className} >
             {label!==undefined && <label> {label} </label>}
-           {erreur.length >0 && <p className='input_erreur'>{erreur}</p>}
+            {erreur.length >0 && <p className='input_erreur'>{erreur}</p>}
             <input
                 type={inputType}
                 required={required}

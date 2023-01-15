@@ -146,6 +146,7 @@ const CreateUpdateQuizz = () => {
                     name={"radio_deroulement"}
                     modalValue={quizzDeroulementValue}
                     setValue={setquizzDeroulementValue}
+                    erreur={""}
                 /> 
                 {quizzDeroulementValue==="timer" &&
                     <InputComp 
