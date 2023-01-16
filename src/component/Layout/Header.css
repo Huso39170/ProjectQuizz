@@ -2,7 +2,7 @@
 /* Header */
 
 .header {
-    height: 55px; /* 7%*/
+    height: 55px; 
     display: flex;
     align-items: center;
     width:100%;

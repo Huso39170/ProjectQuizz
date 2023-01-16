@@ -4,8 +4,8 @@ html, body, main, #root{
 
 
 .content_main {
-    width: 80%;
-    height: 94.1vh;
+    width: 100%;
+    height: auto;
     float: right;
     background-color: rgba(255, 255, 255, 0.76);
     border-radius: 3px;
@@ -14,14 +14,6 @@ html, body, main, #root{
 
 
 /* Barre de recherche */
-
-.search {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-align: center;
-  }
-  
   .search__input {
     font-family: inherit;
     font-size: inherit;
@@ -30,12 +22,10 @@ html, body, main, #root{
     color: #646464;
     padding: 0.7rem 1rem;
     border-radius: 10px;
-    width: 98%;
+    width: 92%;
     transition: all ease-in-out .5s;
-    margin-right: -3rem;
-    margin-left: .5rem;
-    margin-top: 1rem;
-    margin-bottom: 20px;
+    margin-top: 1em;
+    margin-left: 5em;
   }
   
   .search__input:hover, .search__input:focus {
@@ -47,41 +37,22 @@ html, body, main, #root{
     background-color: #f0eeee;
   }
   
-  .search__input::-webkit-input-placeholder {
-    font-weight: 100;
-    color: #ccc;
-  }
+ 
   
-  .search__input:focus + .search__button {
+  .search__input:focus {
     background-color: #f0eeee;
   }
   
-  .search__button {
-    border: none;
-    background-color: #f4f2f2;
-    margin-right: 2em
-
-  }
-  
-  .search__button:hover {
-    cursor: pointer;
-  }
-  
-  .search__icon {
-    height: 1.5em;
-    width: 1.5em;
-    fill: #5a5a5a;
-  }
-
 /* les quizz */
 
 .quizz_display, ul{
   height: auto;
+  
 }
 
 li {
   height: 10%;
-  width: 70%;
+  width: 90%;
 }
 
 
@@ -89,7 +60,7 @@ li {
   display: flex;
   border: solid 1px black;
   border-radius: 50px;
-  margin-top: 10px;
+  margin-top: 15px;
   margin-left: 3em;
 }
 
@@ -185,7 +156,11 @@ li {
   margin-bottom: 25px;
 }
 
-.add_button_content {
+.add_quizz {
+  margin-top: 1em;
+}
+
+.add_button_quizz {
   width: 20em;
   display: block;
   margin-left: auto;
@@ -205,7 +180,7 @@ li {
 
 }
 
-.add_button_content::before {
+.add_button_quizz::before {
   content: "";
   background-color:#ce5e58d7;
   width: 0;
@@ -218,7 +193,7 @@ li {
   display: inline-block;
 }
 
-.add_button_content:hover::before {
+.add_button_quizz:hover::before {
   width: 100%;
 }
 
@@ -226,29 +201,9 @@ li {
   display: none;
 }
 
-/* responsive */
-@media all and (max-width: 1300px) {
 
-  /* Boutons ""CREER QUIZZ */
-  .add_button_content {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    height: 10%;
-    border-radius: 2px;
-    background-color:  #F76059;
-    font-size: 25px;
-  }
-  .add_button_content:before{
-    background-color:#ce5e5800;
-  }
-  .add_button_content:active {
-    transform: translate(0px,5px);
-    -webkit-transform: translate(0px,5px);
-    border-bottom: 1px solid;
-  }
 
-  /* Affichage des quizz */
+  /* Affichage des quizz 
   li {
     height: 10%;
     width: 90%;
@@ -330,7 +285,7 @@ li {
     background-color: rgba(255, 255, 255, 0.507);
   }
   
-}
+*/
 
 /****/
 
@@ -340,8 +295,8 @@ li {
     border-radius: 0px;
   }
 
-  /* Boutons ""CREER QUIZZ */
-  .add_button_content {
+  /* Boutons CREER QUIZZ */
+  .add_button_quizz {
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -350,10 +305,10 @@ li {
     background-color:  #F76059;
     font-size: 25px;
   }
-  .add_button_content:before{
+  .add_button_quizz:before{
     background-color:#ce5e5800;
   }
-  .add_button_content:active {
+  .add_button_quizz:active {
     transform: translate(0px,5px);
     -webkit-transform: translate(0px,5px);
     border-bottom: 1px solid;
@@ -458,6 +413,56 @@ li {
     background-color: rgba(255, 255, 255, 0.507);
   }
   
+}
+
+/* Page 'Nouveau quizz | Importer quizz' */
+
+.creation_hidden {
+  display: none;
+}
+
+.creation {  
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  right: 0;
+  background-color: white;
+  z-index: 1;
+}
+
+.creation_quizz {
+  text-align: center;
+  margin-top: 30vh; /* poussé de la moitié de hauteur de viewport */
+}
+
+.icons {
+  width: 200px;
+  height: 200px;
+}
+
+.cross_creation_quizz {
+  float: right;
+  width: 25px;
+  height: 25px;
+  margin-top: 5px;
+  margin-right: 5px;
+  opacity: 80%;
+  padding: 10px;
+  border-radius: 50px;
+}
+
+.cross_creation_quizz:hover {
+  background-color: rgba(0, 0, 0, 0.253);
+
+}
+
+h2 {
+  font-family: "Poppins", sans-serif;
+}
+
+.new_import {
+  display: inline-block;
 }
 
 
