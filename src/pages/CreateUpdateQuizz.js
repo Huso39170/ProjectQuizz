@@ -5,13 +5,15 @@ import TextAreaComp from '../component/Input/TextAreaComp'
 import api from '../api/quizz' 
 import { useParams,useNavigate } from 'react-router-dom';
 import './CreateUpdateQuizzForm.css'
+import TagsForm from '../component/Tags/TagsForm'
 
 const CreateUpdateQuizz = () => {
-    //Initialisation des champs de saisie nom , description ainsi que le dérouelemnt du quizz
+    //Initialisation des champs de saisie nom , description le dérouelemnt du quizz ainsi que les tags
     const [quizzNameValue, setQuizzNameValue] = useState('')
     const [quizzDescriptionValue, setQuizzDescriptionValue] = useState('')
     const [quizzDeroulementValue, setquizzDeroulementValue] = useState('')
     const [quizzTimerValue, setquizzTimerValue] = useState('')
+    const [tags,setTags] = useState([]);
 
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
@@ -47,9 +49,16 @@ const CreateUpdateQuizz = () => {
         //Creation d'une variable dans laquel est stocké les différentes informations à propos du quizz
         let newQuizz={}
         if(quizzTimerValue!==''){
-            newQuizz = {name: quizzNameValue , description : quizzDescriptionValue , type : quizzDeroulementValue, timer: quizzTimerValue};
+            newQuizz = {name: quizzNameValue , 
+                        description : quizzDescriptionValue , 
+                        type : quizzDeroulementValue, 
+                        tags:tags,
+                        timer: quizzTimerValue};
         }else{
-            newQuizz = {name: quizzNameValue , description : quizzDescriptionValue , type : quizzDeroulementValue};
+            newQuizz = {name: quizzNameValue , 
+                        description : quizzDescriptionValue , 
+                        type : quizzDeroulementValue, 
+                        tags:tags,};
         }
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
@@ -91,6 +100,7 @@ const CreateUpdateQuizz = () => {
         if(data.type==="timer"){
             setquizzTimerValue(data.timer)
         }
+        setTags(data.tags)
     }
 
     //Fonction qui s'execute lorsque l'utilisateur soumet le formulaire de modofication
@@ -99,9 +109,15 @@ const CreateUpdateQuizz = () => {
         //Création d'un objet newQuizz dans lequel va être inserer toute les données correspondant au differant champs
         let newQuizz={}
         if(quizzTimerValue!==''){
-            newQuizz = {name: quizzNameValue , description : quizzDescriptionValue , type : quizzDeroulementValue, timer: quizzTimerValue};
+            newQuizz = {name: quizzNameValue ,
+                        description : quizzDescriptionValue ,
+                        type : quizzDeroulementValue,
+                        tags:tags, timer: quizzTimerValue};
         }else{
-            newQuizz = {name: quizzNameValue , description : quizzDescriptionValue , type : quizzDeroulementValue};
+            newQuizz = {name: quizzNameValue ,
+                        description : quizzDescriptionValue , 
+                        type : quizzDeroulementValue, 
+                        tags:tags};
         }
         try{
             //Requete patch pour mettre a jour des données existante de la BD
@@ -159,6 +175,17 @@ const CreateUpdateQuizz = () => {
                         className={'timer_field'}
                     />
                 }
+                <TagsForm
+                    GlobalDivClassName={'tags_field'}    
+                    aBtnClassName={'tags_plus'}
+                    btnClassName={'tags_button_plus'}
+                    tagsClassName={'tags_name'}
+                    tags={tags}
+                    setTags={setTags}
+                />
+                
+
+
                 </form>
                 
                 {id === undefined  &&<input type="submit" value="Créer" onClick={handleCreate}/>}

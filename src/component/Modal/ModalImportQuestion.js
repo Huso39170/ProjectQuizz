@@ -5,11 +5,17 @@ import './ModalImportQuestion.css'
 
 const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) => {
 
+
+    //Initialisation des champs de saisie de recherche, des resultats de la recherche,
+    // du tableau des question récuperée dans la bd ainsi que les questions selectionné
     const [search,setSearch]= useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [allSessionQuestion,setAllSessionQuestion]=useState([]);
     const [selectedQuestion,setSelectedQuestion]=useState([]);
+    const [searchByTag,setSearchByTag]=useState(false);
 
+
+    //Condition qui verifie si le booleen modal est vrai ou faux, si vrai active le modal
     if(modal) {
         document.body.classList.add('active-modal')
         
@@ -17,18 +23,8 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
         document.body.classList.remove('active-modal')
     }
 
-
-    /*const triQuestions = (data) =>{
-        data.forEach(question => {
-            attachedQuestion.forEach( attached=> {
-                if(question.id===attached.id){
-                    console.log(question.id)
-                }
-            })
-        });
-        setAllSessionQuestion(data);
-    }*/
-
+    //UseEffect qui entre en jeu lorsque le modal est activé, demande à la BD 
+    //toute les questions de la session et les stock dans allSessionQuestion
     useEffect(() => {
         if(modal===true){
             const fetchQuestion = async () => {
@@ -41,9 +37,11 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
             }
             fetchQuestion();
         }
-    }, [modal])
+    }, [modal,searchByTag])
 
-
+    //UseEffect qui entre en jeux lorsque allSessionQuestion a été initialisé,
+    //compare les question déja attaché et si une question est déja attaché 
+    //lui attribue une variable attached=true
     useEffect(() => {
         allSessionQuestion.forEach(question => {
             attachedQuestion.forEach( attached=> {
@@ -54,6 +52,8 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
         });
     }, [allSessionQuestion,attachedQuestion])
 
+    //UseEffect qui entre en jeux lorsque l'utilisateur tappe dans la barre de recherche
+    //MEt les resultat de la recherche dans le tableau filteredResults
     useEffect(() => {
         const filteredResults = allSessionQuestion.filter((question) =>
             ((question.description).toLowerCase()).includes(search.toLowerCase()));
@@ -61,10 +61,12 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
     }, [allSessionQuestion, search])
 
 
+    //Fonction qui permer de reset le champs de saisie de la barre de recherche
     const resetModal =  () =>{
         setSearch('')
     }
 
+    //FOnction qui insere ou suprrime du tableau selectedQuestion les question cochées ou décochées
     const handleCheck = (e,question) => {
         if(e.target.checked===true){
             const questions = [...selectedQuestion, question];
@@ -80,12 +82,13 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
         }
     }
 
-    const handleSubmit = () =>{
+    //Soumission des questions à attacher
+    const handleSubmit = (e) =>{
+        e.preventDefault();
         setQuestions(selectedQuestion)
         toggleModal();
         resetModal();
     }
-    
 
     return (
             <>
@@ -107,9 +110,19 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
                                     erreur={""}
                                     className={'filter_field'}
                                 />
+                                <input 
+                                    type="checkbox"
+                                    checked={searchByTag===true}
+                                    onChange={()=>{setSearchByTag(!searchByTag)}}
+                                />
+                                <label >Rechercher avec les tags correspondant</label>
                             </form>
+
                             <ul className='questions_list'>
-                                {searchResults.map((question,index) => 
+                                <h2>Toutes les questions</h2>
+                                {/*Avec la methode map on regarde si une question est déja attaché ou non,
+                                    si la question n'est pas attacher activation de l'option de cochage sinon disactivation*/ 
+                                searchResults.map((question,index) => 
                                     !question.attached ? (<li key={index}>
                                         <input 
                                             type="checkbox"
@@ -126,7 +139,6 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
                                                 id={index} 
                                                 name={index} 
                                                 value={question.id}
-                                                onChange={e=> {handleCheck(e,question)}}
                                                 disabled
                                             />
                                             <label >{question.description} déja attaché</label>

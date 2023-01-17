@@ -20,6 +20,7 @@
     border-radius: 4px;
     box-sizing: border-box;
     display: block;
+    font-family: 'Roboto', sans-serif;
 
 }
 
@@ -66,6 +67,7 @@
     cursor: pointer;
     float: left;
     width :25%;
+    min-width: 300px;
     margin-top: 32px;
     margin-left: 16px;
 }
@@ -81,3 +83,77 @@
     font-size: 12px;
 
 }
+
+/*Style de champs des tags*/
+.create_update_quizz_form .tags_field{
+    width: 70%;
+}
+
+.create_update_quizz_form .tags_field .input_field  {
+    width: 75%;
+    display: inline-block;
+    max-width: 455px;
+
+}
+
+.create_update_quizz_form .tags_field .input_field input[type=text]  {
+    width: 100%;
+    max-width: 455px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-left: 0;
+
+    
+
+}
+
+.tags_field .tags_button_plus{
+    width: 40px;
+    height: 40px;
+    background-color: #F76059;
+    border-radius: 5px;
+    vertical-align: middle;
+    color: white;
+    margin-left: 5px;
+    
+}
+
+.tags_field .tags_name {
+    width:77%
+}
+
+.tags_field .tags_name ul{
+    padding-left: 22px;
+    width: 100%;
+}
+
+
+.tags_field .tags_name li{
+    display: inline-block;
+    list-style-type: none;
+    margin-right: 10px;
+    width: auto; 
+    border-left: 10px solid #F76059;
+    border-right: 10px solid #F76059;
+    border-top:5px solid #F76059 ;
+    border-bottom:5px solid #F76059 ;
+    color: white;
+    margin-bottom: 10px;
+    background-color: #F76059;
+    border-radius: 15px;
+
+}
+.tags_field .tags_name li a{
+    text-decoration: none;
+    color:white;
+    margin-left: 7px; 
+}
+
+.tags_field .tags_name li a:hover{
+    color: lightgrey;
+    cursor: pointer;
+}
+
+

@@ -1,6 +1,11 @@
 import React from 'react'
 
-const InputComp = ({modalValue,setValue,placeholder,required,erreur,inputType,className,label}) => {
+const InputComp = ({modalValue,setValue,placeholder,required,erreur,setErreur,inputType,className,label}) => {
+
+    const resetErreur =()=>{
+        //setErreur("")
+    }
+
     return (
         <div className={className} >
             {label!==undefined && <label> {label} </label>}
@@ -12,6 +17,7 @@ const InputComp = ({modalValue,setValue,placeholder,required,erreur,inputType,cl
                 value={modalValue}
                 onChange={(e) => {
                     setValue(e.target.value);
+                    resetErreur();
                 }}
             />
 

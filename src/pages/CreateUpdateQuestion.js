@@ -4,13 +4,17 @@ import InputRadioComp from '../component/Input/InputRadioComp'
 import TextAreaComp from '../component/Input/TextAreaComp'
 import { useNavigate,useParams } from 'react-router-dom';
 import api from '../api/quizz' 
+import TagsForm from '../component/Tags/TagsForm';
 
 const CreateUpdateQuestion = () => {
-    //Initialisation des champs de saisie description, reponse, proposition, ainsi que le type de reponse de la question
+    //Initialisation des champs de saisie description, reponse, proposition,
+    //tags ainsi que le type de reponse de la question
     const [questionDescriptionValue, setQuestionDescriptionValue] = useState('')
     const [questionReponseValue, setQuestionReponseValue] = useState('')
     const [questionTypeValue, setQuestionTypeValue] = useState('')
+    const [tags,setTags] = useState([]);
     const [questionPropositionValue, setQuestionPropositionValue] = useState('')
+
 
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
@@ -43,6 +47,7 @@ const CreateUpdateQuestion = () => {
                         reponse: questionReponseValue ,
                         type : questionTypeValue, 
                         proposition: questionPropositionValue,
+                        tags:tags
         };
 
         try{
@@ -96,7 +101,8 @@ const CreateUpdateQuestion = () => {
         newQuestion = { description : questionDescriptionValue ,
             reponse: questionReponseValue ,
             type : questionTypeValue, 
-            proposition: questionPropositionValue
+            proposition: questionPropositionValue,
+            tags:tags
         };
 
         try{
@@ -168,6 +174,15 @@ const CreateUpdateQuestion = () => {
                         label={"Proposition"}
                     />
                 }
+
+                <TagsForm
+                    GlobalDivClassName={'tags_field'}    
+                    aBtnClassName={'tags_plus'}
+                    btnClassName={'tags_button_plus'}
+                    tagsClassName={'tags_name'}
+                    tags={tags}
+                    setTags={setTags}
+                />
             </form>
             
             {id === undefined  &&<input type="submit" value="Créer" onClick={handleCreate}/>}

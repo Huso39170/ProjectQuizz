@@ -33,6 +33,16 @@
       "type": "timer",
       "timer": "9",
       "id": 5
+    },
+    {
+      "name": "azerte",
+      "description": "erztyu",
+      "type": "timer",
+      "tags": [
+        "aze"
+      ],
+      "timer": "45",
+      "id": 6
     }
   ],
   "question": [
@@ -56,6 +66,17 @@
       "type": "qcm",
       "proposition": "ggr;dfd",
       "id": 3
+    },
+    {
+      "description": "grsfq",
+      "reponse": "gsfqs",
+      "type": "qcm",
+      "proposition": "1;2;3",
+      "tags": [
+        "aeez",
+        "azerf"
+      ],
+      "id": 4
     }
   ]
 }

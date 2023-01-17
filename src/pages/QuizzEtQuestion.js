@@ -3,6 +3,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 import api from '../api/quizz' 
 import ModalImportQuestion from '../component/Modal/ModalImportQuestion';
 const QuizzEtQuestion = () => {
+    
     //Initialisation 
     const [quizzNameValue, setQuizzNameValue] = useState('')
     const [quizzQuestions,setQuizzQuestions]=useState([])
@@ -32,7 +33,7 @@ const QuizzEtQuestion = () => {
         }
     }, [id,navigate])
 
-
+    //Fonction qui initialise quizzNameValue
     const setQuizzData = (data) => {
         setQuizzNameValue(data.name)
     }
