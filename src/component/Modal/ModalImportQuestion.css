@@ -138,6 +138,61 @@ body.active-modal {
     list-style-type: none;
 }
 
+/* Style the list items */
+
+.modal_question_content .questions_list{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.modal_question_content .questions_list li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    background: #eee;
+    font-size: 18px;
+    transition: 0.2s;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+.modal_question_content .questions_list li:nth-child(odd) {
+    background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+.modal_question_content .questions_list li:hover {
+    background: #ddd;
+}
+
+/* When clicked on, add a background color and strike out text */
+.modal_question_content .questions_list li.checked {
+    background: #888;
+    color: #fff;
+    text-decoration: line-through;
+}
+
+/* When clicked on, add a background color and strike out text */
+.modal_question_content .questions_list li.checked {
+    background: #888;
+    color: #fff;
+    text-decoration: line-through;
+  }
+  
+/* Add a "checked" mark when clicked on */
+.modal_question_content .questions_list li.checked::before {
+    content: '';
+    position: absolute;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}
+
 @media only screen and (min-width: 600px) and (min-height: 910px) {
     
     .modal_question, .overlay {

@@ -20,7 +20,7 @@ function App() {
 				<Route path="mesquizz/question/creer" element={<CreateUpdateQuestion/>}/>
 				<Route path="mesquizz/question/modifier/:id" element={<CreateUpdateQuestion/>}/>
 				<Route path="mesquizz/quizz/:id" element={<QuizzEtQuestion/>}/>
-
+				
 
 				<Route path="*" element={<Missing/>} />
 			</Route>

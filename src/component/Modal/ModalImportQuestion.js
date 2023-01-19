@@ -1,7 +1,8 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useRef} from 'react'
 import api from '../../api/quizz'
 import InputComp from '../Input/InputComp';
 import './ModalImportQuestion.css'
+import '../Loader/Loader.css'
 
 const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) => {
 
@@ -13,7 +14,8 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
     const [allSessionQuestion,setAllSessionQuestion]=useState([]);
     const [selectedQuestion,setSelectedQuestion]=useState([]);
     const [searchByTag,setSearchByTag]=useState(false);
-
+    //Loader pour afficher un chargement si false
+    const [loader,setLoader]=useState(false);
 
     //Condition qui verifie si le booleen modal est vrai ou faux, si vrai active le modal
     if(modal) {
@@ -31,6 +33,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
                 try {
                     const response = await api.get(`/question`);
                     setAllSessionQuestion(response.data)
+                    setLoader(true)
                 } catch (err) {
                     console.log(err.response.status);
                 }
@@ -90,6 +93,13 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
         resetModal();
     }
 
+    const checkInputRef = useRef([]);
+
+    const handleLiClick=()=>{
+        console.log(checkInputRef.current)
+
+    }
+
     return (
             <>
                 {modal &&
@@ -100,58 +110,64 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
                             <button className="close_question_modal" onClick={()=> {toggleModal();resetModal();}}>
                                 X
                             </button>
-                            <form className='filter_form' onSubmit={(e) => e.preventDefault()}>
-                                <InputComp 
-                                    placeholder={"Rechercher une question"}
-                                    setValue={setSearch}
-                                    modalValue={search}
-                                    inputType={"text"}
-                                    required={false}
-                                    erreur={""}
-                                    className={'filter_field'}
-                                />
-                                <input 
-                                    type="checkbox"
-                                    checked={searchByTag===true}
-                                    onChange={()=>{setSearchByTag(!searchByTag)}}
-                                />
-                                <label >Rechercher avec les tags correspondant</label>
-                            </form>
-
-                            <ul className='questions_list'>
-                                <h2>Toutes les questions</h2>
-                                {/*Avec la methode map on regarde si une question est déja attaché ou non,
-                                    si la question n'est pas attacher activation de l'option de cochage sinon disactivation*/ 
-                                searchResults.map((question,index) => 
-                                    !question.attached ? (<li key={index}>
+                            {loader===true?
+                                (<section className='attach_section'>
+                                    <form className='filter_form' onSubmit={(e) => e.preventDefault()}>
+                                        <InputComp 
+                                            placeholder={"Rechercher une question"}
+                                            setValue={setSearch}
+                                            modalValue={search}
+                                            inputType={"text"}
+                                            required={false}
+                                            erreur={""}
+                                            className={'filter_field'}
+                                        />
                                         <input 
                                             type="checkbox"
-                                            id={index} 
-                                            name={index} 
-                                            value={question.id}
-                                            onChange={e=> {handleCheck(e,question)}}
+                                            checked={searchByTag===true}
+                                            onChange={()=>{setSearchByTag(!searchByTag)}}
                                         />
-                                        <label >{question.description}</label>
-                                    </li>):(
-                                        <li key={index}>
-                                            <input 
-                                                type="checkbox"
-                                                id={index} 
-                                                name={index} 
-                                                value={question.id}
-                                                disabled
-                                            />
-                                            <label >{question.description} déja attaché</label>
-                                        </li>
-                                    )
+                                        <label >Rechercher avec les tags correspondant</label>
+                                    </form>
 
-                                    
-                                )}
-                            </ul>
-                            <div className='btn_field'>
-                                <input type="submit" className='import_question_btn' value="Attacher" onClick={handleSubmit}/>
-                            </div>
+                                    <ul className='questions_list'>
+                                        <h2>Toutes les questions</h2>
+                                        {/*Avec la methode map on regarde si une question est déja attaché ou non,
+                                            si la question n'est pas attacher activation de l'option de cochage sinon disactivation*/ 
+                                        searchResults.map((question,index) => 
+                                            !question.attached ? 
+                                            (<li key={index} onClick={()=>{handleLiClick(index)}}> 
+                                                <input 
+                                                    type="checkbox"
+                                                    id={index} 
+                                                    name={index} 
+                                                    value={question.id}
+                                                    onChange={e=> {handleCheck(e,question)}}
+                                                    ref={(question)=>checkInputRef.current[index] = question}
+                                                />
+                                                <label >{question.description.substring(0, 45).concat('...')}</label>
+                                            </li>):(
+                                                <li key={index} > 
+                                                    <input 
+                                                        type="checkbox"
+                                                        id={index} 
+                                                        name={index} 
+                                                        value={question.id}
+                                                        disabled
+                                                    />
+                                                    <label >{question.description.substring(0, 45).concat('...')} déja attaché</label>
+                                                </li>
+                                            )
 
+                                            
+                                        )}
+                                    </ul>
+                                    <div className='btn_field'>
+                                        <input type="submit" className='import_question_btn' value="Attacher" onClick={handleSubmit}/>
+                                    </div>
+                                </section>):
+                                <div className="dot-flashing"></div>
+                            }
                         </div>
                     </div>
                 }

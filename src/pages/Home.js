@@ -1,17 +1,21 @@
 import React, {useState} from 'react'
 import './home.css'
 import ModalSubLog from '../component/Modal/ModalSubLog'
+import {useNavigate} from 'react-router-dom';
+
 const Home = () => {
     //Fonction qui gere la soumission du formulaire
     const handleSubmit = (e) => {
         //Empeche la page de se rafraichir lorsque l'on soumet un formulaire
         e.preventDefault();
     }
-
-
     const[modal,setModal]= useState(false);
+    const[isLoginClicked,setIsLoginClicked]=useState(false);
+    const[isUserLoged]=useState(false);
 
-    const[isLogin,setIsLogin]=useState(false);
+    //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
+    const navigate = useNavigate();
+
 
 
     /*la fonction toggleModal est appelée avec l'argument login 
@@ -22,7 +26,7 @@ const Home = () => {
         setModal(!modal);
         //Passe true si le bouton login est cliqué
         //Passe false si le bouton inscription est cliqué
-        setIsLogin(login);
+        setIsLoginClicked(login);
     }
 
 
@@ -31,14 +35,20 @@ const Home = () => {
             <div className='home_page_pt1'>
                 <header className='navbar'>
                     <h2>Quizzeo</h2>
-                    <a href=" " onClick={e=> {e.preventDefault(); toggleModal(true)}} className="login_button">Connexion</a>
+                    {isUserLoged===false?(
+                        <a href=" " onClick={e=> {e.preventDefault(); toggleModal(true)}} className="login_button">Connexion</a>
+                        ):
+                        <a href=" " onClick={e=> {e.preventDefault();navigate("/mesquizz") }} className="MesQuizz_button">MesQuizz</a>
+                    }
                 </header>
                 <section className='presentation'>
                     <h1>Créez rapidement et gratuitement votre quizz interactif en ligne</h1>
                 </section>
-                <div className='sub_section'>
-                    <a href=" "  onClick={e=> {e.preventDefault(); toggleModal(false)}} className="sub_button">Inscription </a>
-                </div>
+                {isUserLoged===false &&
+                    <div className='sub_section'>
+                        <a href=" "  onClick={e=> {e.preventDefault(); toggleModal(false)}} className="sub_button">Inscription </a>
+                    </div>
+                }
                 <section className='etape'>
                     <h2>Seulement quelques étapes :</h2>
                     <ul className='etape_liste'>
@@ -74,7 +84,7 @@ const Home = () => {
             <ModalSubLog 
                 modal={modal} 
                 toggleModal={toggleModal}
-                isLogin={isLogin}
+                isLoginClicked={isLoginClicked}
             />
         </main>
 
