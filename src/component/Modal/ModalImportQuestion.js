@@ -70,8 +70,8 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
     }
 
     //FOnction qui insere ou suprrime du tableau selectedQuestion les question cochées ou décochées
-    const handleCheck = (e,question) => {
-        if(e.target.checked===true){
+    const handleCheck = (index,e,question) => {
+        if(checkInputRef.current[index].checked===false){
             const questions = [...selectedQuestion, question];
             setSelectedQuestion(questions);
         }else{
@@ -95,9 +95,14 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
 
     const checkInputRef = useRef([]);
 
-    const handleLiClick=()=>{
-        console.log(checkInputRef.current)
-
+    const handleLiClick=(index,e,question)=>{
+        handleCheck(index,e,question)
+        checkInputRef.current[index].checked=!checkInputRef.current[index].checked
+        if(checkInputRef.current[index].checked===true){
+            e.target.classList.add('checked')
+        }else{
+            e.target.classList.remove('checked')
+        }
     }
 
     return (
@@ -122,40 +127,39 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
                                             erreur={""}
                                             className={'filter_field'}
                                         />
-                                        <input 
-                                            type="checkbox"
-                                            checked={searchByTag===true}
-                                            onChange={()=>{setSearchByTag(!searchByTag)}}
-                                        />
-                                        <label >Rechercher avec les tags correspondant</label>
-                                    </form>
+                                        <div className='filter_checkbox'>
+                                            <input 
+                                                type="checkbox"
+                                                checked={searchByTag===true}
+                                                onChange={()=>{setSearchByTag(!searchByTag)}}
+                                            />
+                                            <label >Rechercher avec les tags correspondant</label>
+                                        </div>
 
+                                        
+                                    </form>
                                     <ul className='questions_list'>
-                                        <h2>Toutes les questions</h2>
+                                        {searchByTag===false?(<h2>Toutes les questions</h2>):(<h2>Recherche par tags</h2>)}
                                         {/*Avec la methode map on regarde si une question est déja attaché ou non,
                                             si la question n'est pas attacher activation de l'option de cochage sinon disactivation*/ 
                                         searchResults.map((question,index) => 
                                             !question.attached ? 
-                                            (<li key={index} onClick={()=>{handleLiClick(index)}}> 
+                                            (<li key={index} onClick={(e)=>{handleLiClick(index,e,question)}}> 
                                                 <input 
                                                     type="checkbox"
                                                     id={index} 
                                                     name={index} 
                                                     value={question.id}
-                                                    onChange={e=> {handleCheck(e,question)}}
                                                     ref={(question)=>checkInputRef.current[index] = question}
                                                 />
-                                                <label >{question.description.substring(0, 45).concat('...')}</label>
+                                                <label >{question.description}</label>
                                             </li>):(
-                                                <li key={index} > 
+                                                <li key={index} className="checked"> 
                                                     <input 
                                                         type="checkbox"
-                                                        id={index} 
-                                                        name={index} 
-                                                        value={question.id}
                                                         disabled
                                                     />
-                                                    <label >{question.description.substring(0, 45).concat('...')} déja attaché</label>
+                                                    <label >{question.description}</label>
                                                 </li>
                                             )
 
