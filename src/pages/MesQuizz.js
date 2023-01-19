@@ -1,12 +1,20 @@
-import './MesQuizz.css'
-import { FaPlay, FaEdit, FaEye, FaTrashAlt } from 'react-icons/fa'
-import { AiOutlineFileAdd } from 'react-icons/ai'
-import { BsFillFileEarmarkArrowUpFill } from 'react-icons/bs'
-import { ImCross } from 'react-icons/im'
-import  { useState, useEffect } from 'react'
+import './MesQuizz.css';
+import { FaPlay, FaEdit, FaEye, FaTrashAlt } from 'react-icons/fa';
+import { AiOutlineFileAdd } from 'react-icons/ai';
+import { BsFillFileEarmarkArrowUpFill } from 'react-icons/bs';
+import { ImCross } from 'react-icons/im';
+import  { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
+import api from '../api/quizz';
+
+
 
 
 function MesQuizz() {
+
+
+//Utilisation de la fonction useNavigate afin de rediriger l'utilisateur vers une autre page
+//const navigate = useNavigate();
 
 /* Barre de recherche dynamique */
 const [datas, setDatas] = useState([]);
@@ -14,11 +22,20 @@ const [searchTerm, setSearchTerm] = useState('');
 
 
 useEffect(() => {
-  //fake api
-  fetch('https://jsonplaceholder.typicode.com/posts')
-      .then((response) => response.json())
-      .then((json) => setDatas(json))
-      
+  const fetchQuiz = async () => {
+    try {
+      const response = await api.get('/quizz');
+      setDatas(response.data);
+    } catch (err) {
+        console.log(err.response.status);
+        //Si l'id n'existe pas redirection vers la page Error 404
+        if(err.response.status === 404){
+          //navigate('/missing')
+          console.log("ERROR 404");
+        }
+    }
+  }
+  fetchQuiz();
 }, []);
 
 const handleSearchTerm = (e) => {
@@ -31,7 +48,6 @@ const [createQuizz, setCreateQuizz] = useState(false);
 
 const handleCreateQuizz = () => {
   setCreateQuizz(!createQuizz);
-  console.log(createQuizz);
 }
 
 
@@ -56,12 +72,12 @@ return (
               <ul>
                 {datas
                   .filter((val) => {
-                    return val.title.includes(searchTerm);
+                    return val.name.includes(searchTerm);
                   })
                   .map((val) => {
                     return (
                       <li className='quizz' key={val.id}>
-                        <p className='quizz_name'>{val.title}</p>
+                        <p className='quizz_name'>{val.name}</p>
                         <button className='play_button' title='Démarrer'> <FaPlay className='Fa' alt='play button' /> </button>
                         <button className='edit_button' title='Modifier'> <FaEdit className='Fa' alt='edit button' /> </button>
                         <button className='stats_button' title='Statistiques'> <FaEye className='Fa' alt='statistical button' /> </button>
