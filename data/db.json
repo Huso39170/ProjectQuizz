@@ -1,11 +1,10 @@
 {
   "quizz": [
     {
-      "id": 1,
-      "name": "Quizz sur le test de machin",
-      "description": "jtyhrg",
+      "name": "fergreg",
+      "description": "grsgrgrgfd",
       "type": "timer",
-      "timer": "25"
+      "id": 1
     },
     {
       "name": "gfsd",
@@ -33,16 +32,6 @@
       "type": "timer",
       "timer": "9",
       "id": 5
-    },
-    {
-      "name": "azerte",
-      "description": "erztyu",
-      "type": "timer",
-      "tags": [
-        "aze"
-      ],
-      "timer": "45",
-      "id": 6
     }
   ],
   "question": [
@@ -54,11 +43,12 @@
       "id": 1
     },
     {
-      "description": "caca",
+      "description": "2eme question",
       "reponse": "",
       "type": "echelle",
       "proposition": "",
-      "id": 2
+      "id": 2,
+      "tags": []
     },
     {
       "description": "erefed",
