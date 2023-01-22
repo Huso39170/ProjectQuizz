@@ -47,185 +47,28 @@
   ],
   "question": [
     {
-      "description": "zaerty ezrkeqilzzjdnf erzeqlijomlk heiorgzjsefmsl,f nzioteqm ziefqs, zgrsfdilk,",
-      "reponse": "zegdfhsjk",
-      "type": "qcm",
-      "proposition": "2;5;5",
-      "id": 1
-    },
-    {
-      "description": "caca",
-      "reponse": "",
-      "type": "echelle",
-      "proposition": "",
-      "id": 2
-    },
-    {
-      "description": "erefed",
-      "reponse": "gerfsd",
-      "type": "qcm",
-      "proposition": "ggr;dfd",
-      "id": 3
-    },
-    {
-      "description": "grsfq",
-      "reponse": "gsfqs",
-      "type": "qcm",
-      "proposition": "1;2;3",
-      "tags": [
-        "aeez",
-        "azerf"
-      ],
-      "id": 4
-    },
-    {
-      "description": "gerfseq",
-      "reponse": "zaf",
-      "type": "qcm",
-      "proposition": [
-        "azezze",
-        "arez"
+      "libelle": "azer",
+      "question_type": "qcm",
+      "reponses": [
+        {
+          "libelle": "fsdg",
+          "isCorrect": false
+        },
+        {
+          "libelle": "sdfgh",
+          "isCorrect": true
+        },
+        {
+          "libelle": "dfgvc ",
+          "isCorrect": false
+        }
       ],
       "tags": [
-        "fefee"
-      ],
-      "id": 5
-    },
-    {
-      "description": "test test",
-      "reponse": "2",
-      "type": "qcm",
-      "proposition": [
         "1",
         "2",
         "3"
       ],
-      "tags": [
-        "yp",
-        "jfghd",
-        "hgfd"
-      ],
-      "id": 6
-    },
-    {
-      "description": "123",
-      "reponse": "2",
-      "type": "qcm",
-      "reponses": [
-        {
-          "libelle": "1",
-          "isCorrect": false
-        },
-        {
-          "libelle": "2",
-          "isCorrect": false
-        },
-        {
-          "libelle": "3",
-          "isCorrect": false
-        }
-      ],
-      "tags": [],
-      "id": 7
-    },
-    {
-      "description": "123",
-      "reponse": "1",
-      "type": "qcm",
-      "reponses": [
-        {
-          "libelle": "1",
-          "isCorrect": false
-        },
-        {
-          "libelle": "2",
-          "isCorrect": false
-        },
-        {
-          "libelle": "3",
-          "isCorrect": false
-        }
-      ],
-      "tags": [],
-      "id": 8
-    },
-    {
-      "description": "123",
-      "reponse": "1",
-      "type": "qcm",
-      "reponses": [
-        {
-          "libelle": "1",
-          "isCorrect": false
-        },
-        {
-          "libelle": "2",
-          "isCorrect": false
-        },
-        {
-          "libelle": "3",
-          "isCorrect": false
-        }
-      ],
-      "tags": [],
-      "id": 9
-    },
-    {
-      "description": "123",
-      "reponse": "3",
-      "type": "qcm",
-      "reponses": [],
-      "tags": [],
-      "id": 10
-    },
-    {
-      "description": "zetryfg",
-      "reponse": "etryfgj",
-      "type": "qcm",
-      "reponses": [],
-      "tags": [],
-      "id": 11
-    },
-    {
-      "description": "zetryfg",
-      "reponse": "etryfgj",
-      "type": "qcm",
-      "reponses": [
-        {
-          "libelle": "rtfyg",
-          "isCorrect": false
-        },
-        {
-          "libelle": "etryfgj",
-          "isCorrect": true
-        },
-        {
-          "libelle": "estrdyfhfgf",
-          "isCorrect": false
-        }
-      ],
-      "tags": [],
-      "id": 12
-    },
-    {
-      "description": "azerdgtgfhd",
-      "type": "qcm",
-      "reponses": [
-        {
-          "libelle": "1",
-          "isCorrect": false
-        },
-        {
-          "libelle": "2",
-          "isCorrect": true
-        },
-        {
-          "libelle": "3",
-          "isCorrect": false
-        }
-      ],
-      "tags": [],
-      "id": 13
+      "id": 1
     }
   ]
 }

@@ -46,8 +46,8 @@ const CreateUpdateQuestion = () => {
         e.preventDefault();
         //Creation d'une variable dans laquel est stocké les différentes informations à propos de la question
         let newQuestion={}
-        newQuestion = { description : questionDescriptionValue ,
-                        type : questionTypeValue, 
+        newQuestion = { libelle : questionDescriptionValue ,
+                        question_type : questionTypeValue, 
                         reponses: questionPropositionTab,
                         tags:tags
         };
@@ -98,8 +98,8 @@ const CreateUpdateQuestion = () => {
                 setQuestionReponseValue(element.libelle)
             }
         });
-
         setQuestionPropositionValues(propositions)
+        setTags(data.tags)
         setLoader(true);
 
     }
@@ -110,8 +110,9 @@ const CreateUpdateQuestion = () => {
         e.preventDefault();
         //Création d'un objet newQuestion dans lequel va être inserer toute les données correspondant au differant champs
         let newQuestion={}
-        newQuestion = { description : questionDescriptionValue ,
-            type : questionTypeValue, 
+        newQuestion = { 
+            libelle : questionDescriptionValue ,
+            question_type : questionTypeValue, 
             reponses: questionPropositionTab,
             tags:tags
         };
