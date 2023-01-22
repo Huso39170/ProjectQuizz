@@ -3,9 +3,10 @@ import InputComp from '../component/Input/InputComp'
 import InputRadioComp from '../component/Input/InputRadioComp'
 import TextAreaComp from '../component/Input/TextAreaComp'
 import api from '../api/quizz' 
-import { useParams,useNavigate } from 'react-router-dom';
+import { useParams,useNavigate} from 'react-router-dom';
 import './CreateUpdateQuizzForm.css'
 import TagsForm from '../component/Tags/TagsForm'
+import '../component/Loader/Loader.css'
 
 const CreateUpdateQuizz = () => {
     //Initialisation des champs de saisie nom , description le dérouelemnt du quizz ainsi que les tags
@@ -14,6 +15,8 @@ const CreateUpdateQuizz = () => {
     const [quizzDeroulementValue, setquizzDeroulementValue] = useState('')
     const [quizzTimerValue, setquizzTimerValue] = useState('')
     const [tags,setTags] = useState([]);
+    //Loader pour afficher un chargement si false
+    const [loader,setLoader]=useState(false);
 
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
@@ -89,6 +92,8 @@ const CreateUpdateQuizz = () => {
             }
     
             fetchQuizz();
+        }else{
+            setLoader(true);
         }
     }, [id,navigate])
 
@@ -101,6 +106,7 @@ const CreateUpdateQuizz = () => {
             setquizzTimerValue(data.timer)
         }
         setTags(data.tags)
+        setLoader(true);
     }
 
     //Fonction qui s'execute lorsque l'utilisateur soumet le formulaire de modofication
@@ -132,66 +138,66 @@ const CreateUpdateQuizz = () => {
 
     return (
             <div className='create_update_quizz_form'>
-                {id === undefined  && <h2>Creation du quizz</h2>}
-                {id !== undefined && <h2>Modification du quizz</h2>}
-               
-                <form onSubmit={(e) => e.preventDefault()}>
-                <InputComp 
-                    placeholder={"Nom du quizz"}
-                    setValue={setQuizzNameValue}
-                    modalValue={quizzNameValue}
-                    inputType={"text"}
-                    required={true}
-                    erreur={""}
-                    className={'input_field'}
-                    label={"Nom du quizz"}
-                />
-                <TextAreaComp 
-                    placeholder={"Description du quizz"}
-                    setValue={setQuizzDescriptionValue}
-                    modalValue={quizzDescriptionValue}
-                    required={true}
-                    erreur={""}
-                    className={"input_field"}
-                    label={"Description du quizz"}
-                />
-                <InputRadioComp
-                    values={values}
-                    className="radio_field"
-                    legend={"Comment se déroule le quizz :"}
-                    name={"radio_deroulement"}
-                    modalValue={quizzDeroulementValue}
-                    setValue={setquizzDeroulementValue}
-                    erreur={""}
-                /> 
-                {quizzDeroulementValue==="timer" &&
+                    {id === undefined  && <h2>Creation du quizz</h2>}
+                    {id !== undefined && <h2>Modification du quizz</h2>}
+                
+                   {loader===true? (<form onSubmit={(e) => e.preventDefault()}>
                     <InputComp 
-                        placeholder={"Nombre de seconde"}
-                        setValue={setquizzTimerValue}
-                        modalValue={quizzTimerValue}
-                        inputType={"number"}
+                        placeholder={"Nom du quizz"}
+                        setValue={setQuizzNameValue}
+                        modalValue={quizzNameValue}
+                        inputType={"text"}
                         required={true}
                         erreur={""}
-                        className={'timer_field'}
+                        className={'input_field'}
+                        label={"Nom du quizz"}
                     />
-                }
-                <TagsForm
-                    GlobalDivClassName={'tags_field'}    
-                    aBtnClassName={'tags_plus'}
-                    btnClassName={'tags_button_plus'}
-                    tagsClassName={'tags_name'}
-                    tags={tags}
-                    setTags={setTags}
-                />
-                
-
-
-                </form>
-                
-                {id === undefined  &&<input type="submit" value="Créer" onClick={handleCreate}/>}
-                {id !== undefined &&<input type="submit" value="Modifier" onClick={handleUpdate}/>}
-                
-                
+                    <TextAreaComp 
+                        placeholder={"Description du quizz"}
+                        setValue={setQuizzDescriptionValue}
+                        modalValue={quizzDescriptionValue}
+                        required={true}
+                        erreur={""}
+                        className={"input_field"}
+                        label={"Description du quizz"}
+                    />
+                    <InputRadioComp
+                        values={values}
+                        className="radio_field"
+                        legend={"Comment se déroule le quizz :"}
+                        name={"radio_deroulement"}
+                        modalValue={quizzDeroulementValue}
+                        setValue={setquizzDeroulementValue}
+                        erreur={""}
+                    /> 
+                    {quizzDeroulementValue==="timer" &&
+                        <InputComp 
+                            placeholder={"Nombre de seconde"}
+                            setValue={setquizzTimerValue}
+                            modalValue={quizzTimerValue}
+                            inputType={"number"}
+                            required={true}
+                            erreur={""}
+                            className={'timer_field'}
+                        />
+                    }
+                    <TagsForm
+                        GlobalDivClassName={'tags_field'}    
+                        aBtnClassName={'tags_plus'}
+                        btnClassName={'tags_button_plus'}
+                        tagsClassName={'tags_name'}
+                        tags={tags}
+                        setTags={setTags}
+                    />
+                    
+                    </form>):
+                    (
+                        <div className="dot-flashing"></div>
+                    )}
+                    
+                    {id === undefined  && loader===true &&<input type="submit" value="Créer" onClick={handleCreate}/>}
+                    {id !== undefined && loader===true && <input type="submit" value="Modifier" onClick={handleUpdate}/>}
+                    
             </div>
     )
 }

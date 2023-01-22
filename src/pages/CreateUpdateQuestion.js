@@ -5,6 +5,7 @@ import TextAreaComp from '../component/Input/TextAreaComp'
 import { useNavigate,useParams } from 'react-router-dom';
 import api from '../api/quizz' 
 import TagsForm from '../component/Tags/TagsForm';
+import '../component/Loader/Loader.css'
 
 const CreateUpdateQuestion = () => {
     //Initialisation des champs de saisie description, reponse, proposition,
@@ -14,7 +15,8 @@ const CreateUpdateQuestion = () => {
     const [questionTypeValue, setQuestionTypeValue] = useState('')
     const [tags,setTags] = useState([]);
     const [questionPropositionValue, setQuestionPropositionValue] = useState('')
-
+    //Loader pour afficher un chargement si false
+    const [loader,setLoader]=useState(false);
 
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
@@ -80,6 +82,8 @@ const CreateUpdateQuestion = () => {
             }
     
             fetchQuestion();
+        }else{
+            setLoader(true);
         }
     }, [id,navigate])
 
@@ -89,6 +93,7 @@ const CreateUpdateQuestion = () => {
         setQuestionReponseValue(data.reponse)
         setQuestionTypeValue(data.type)
         setQuestionPropositionValue(data.proposition)
+        setLoader(true);
 
     }
 
@@ -120,7 +125,8 @@ const CreateUpdateQuestion = () => {
             {id === undefined  && <h2>Creation de la question</h2>}
             {id !== undefined && <h2>Modification de la question</h2>}
         
-            <form onSubmit={(e) => e.preventDefault()}>
+            {
+            loader===true?(<form onSubmit={(e) => e.preventDefault()}>
 
                 <TextAreaComp 
                     placeholder={"Description de la question..."}
@@ -183,10 +189,12 @@ const CreateUpdateQuestion = () => {
                     tags={tags}
                     setTags={setTags}
                 />
-            </form>
+            </form>):
+                <div className="dot-flashing"></div>
+            }
             
-            {id === undefined  &&<input type="submit" value="Créer" onClick={handleCreate}/>}
-            {id !== undefined &&<input type="submit" value="Modifier" onClick={handleUpdate}/>}
+            {id === undefined && loader===true  && <input type="submit" value="Créer" onClick={handleCreate}/>}
+            {id !== undefined && loader===true  && <input type="submit" value="Modifier" onClick={handleUpdate}/>}
             
             
         </div>

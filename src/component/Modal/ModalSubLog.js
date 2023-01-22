@@ -4,7 +4,7 @@ import InputComp from '../Input/InputComp'
 
 
 
-const ModalSubLog = ({modal,toggleModal,isLogin}) => {
+const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
    // const [erreurs, setErreurs] = useState([])
 
 
@@ -30,7 +30,7 @@ const ModalSubLog = ({modal,toggleModal,isLogin}) => {
 
     return (
         <>
-        {modal && isLogin &&(
+        {modal && isLoginClicked &&(
             <div className="modal">
                 <div onClick={()=> {toggleModal();resetModal();}} className="overlay"></div>
                 <div className="modal-content">
@@ -72,7 +72,7 @@ const ModalSubLog = ({modal,toggleModal,isLogin}) => {
                 </div>
             </div>
         )}
-        {modal && !isLogin &&(
+        {modal && !isLoginClicked &&(
             <div className="modal">
                 <div onClick={()=> {toggleModal();resetModal();}} className="overlay"></div>
                 <div className="modal-content">

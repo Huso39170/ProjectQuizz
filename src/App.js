@@ -7,6 +7,7 @@ import QuizzEtQuestion from './pages/QuizzEtQuestion';
 import { Route,Routes } from 'react-router-dom';
 import './App.css';
 import MesQuizz from './pages/MesQuizz'
+import MesQuestions from './pages/MesQuestions'
 
 function App() {
     return (
@@ -20,7 +21,7 @@ function App() {
 				<Route path="mesquizz/question/creer" element={<CreateUpdateQuestion/>}/>
 				<Route path="mesquizz/question/modifier/:id" element={<CreateUpdateQuestion/>}/>
 				<Route path="mesquizz/quizz/:id" element={<QuizzEtQuestion/>}/>
-
+				
 
 				<Route path="*" element={<Missing/>} />
 			</Route>
