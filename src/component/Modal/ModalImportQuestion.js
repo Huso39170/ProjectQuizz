@@ -92,9 +92,11 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
         toggleModal();
         resetModal();
     }
-
+    //Initialiser du useRef
     const checkInputRef = useRef([]);
 
+    //Lorsque l'utilisateur clique sur le block de la question appel de la fonction handleCheck
+    //et ajout de la class checked dans la liste de classe
     const handleLiClick=(index,e,question)=>{
         handleCheck(index,e,question)
         checkInputRef.current[index].checked=!checkInputRef.current[index].checked
