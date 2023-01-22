@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from 'react'
-import InputComp from '../component/Input/InputComp'
 import InputRadioComp from '../component/Input/InputRadioComp'
 import TextAreaComp from '../component/Input/TextAreaComp'
 import { useNavigate,useParams } from 'react-router-dom';
 import api from '../api/quizz' 
-import TagsForm from '../component/Tags/TagsForm';
+import ItemsForm from '../component/Items/ItemsForm';
+import InputSelectComp from '../component/Input/InputSelectComp';
 import '../component/Loader/Loader.css'
 
 const CreateUpdateQuestion = () => {
@@ -14,7 +14,8 @@ const CreateUpdateQuestion = () => {
     const [questionReponseValue, setQuestionReponseValue] = useState('')
     const [questionTypeValue, setQuestionTypeValue] = useState('')
     const [tags,setTags] = useState([]);
-    const [questionPropositionValue, setQuestionPropositionValue] = useState('')
+    const [questionPropositionValues, setQuestionPropositionValues] = useState([])
+    const [questionPropositionTab, setQuestionPropositionTab] = useState([])
     //Loader pour afficher un chargement si false
     const [loader,setLoader]=useState(false);
 
@@ -45,10 +46,9 @@ const CreateUpdateQuestion = () => {
         e.preventDefault();
         //Creation d'une variable dans laquel est stocké les différentes informations à propos de la question
         let newQuestion={}
-        newQuestion = { description : questionDescriptionValue ,
-                        reponse: questionReponseValue ,
-                        type : questionTypeValue, 
-                        proposition: questionPropositionValue,
+        newQuestion = { libelle : questionDescriptionValue ,
+                        question_type : questionTypeValue, 
+                        reponses: questionPropositionTab,
                         tags:tags
         };
 
@@ -90,9 +90,16 @@ const CreateUpdateQuestion = () => {
     //Fonction qui complete les champs du formulaire selon les données importées
     const setQuestionForm = (data) => {
         setQuestionDescriptionValue(data.description)
-        setQuestionReponseValue(data.reponse)
         setQuestionTypeValue(data.type)
-        setQuestionPropositionValue(data.proposition)
+        let propositions=[]
+        data.reponses.forEach(element => {
+            propositions.push(element.libelle)
+            if(element.isCorrect===true){
+                setQuestionReponseValue(element.libelle)
+            }
+        });
+        setQuestionPropositionValues(propositions)
+        setTags(data.tags)
         setLoader(true);
 
     }
@@ -103,10 +110,10 @@ const CreateUpdateQuestion = () => {
         e.preventDefault();
         //Création d'un objet newQuestion dans lequel va être inserer toute les données correspondant au differant champs
         let newQuestion={}
-        newQuestion = { description : questionDescriptionValue ,
-            reponse: questionReponseValue ,
-            type : questionTypeValue, 
-            proposition: questionPropositionValue,
+        newQuestion = { 
+            libelle : questionDescriptionValue ,
+            question_type : questionTypeValue, 
+            reponses: questionPropositionTab,
             tags:tags
         };
 
@@ -119,6 +126,26 @@ const CreateUpdateQuestion = () => {
             console.log(`Error: ${err.message}`);
         }
     }
+
+    //UseEffect qui entre en jeux lorsque le tableau des proposition ou la reponse est changé
+    //Si le tableau des proposition est vide alors il n'y a pas de reponse possible
+    //Créé un objet proposition avec un boolean mis a true si la proposition correspond à la reponse
+    useEffect(() => {
+        if(questionPropositionValues.length===0){
+            setQuestionReponseValue('')
+        }
+        let propositionsTab=[]
+        questionPropositionValues.forEach(element => {
+            let proposition={libelle : element , isCorrect : false}
+            if(element.toString() === questionReponseValue){
+                proposition.isCorrect = true
+            }
+            propositionsTab.push(proposition);
+        });
+        setQuestionPropositionTab(propositionsTab)
+
+
+    }, [questionPropositionValues,setQuestionReponseValue,questionReponseValue])
 
     return (
         <div className='create_update_quizz_form'>
@@ -137,16 +164,6 @@ const CreateUpdateQuestion = () => {
                     className={"input_field"}
                     label={"Description de la question"}
                 />
-                <InputComp 
-                    placeholder={"Reponse à la question..."}
-                    setValue={setQuestionReponseValue}
-                    modalValue={questionReponseValue}
-                    inputType={"text"}
-                    required={true}
-                    erreur={""}
-                    className={'input_field'}
-                    label={"Reponse à la question"}
-                />
                 <InputRadioComp
                     values={values}
                     className="radio_field"
@@ -156,38 +173,38 @@ const CreateUpdateQuestion = () => {
                     setValue={setQuestionTypeValue}
                     erreur={""}
                 /> 
-                {questionTypeValue==="qcm" &&
-                    <InputComp 
-                        placeholder={"Prop1;Prop2;Prop3"}
-                        setValue={setQuestionPropositionValue}
-                        modalValue={questionPropositionValue}
-                        inputType={"text"}
-                        required={true}
-                        erreur={""}
-                        className={'input_field'}
-                        label={"Proposition"}
-                    />
-                }
-                {questionTypeValue==="echelle" &&
-                    <InputComp 
-                        placeholder={"Inferieur;Superieur"}
-                        setValue={setQuestionPropositionValue}
-                        modalValue={questionPropositionValue}
-                        inputType={"text"}
-                        required={true}
-                        erreur={""}
-                        className={'input_field'}
-                        label={"Proposition"}
-                    />
-                }
 
-                <TagsForm
+
+                <ItemsForm
                     GlobalDivClassName={'tags_field'}    
                     aBtnClassName={'tags_plus'}
                     btnClassName={'tags_button_plus'}
-                    tagsClassName={'tags_name'}
-                    tags={tags}
-                    setTags={setTags}
+                    itemsClassName={'tags_name'}
+                    items={questionPropositionValues}
+                    setItems={setQuestionPropositionValues}
+                    itemNames={"Propositions"}
+                />
+
+                {questionPropositionValues.length>0&&<InputSelectComp
+                    options={questionPropositionValues}
+                    className={'input_field'}
+                    legend={"Reponse(s) à la question"}
+                    setValue={setQuestionReponseValue}
+                    selectName={"reponse_select"}
+                    erreur={""}
+                    value={questionReponseValue}
+                    selectId={"reponse_select_id"}
+                />}
+
+
+                <ItemsForm
+                    GlobalDivClassName={'tags_field'}    
+                    aBtnClassName={'tags_plus'}
+                    btnClassName={'tags_button_plus'}
+                    itemsClassName={'tags_name'}
+                    items={tags}
+                    setItems={setTags}
+                    itemNames={"Tags"}
                 />
             </form>):
                 <div className="dot-flashing"></div>
@@ -202,3 +219,4 @@ const CreateUpdateQuestion = () => {
 }
 
 export default CreateUpdateQuestion
+

@@ -81,6 +81,11 @@ body.active-modal {
     border-color: lightblue ;
 }
 
+.modal_question_content .filter_checkbox{
+    padding-left: 30px;
+}
+
+
 
 .close_question_modal {
     position: absolute;
@@ -138,6 +143,10 @@ body.active-modal {
     list-style-type: none;
 }
 
+.modal_question_content .questions_list h2{
+    text-align: center;
+}
+
 /* Style the list items */
 
 .modal_question_content .questions_list{
@@ -155,6 +164,20 @@ body.active-modal {
     transition: 0.2s;
 }
 
+
+.modal_question_content .questions_list li input[type=checkbox]{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+}
+
+.modal_question_content .questions_list li>label {
+    pointer-events: none;
+}
+
+
+
 /* Set all odd list items to a different color (zebra-stripes) */
 .modal_question_content .questions_list li:nth-child(odd) {
     background: #f9f9f9;
@@ -169,18 +192,17 @@ body.active-modal {
 .modal_question_content .questions_list li.checked {
     background: #888;
     color: #fff;
-    text-decoration: line-through;
 }
 
 /* When clicked on, add a background color and strike out text */
-.modal_question_content .questions_list li.checked {
+.modal_question_content .questions_list li input {
     background: #888;
     color: #fff;
     text-decoration: line-through;
   }
   
 /* Add a "checked" mark when clicked on */
-.modal_question_content .questions_list li.checked::before {
+.modal_question_content .questions_list li input:checked::before {
     content: '';
     position: absolute;
     border-color: #fff;
@@ -265,8 +287,12 @@ body.active-modal {
     .modal_question_content .filter_form .filter_field input:focus{
       border-color: lightblue ;
     }
+
+    .modal_question_content .filter_checkbox{
+        padding-left: 0px;
+    }
     
-    
+
     
 }
 

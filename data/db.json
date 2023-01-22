@@ -63,10 +63,11 @@
       "type": "qcm",
       "proposition": "1;2;3",
       "tags": [
-        "aeez",
-        "azerf"
+        "1",
+        "2",
+        "3"
       ],
-      "id": 4
+      "id": 1
     }
   ]
 }

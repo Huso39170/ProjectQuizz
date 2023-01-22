@@ -5,7 +5,7 @@ import TextAreaComp from '../component/Input/TextAreaComp'
 import api from '../api/quizz' 
 import { useParams,useNavigate} from 'react-router-dom';
 import './CreateUpdateQuizzForm.css'
-import TagsForm from '../component/Tags/TagsForm'
+import ItemsForm from '../component/Items/ItemsForm'
 import '../component/Loader/Loader.css'
 
 const CreateUpdateQuizz = () => {
@@ -181,7 +181,7 @@ const CreateUpdateQuizz = () => {
                             className={'timer_field'}
                         />
                     }
-                    <TagsForm
+                    <ItemsForm
                         GlobalDivClassName={'tags_field'}    
                         aBtnClassName={'tags_plus'}
                         btnClassName={'tags_button_plus'}
