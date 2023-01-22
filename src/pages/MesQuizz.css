@@ -50,7 +50,9 @@ html, body, main, #root{
   
 }
 
-li {
+
+
+.quizz_display > li {
   height: 10%;
   width: 90%;
 }
@@ -62,11 +64,11 @@ li {
   border-radius: 50px;
   margin-top: 15px;
   margin-left: 3em;
+  margin-right: 3em;
 }
 
 .quizz_name {
-  width: 70%;
-  height: fit-content;
+  width: 80%;
   margin-left: 50px;
   color: black;
   font-weight: lighter;

@@ -10,7 +10,7 @@ import api from '../api/quizz';
 
 function MesQuizz() {
 
-/* Barre de recherche dynamique */
+
 const [datas, setDatas] = useState([]);
 const [searchTerm, setSearchTerm] = useState('');
 
@@ -28,13 +28,12 @@ useEffect(() => {
         console.log(err.response.status);
         //Si l'id n'existe pas redirection vers la page Error 404
         if(err.response.status === 404){
-          //navigate('/missing')
-          console.log("ERROR 404");
+          navigate('./missing');
         }
     }
   }
   fetchQuiz();
-}, []);
+}, [navigate]);
 
     const handleSearchTerm = (e) => {
         let value = e.target.value;
@@ -53,13 +52,31 @@ useEffect(() => {
        navigate(`/mesquizz/modifier/${id}`); 
     }
 
+    /* Delete question */
+    const handleDeleteQuiz = (id) => {
+        const fetchDeleteQuiz = async () => {
+            try{
+                const listDatas = datas.filter((item) => item.id !== id);
+                setDatas(listDatas);
+                //Requete poste pour edit les données dans la BD
+                const response = await api.delete(`/quizz/${id}`);
+                console.log(response.data)
+
+            } catch (err){
+                //Erreur affichée dans la console
+                console.log(`Error: ${err.message}`);
+            }
+        }
+        fetchDeleteQuiz();
+    }
+
 
     return (
         <div className='content_main'>
             {datas.length ? (
             <>
                 <div className='add_quizz'>
-                <button className='add_button_quizz' onClick={handleCreateQuizz}>CRÉER UN QUIZZ</button>
+                <button className='add_button_quizz' onClick={handleCreateQuizz}>CRÉER UN QUIZ</button>
                 </div>
                 
                 <input 
@@ -75,29 +92,29 @@ useEffect(() => {
                     <ul>
                         {datas
                             .filter((val) => {
-                            return val.title.includes(searchTerm);
+                            return val.name.includes(searchTerm);
                             })
                             .map((val) => {
                             return (
                                 <li className='quizz' key={val.id}>
-                                    <p className='quizz_name'>{val.title}</p>
+                                    <p className='quizz_name'>{val.name}</p>
                                     <button className='play_button' title='Démarrer'> <FaPlay className='Fa' alt='play button' /> </button>
                                     <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuizz(val.id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
                                     <button className='stats_button' title='Statistiques'> <FaEye className='Fa' alt='statistical button' /> </button>
-                                    <button className='del_button' title='Supprimer'> <FaTrashAlt className='FaTrash' alt='' delete button /> </button>
+                                    <button className='del_button' title='Supprimer' onClick={()=>{handleDeleteQuiz(val.id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                                 </li>
                             )
                         })}
                     </ul>
                 </div>
-                <button className='add_button_bis'>CRÉER UN QUIZZ</button>
+                <button className='add_button_bis'>CRÉER UN QUIZ</button>
             </>
             
         ) : (
             
             <>
-                <p className='empty_quizz'>VOUS N'AVEZ PAS ENCORE DE QUIZZ</p>
-                <button  className='add_button_quizz' onClick={handleCreateQuizz}>CRÉER UN QUIZZ</button>
+                <p className='empty_quizz'>VOUS N'AVEZ PAS ENCORE DE QUIZ</p>
+                <button  className='add_button_quizz' onClick={handleCreateQuizz}>CRÉER UN QUIZ</button>
             </>
             
             

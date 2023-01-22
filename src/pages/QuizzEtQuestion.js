@@ -2,6 +2,10 @@ import React, {useEffect,useState} from 'react'
 import { useParams,useNavigate } from 'react-router-dom';
 import api from '../api/quizz' 
 import ModalImportQuestion from '../component/Modal/ModalImportQuestion';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { VscInspect  } from 'react-icons/vsc';
+import './QuizzEtQuestion.css'
+
 const QuizzEtQuestion = () => {
     
     //Initialisation 
@@ -46,14 +50,24 @@ const QuizzEtQuestion = () => {
         setModal(!modal);
     }
 
+    
+
     return (
         <div>
-            <h2>{quizzNameValue}</h2>
+            <div className='title_attached_button'>
+                <h2>{quizzNameValue}</h2>
+                <input type="button"  value='AJOUTER UNE QUESTION' onClick={toggleModal}/>
+            </div>
+            
+            <hr />
 
             <ul className='questions_list'>
                 {quizzQuestions.map((question,index) => 
-                    <li key={index}>
-                        {question.description}
+                    <li className='question' key={index}>
+                        <p className='question_name'>{question.description}</p>
+                        <button className='play_button' title='Voir'> <VscInspect className='Fa' alt='watch button' /> </button>
+                        <button className='edit_button' title='Modifier' onClick={()=>{}}> <FaEdit className='Fa' alt='edit button'/> </button>
+                        <button className='del_button' title='Supprimer' onClick={()=>{}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                     </li>
                 )}
             </ul>
@@ -64,7 +78,7 @@ const QuizzEtQuestion = () => {
                 attachedQuestion={quizzQuestions}
             />
 
-            <input type="button" onClick={toggleModal}/>
+            
 
         </div>
     )

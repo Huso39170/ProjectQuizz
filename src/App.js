@@ -18,6 +18,7 @@ function App() {
 				<Route path="mesquizz" element={<MesQuizz/>}/>
 				<Route path="mesquizz/creer" element={<CreateUpdateQuizz/>}/>
 				<Route path="mesquizz/modifier/:id" element={<CreateUpdateQuizz/>}/>
+				<Route path="mesquizz/question" element={<MesQuestions/>}/>
 				<Route path="mesquizz/question/creer" element={<CreateUpdateQuestion/>}/>
 				<Route path="mesquizz/question/modifier/:id" element={<CreateUpdateQuestion/>}/>
 				<Route path="mesquizz/quizz/:id" element={<QuizzEtQuestion/>}/>
