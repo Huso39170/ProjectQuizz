@@ -185,9 +185,10 @@ const CreateUpdateQuizz = () => {
                         GlobalDivClassName={'tags_field'}    
                         aBtnClassName={'tags_plus'}
                         btnClassName={'tags_button_plus'}
-                        tagsClassName={'tags_name'}
-                        tags={tags}
-                        setTags={setTags}
+                        itemsClassName={'tags_name'}
+                        items={tags}
+                        setItems={setTags}
+                        itemNames={"Tags"}
                     />
                     
                     </form>):
