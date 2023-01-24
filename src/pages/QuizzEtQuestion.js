@@ -64,7 +64,7 @@ const QuizzEtQuestion = () => {
             <ul className='questions_list'>
                 {quizzQuestions.map((question,index) => 
                     <li className='question' key={index}>
-                        <p className='question_name'>{question.description}</p>
+                        <p className='question_name'>{question.libelle}</p>
                         <button className='play_button' title='Voir'> <VscInspect className='Fa' alt='watch button' /> </button>
                         <button className='edit_button' title='Modifier' onClick={()=>{}}> <FaEdit className='Fa' alt='edit button'/> </button>
                         <button className='del_button' title='Supprimer' onClick={()=>{}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>

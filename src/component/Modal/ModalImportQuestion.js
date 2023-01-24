@@ -59,7 +59,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
     //MEt les resultat de la recherche dans le tableau filteredResults
     useEffect(() => {
         const filteredResults = allSessionQuestion.filter((question) =>
-            ((question.description).toLowerCase()).includes(search.toLowerCase()));
+            ((question.libelle).toLowerCase()).includes(search.toLowerCase()));
         setSearchResults(filteredResults.reverse());
     }, [allSessionQuestion, search])
 
@@ -154,14 +154,14 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
                                                     value={question.id}
                                                     ref={(question)=>checkInputRef.current[index] = question}
                                                 />
-                                                <label >{question.description}</label>
+                                                <label >{question.libelle}</label>
                                             </li>):(
                                                 <li key={index} className="checked"> 
                                                     <input 
                                                         type="checkbox"
                                                         disabled
                                                     />
-                                                    <label >{question.description}</label>
+                                                    <label >{question.libelle}</label>
                                                 </li>
                                             )
 

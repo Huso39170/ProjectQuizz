@@ -20,6 +20,7 @@ useEffect(() => {
     try {
       const response = await api.get('/question');
       setDatas(response.data);
+      console.log(response.data)
     } catch (err) {
         console.log(err.response.status);
         //Si l'id n'existe pas redirection vers la page Error 404
@@ -87,12 +88,12 @@ useEffect(() => {
                     <ul>
                         {datas
                             .filter((val) => {
-                            return val.description.includes(searchTerm);
+                            return val.libelle.includes(searchTerm);
                             })
-                            .map((val) => {
+                            .map((val,index) => {
                             return (
-                                <li className='quizz' key={val.id}>
-                                    <p className='quizz_name'>{val.description}</p>
+                                <li className='quizz' key={index}>
+                                    <p className='quizz_name'>{val.libelle}</p>
                                     <button className='play_button' title='Voir'> <VscInspect className='Fa' alt='watch button' /> </button>
                                     <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuestion(val.id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
                                     <button className='del_button' title='Supprimer' onClick={()=>{handleDeleteQuestion(val.id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
