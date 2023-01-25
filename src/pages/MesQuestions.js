@@ -3,6 +3,7 @@ import { VscInspect  } from 'react-icons/vsc';
 import  { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import api from '../api/quizz';
+import ModalPreview from '../component/Modal/ModalPreviewQuestion'
 
 
 function MesQuestions() {
@@ -20,7 +21,7 @@ useEffect(() => {
     try {
       const response = await api.get('/question');
       setDatas(response.data);
-      console.log(response.data)
+      //console.log(response.data)
     } catch (err) {
         console.log(err.response.status);
         //Si l'id n'existe pas redirection vers la page Error 404
@@ -66,22 +67,35 @@ useEffect(() => {
         fetchDeleteQuestion();
     }
 
+    /* preview question */
+    const [preview, setPreview] = useState(false);
+    const [question, setQuestion] = useState();
+
+    const handleQuestion = (param) => {
+        setQuestion(param);
+    }
+
+    const handlePreviewQuestion = (param) => {
+        handleQuestion(param);
+        setPreview(!preview);
+    }
+
 
     return (
         <div className='content_main'>
             {datas.length ? (
             <>
                 <div className='add_quizz'>
-                <button className='add_button_quizz' onClick={handleCreateQuestion}>CRÉER UNE QUESTION</button>
+                    <button onClick={handleCreateQuestion}>CRÉER UNE QUESTION</button>
+                    <input 
+                    type='text'
+                    placeholder='Rechercher...' 
+                    name='searchBar'
+                    onChange={handleSearchTerm}
+                    />
                 </div>
                 
-                <input 
-                type='text' 
-                className='search__input' 
-                placeholder='Rechercher...' 
-                name='searchBar'
-                onChange={handleSearchTerm}
-                />
+                
                     
                 
                 <div className='quizz_display'>
@@ -94,7 +108,7 @@ useEffect(() => {
                             return (
                                 <li className='quizz' key={index}>
                                     <p className='quizz_name'>{val.libelle}</p>
-                                    <button className='play_button' title='Voir'> <VscInspect className='Fa' alt='watch button' /> </button>
+                                    <button className='play_button' title='Voir' onClick={()=>{handlePreviewQuestion(val)}}> <VscInspect className='Fa' alt='watch button' /> </button>
                                     <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuestion(val.id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
                                     <button className='del_button' title='Supprimer' onClick={()=>{handleDeleteQuestion(val.id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                                 </li>
@@ -114,6 +128,12 @@ useEffect(() => {
             
             
         )}
+        {
+            preview ? <ModalPreview 
+                        Question = {question} 
+                        HandlePreviewQuestion = {handlePreviewQuestion} 
+                        />
+                    : ''}
     
         </div>
     )
