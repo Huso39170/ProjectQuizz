@@ -1,0 +1,59 @@
+.modal__preview {
+    background: linear-gradient(#F76059, #7500A3);
+    position: absolute;
+    top: -55px;
+    width: 100%;
+    height: 100%; /* /!\ mettre en full screen */
+}
+
+.preview__frame__answer {
+    width: 80%;
+    height: 80%;
+    border: solid 5px black;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.178);
+    margin: 4em auto auto auto;
+    background-color: rgba(255, 255, 255, 0.534);
+    position: relative;
+}
+
+.preview__frame__answer > h2 {
+    text-align: center;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.preview__image {
+    border: solid 2px black;
+    width: 60%;
+    height: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.preview__answer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+}
+
+.preview__answer > button {
+    background-color:   rgba(0, 0, 255, 0.397);
+    width: 20%;
+    height: 5em;
+    margin: 0px auto 3em auto;
+    border: solid 1px white;
+}
+
+.preview__answer > button:active {
+   translate: 0 1px
+}
+
+input[type="range"] {
+    margin: auto;
+    width: 50%;
+    padding: 3em;
+}
+
