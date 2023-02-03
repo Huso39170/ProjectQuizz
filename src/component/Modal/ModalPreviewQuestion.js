@@ -3,9 +3,10 @@ import './ModalPreviewQuestion.css'
 import { ImCross } from 'react-icons/im';
 import { useState } from 'react'
 
+
 const ModalPreviewQuestion = ({Question, HandlePreviewQuestion}) => {
 
-    
+    const [rangeValue, setRangeValue] = useState(Question.reponses);
 
     return (
     <div className='modal__preview'>
@@ -16,22 +17,27 @@ const ModalPreviewQuestion = ({Question, HandlePreviewQuestion}) => {
             <div className='preview__answer'>
                 {Question.question_type === 'scale' ? (
                     <>
-                        
-                        <input
-                            
+                        <span>{rangeValue}</span>
+                        <input 
                             type="range" 
-                            
-                            min="0" 
-                            max="1000" 
-                           
-                            
+                            value={rangeValue} 
+                            min="0" max="100" 
+                            step='1'
+                            onChange={e=>setRangeValue(e.target.value)} 
                         />
                     </> 
                 )
                 : (
-                       Question.reponses.map((val) => 
-                            <button key={val.libelle}>{val.libelle}</button>
-                       )
+                       Question.reponses.map((val) =>  {
+                            return ( 
+                        
+                                    <section>
+                                        <input type="checkbox" key={val.libelle} checked={val.isCorrect ? true : false}></input>
+                                        <label>{val.libelle}</label>
+                                    </section>
+
+                            ) 
+                        })
                 )
                 }
             </div>
