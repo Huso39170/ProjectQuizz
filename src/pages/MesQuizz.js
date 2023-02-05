@@ -78,16 +78,16 @@ useEffect(() => {
             {datas.length ? (
             <>
                 <div className='add_quizz'>
-                <button className='add_button_quizz' onClick={handleCreateQuizz}>CRÉER UN QUIZ</button>
+                    <button onClick={handleCreateQuizz}>CRÉER UN QUIZ</button>
+                    <input 
+                    type='text' 
+                    placeholder='Rechercher...' 
+                    name='searchBar'
+                    onChange={handleSearchTerm}
+                    />
                 </div>
                 
-                <input 
-                type='text' 
-                className='search__input' 
-                placeholder='Rechercher...' 
-                name='searchBar'
-                onChange={handleSearchTerm}
-                />
+                
                     
                 
                 <div className='quizz_display'>

@@ -42,7 +42,7 @@ const Home = () => {
                     }
                 </header>
                 <section className='presentation'>
-                    <h1>Créez rapidement et gratuitement votre quizz interactif en ligne</h1>
+                    <h1>Créer rapidement et gratuitement votre quiz interactif en ligne</h1>
                 </section>
                 {isUserLoged===false &&
                     <div className='sub_section'>
@@ -53,13 +53,13 @@ const Home = () => {
                     <h2>Seulement quelques étapes :</h2>
                     <ul className='etape_liste'>
                         <li>
-                            1  Creéz un quizz
+                            1  Créer un quiz
                         </li>
                         <li>
-                            2  Partagez le
+                            2  Partager le
                         </li>
                         <li>
-                            3  Lancer le quizz
+                            3  Lancer le quiz
                         </li>
                     </ul>
                 </section>
@@ -73,7 +73,7 @@ const Home = () => {
                 </section>
                 <section className='join'>
                     <h2>
-                        Rejoignez une partie : 
+                        Rejoindre une partie : 
                     </h2>
                     <form className='join_form' onSubmit={handleSubmit}>
                         <input className='join_text' placeholder='Entrez le code' type="text" name="name" />

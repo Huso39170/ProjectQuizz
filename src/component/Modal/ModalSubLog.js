@@ -131,7 +131,7 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                             <input type="submit" value="Inscription"/>
                         </div>
                         <div className="signup-link">
-                            Vous possedez déja un compte ? <a href=" ">Connexion </a>
+                            Vous possédez déja un compte ? <a href=" ">Connexion </a>
                         </div>
                     </form>
                 </div>

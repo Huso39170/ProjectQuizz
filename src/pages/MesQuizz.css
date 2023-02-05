@@ -5,16 +5,38 @@ html, body, main, #root{
 
 .content_main {
     width: 100%;
-    height: auto;
-    float: right;
-    background-color: rgba(255, 255, 255, 0.76);
-    border-radius: 3px;
+    height: 100%;
 }
 
 
+.add_quizz {
+  margin-top: 1em;
+  margin-bottom: 3em;
+  display: flex;
+}
 
-/* Barre de recherche */
-  .search__input {
+.add_quizz > button {
+  margin: auto auto auto 4.5em;
+  width: 13em;
+  display: block;
+  position: relative;
+  background-color: #f7615900;
+  border: solid 1px black;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  height: 49px;
+  color: black;
+  font-size: 20px;
+  transition: all .3s ease-in-out;
+  overflow: hidden;
+}
+
+.add_quizz > button:hover {
+  background-color:#ce5e58d7;
+}
+
+.add_quizz > input {
     font-family: inherit;
     font-size: inherit;
     background-color: #f4f2f2;
@@ -22,24 +44,22 @@ html, body, main, #root{
     color: #646464;
     padding: 0.7rem 1rem;
     border-radius: 10px;
-    width: 92%;
+    width: 75%;
     transition: all ease-in-out .5s;
-    margin-top: 1em;
-    margin-left: 5em;
+    margin-right: 3.5em;
+    margin-left: 1em;
   }
   
-  .search__input:hover, .search__input:focus {
+  .add_quizz > input:hover, .add_quizz > input:focus {
     box-shadow: 0 0 1em #00000013;
   }
   
-  .search__input:focus {
+  .add_quizz > input:focus {
     outline: none;
     background-color: #f0eeee;
   }
   
- 
-  
-  .search__input:focus {
+  .add_quizz > input:focus {
     background-color: #f0eeee;
   }
   
@@ -47,7 +67,6 @@ html, body, main, #root{
 
 .quizz_display, ul{
   height: auto;
-  
 }
 
 
@@ -73,6 +92,9 @@ html, body, main, #root{
   color: black;
   font-weight: lighter;
   font-family: "Poppins", sans-serif;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .play_button {
@@ -150,7 +172,7 @@ html, body, main, #root{
 }
 
 
-/* Liste de quizz vide */
+
 
 .empty_quizz {
   text-align: center;
@@ -158,46 +180,7 @@ html, body, main, #root{
   margin-bottom: 25px;
 }
 
-.add_quizz {
-  margin-top: 1em;
-}
 
-.add_button_quizz {
-  width: 20em;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  background-color: #f7615900;
-  border: solid 1px black;
-  border-radius: 5px;
-  background-repeat: no-repeat;
-  box-sizing: border-box;
-  height: 49px;
-  color: black;
-  font-size: 20px;
-  transition: all .3s ease-in-out;
-  z-index: 1;
-  overflow: hidden;
-
-}
-
-.add_button_quizz::before {
-  content: "";
-  background-color:#ce5e58d7;
-  width: 0;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  transition: width 700ms ease-in-out;
-  display: inline-block;
-}
-
-.add_button_quizz:hover::before {
-  width: 100%;
-}
 
 .add_button_bis {
   display: none;
@@ -316,6 +299,16 @@ html, body, main, #root{
     border-bottom: 1px solid;
   }
 
+  .add_quizz > button {
+    display: none;
+  }
+
+  .add_quizz > input[type=text] {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+  }
+
   .add_button_bis {
     display: block;
     position: fixed;
@@ -324,7 +317,7 @@ html, body, main, #root{
     height: 10%;
     border: solid 1px;
     border-radius: 2px;
-    background-color:  #F76059;
+    background-color:  #556bfa;
     font-size: 25px;
   }
   .add_button_bis:active {
@@ -345,7 +338,7 @@ html, body, main, #root{
     border: solid 1px black;
     border-radius: 50px;
     margin-top: 10px;
-    margin-left: 0em;
+    margin-left: auto;
   }
   
   .quizz_name {
@@ -452,6 +445,8 @@ html, body, main, #root{
   opacity: 80%;
   padding: 10px;
   border-radius: 50px;
+  position: relative;
+  z-index: 1;
 }
 
 .cross_creation_quizz:hover {
