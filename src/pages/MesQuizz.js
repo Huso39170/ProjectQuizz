@@ -6,6 +6,7 @@ import { ImCross } from 'react-icons/im';
 import  { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
 import api from '../api/quizz';
+import ModalSessionParameter from '../component/Modal/ModalSessionParameter';
 
 
 function MesQuizz() {
@@ -72,6 +73,14 @@ useEffect(() => {
         fetchDeleteQuiz();
     }
 
+    
+    //Gestion du modal
+    const[modal,setModal]= useState(false);
+    const toggleModal = () =>{
+        //Inverse le bollean de modal
+        setModal(!modal);
+    }
+
 
     return (
         <div className='content_main'>
@@ -100,10 +109,10 @@ useEffect(() => {
                             return (
                                 <li className='quizz' key={index}>
                                     <p className='quizz_name'>{val.name}</p>
-                                    <button className='play_button' title='Démarrer'> <FaPlay className='Fa' alt='play button' /> </button>
+                                    <button className='play_button' title='Démarrer' onClick={toggleModal}> <FaPlay className='Fa' alt='play button' /> </button>
                                     <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuizz(val._id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
-                                    <button className='stats_button' title='Statistiques' onClick={()=>{handleEditQuizz(val._id)}}> <FaEye className='Fa' alt='statistical button' /> </button>
-                                    <button className='del_button' title='Supprimer' onClick={()=>{ navigate(`/mesquizz/quizz/${val._id}`)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
+                                    <button className='stats_button' title='Statistiques'> <FaEye className='Fa' alt='statistical button' /> </button>
+                                    <button className='del_button' title='Supprimer' onClick={()=>{ handleDeleteQuiz(val._id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                                 </li>
                             )
                         })}
@@ -136,7 +145,12 @@ useEffect(() => {
                 </section>
             </div>
         </div>
-    
+        
+        <ModalSessionParameter
+            modal={modal} 
+            toggleModal={toggleModal}    
+        />
+
         </div>
     )
 }

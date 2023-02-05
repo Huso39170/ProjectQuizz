@@ -9,39 +9,13 @@
       ],
       "id": 1,
       "timer": "45"
+    },
+    {
+      "name": "",
+      "description": "",
+      "tags": [],
+      "id": 2
     }
   ],
-<<<<<<< HEAD
   "question": []
-=======
-  "question": [
-    {
-      "description": "2eme question",
-      "reponse": "",
-      "type": "echelle",
-      "proposition": "",
-      "id": 2,
-      "tags": []
-    },
-    {
-      "description": "erefed",
-      "reponse": "gerfsd",
-      "type": "qcm",
-      "proposition": "ggr;dfd",
-      "id": 3
-    },
-    {
-      "description": "grsfq",
-      "reponse": "gsfqs",
-      "type": "qcm",
-      "proposition": "1;2;3",
-      "tags": [
-        "1",
-        "2",
-        "3"
-      ],
-      "id": 4
-    }
-  ]
->>>>>>> 89536e2333b503735feb1973623f516ec17d84f3
 }

@@ -34,19 +34,6 @@
     line-height: 2em;
 }
 
-.create_update_quizz_form .timer_field input{
-    width: 50%;
-    max-width: 500px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    display: block;
-    margin-left: 16px;
-    margin-top: 8px;
-
-}
-
 .create_update_quizz_form .born_field {
     width: 70%;
     max-width: 500px;
@@ -61,14 +48,6 @@
     float: left;
 }
 
-.create_update_quizz_form .timer_field .input_erreur{
-    color: red;
-    margin: 0;
-    top:-25px;
-    font-size: 12px;
-    padding-left: 16px;
-
-}
 
 
 /* Style the submit button */
