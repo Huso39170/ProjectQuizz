@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import InputRadioComp from '../component/Input/InputRadioComp'
+import InputComp from '../component/Input/InputComp';
 import TextAreaComp from '../component/Input/TextAreaComp'
 import { useNavigate,useParams } from 'react-router-dom';
 import api from '../api/quizz' 
@@ -19,6 +20,11 @@ const CreateUpdateQuestion = () => {
     //Loader pour afficher un chargement si false
     const [loader,setLoader]=useState(false);
 
+    //Initialisation des bornes par defaut pour le type de question echelle
+    const [bornInf,setBornInf]=useState('')
+    const [bornSup,setBornSup]=useState('')
+
+
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
 
@@ -32,6 +38,12 @@ const CreateUpdateQuestion = () => {
             divClassName:"radio",
             value :"qcm",
             label: "Choix multiple"
+
+        },
+        {
+            divClassName:"radio",
+            value :"qcu",
+            label: "Choix unique"
 
         },
         {
@@ -51,7 +63,7 @@ const CreateUpdateQuestion = () => {
                         reponses: questionPropositionTab,
                         tags:tags
         };
-
+        console.log(newQuestion)
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
             const response = await api.post('/question', newQuestion);
@@ -139,8 +151,10 @@ const CreateUpdateQuestion = () => {
         let propositionsTab=[]
         questionPropositionValues.forEach(element => {
             let proposition={libelle : element , isCorrect : false}
-            if(element.toString() === questionReponseValue){
-                proposition.isCorrect = true
+            for(let i=0;i<questionReponseValue.length;i++){
+                if(element.toString() === questionReponseValue[i]){
+                    proposition.isCorrect = true
+                }
             }
             propositionsTab.push(proposition);
         });
@@ -148,6 +162,36 @@ const CreateUpdateQuestion = () => {
 
 
     }, [questionPropositionValues,setQuestionReponseValue,questionReponseValue])
+
+    //UseEffect qui entre en jeux lorsque les borne sont changé et que le type de question est echelle
+    //On affecte au tableau proposition les valeurs entre la borne inférieur et supérieur 
+    //Ainsi l'utilisateur pourra choisir la bonne reponses dans l'intervalle
+    useEffect(() => {
+        if(questionTypeValue==="num"){
+            if(bornInf!=='' && bornSup!==''){
+                //Empeche les décimale
+                setBornInf(parseInt(bornInf));
+                setBornSup(parseInt(bornSup));
+
+                if(bornSup-bornInf>100){
+                    setBornSup(bornInf+100)
+                }
+                
+                var NumPropositions=[];
+                for(let i = bornInf;i<=bornSup;i++){
+                    NumPropositions.push(i)
+                }
+                setQuestionPropositionValues(NumPropositions)
+            }
+        }
+    }, [bornInf,bornSup,questionTypeValue])
+
+    //Reset des propositions, de la borne inferieur et de la borne superieur lors d'un changement de type
+    useEffect(()=>{
+        setQuestionPropositionValues([])
+        setBornInf('')
+        setBornSup('')
+    },[questionTypeValue])
 
     return (
         <div className='create_update_quizz_form'>
@@ -169,15 +213,38 @@ const CreateUpdateQuestion = () => {
                 <InputRadioComp
                     values={values}
                     className="radio_field"
-                    legend={"type de question :"}
+                    legend={"Type de question :"}
                     name={"radio_type"}
                     modalValue={questionTypeValue}
                     setValue={setQuestionTypeValue}
                     erreur={""}
                 /> 
 
+                {questionTypeValue==="num"&&
+                <div className='born_field'>
+                    <InputComp
+                        placeholder={"Borne inferieur"}
+                        setValue={setBornInf}
+                        modalValue={bornInf}
+                        inputType={"number"}
+                        required={true}
+                        erreur={""}
+                        className={'input_field'}
+                        label={"Borne inferieur et superieur"}
+                    />
+                    <InputComp
+                        placeholder={"Borne superieur"}
+                        setValue={setBornSup}
+                        modalValue={bornSup}
+                        inputType={"number"}
+                        required={true}
+                        erreur={""}
+                        className={'input_field'}
+                    />
+                </div>
+                }
 
-                <ItemsForm
+                {(questionTypeValue==="qcm" ||questionTypeValue==="qcu")&&<ItemsForm
                     GlobalDivClassName={'tags_field'}    
                     aBtnClassName={'tags_plus'}
                     btnClassName={'tags_button_plus'}
@@ -185,9 +252,9 @@ const CreateUpdateQuestion = () => {
                     items={questionPropositionValues}
                     setItems={setQuestionPropositionValues}
                     itemNames={"Propositions"}
-                />
+                />}
 
-                {questionPropositionValues.length>0&&<InputSelectComp
+                {(questionPropositionValues.length>0&&(questionTypeValue==="qcm" ||questionTypeValue==="qcu"))&&<InputSelectComp
                     options={questionPropositionValues}
                     className={'input_field'}
                     legend={"Reponse(s) à la question"}
@@ -196,9 +263,24 @@ const CreateUpdateQuestion = () => {
                     erreur={""}
                     value={questionReponseValue}
                     selectId={"reponse_select_id"}
+                    question_type={questionTypeValue}
                 />}
 
+                {(questionPropositionValues.length>0&&
+                    questionTypeValue==="num"&&
+                    bornInf!==''&& bornSup!=='')&&
 
+                    <InputSelectComp
+                        options={questionPropositionValues}
+                        className={'input_field'}
+                        legend={"Reponse(s) à la question"}
+                        setValue={setQuestionReponseValue}
+                        selectName={"reponse_select"}
+                        erreur={""}
+                        value={questionReponseValue}
+                        selectId={"reponse_select_id"}
+                        question_type={questionTypeValue}
+                />}
                 <ItemsForm
                     GlobalDivClassName={'tags_field'}    
                     aBtnClassName={'tags_plus'}
