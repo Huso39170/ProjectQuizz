@@ -49,14 +49,15 @@ useEffect(() => {
     }
 
     /* Delete question */
-    const handleDeleteQuestion = (id) => {
+    const handleDeleteQuestion = (qst_id) => {
         const fetchDeleteQuestion = async () => {
             try{
-                const listDatas = datas.filter((item) => item.id !== id);
-                setDatas(listDatas);
+
                 //Requete poste pour edit les données dans la BD
-                const response = await api.delete(`/question/${id}`);
+                const response = await api.delete(`/question`,{data: {id: qst_id}});
                 console.log(response.data)
+                const listDatas = datas.filter((item) => item.id !== qst_id);
+                setDatas(listDatas);
 
             } catch (err){
                 //Erreur affichée dans la console
@@ -95,8 +96,8 @@ useEffect(() => {
                                 <li className='quizz' key={index}>
                                     <p className='quizz_name'>{val.libelle}</p>
                                     <button className='play_button' title='Voir'> <VscInspect className='Fa' alt='watch button' /> </button>
-                                    <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuestion(val.id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
-                                    <button className='del_button' title='Supprimer' onClick={()=>{handleDeleteQuestion(val.id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
+                                    <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuestion(val._id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
+                                    <button className='del_button' title='Supprimer' onClick={()=>{handleDeleteQuestion(val._id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                                 </li>
                             )
                         })}

@@ -1,59 +1,15 @@
 {
   "quizz": [
     {
-      "name": "fergreg",
-      "description": "grsgrgrgfd",
+      "name": "Quizz Test 1",
+      "description": "Description quizz 1",
       "type": "timer",
-      "id": 1
-    },
-    {
-      "name": "gfsd",
-      "description": "grsfd",
-      "type": "timer",
-      "id": 2
-    },
-    {
-      "name": "jghf",
-      "description": "yhrte",
-      "type": "timer",
-      "timer": "54",
-      "id": 3
-    },
-    {
-      "name": "popo",
-      "description": "tyhd",
-      "type": "timer",
-      "timer": "85",
-      "id": 4
-    },
-    {
-      "name": "Az",
-      "description": "zaesdr",
-      "type": "timer",
-      "timer": "9",
-      "id": 5
+      "tags": [
+        "OutilsProg"
+      ],
+      "id": 1,
+      "timer": "45"
     }
   ],
-  "question": [
-    {
-      "libelle": "erdtgfg",
-      "question_type": "qcm",
-      "reponses": [
-        {
-          "libelle": "1",
-          "isCorrect": false
-        },
-        {
-          "libelle": "2",
-          "isCorrect": true
-        },
-        {
-          "libelle": "3",
-          "isCorrect": false
-        }
-      ],
-      "tags": [],
-      "id": 4
-    }
-  ]
+  "question": []
 }

@@ -36,7 +36,7 @@ const CreateUpdateQuestion = () => {
         },
         {
             divClassName:"radio",
-            value :"echelle",
+            value :"num",
             label: "Echelle"
         }
     ]
@@ -47,7 +47,7 @@ const CreateUpdateQuestion = () => {
         //Creation d'une variable dans laquel est stocké les différentes informations à propos de la question
         let newQuestion={}
         newQuestion = { libelle : questionDescriptionValue ,
-                        question_type : questionTypeValue, 
+                        type : questionTypeValue, 
                         reponses: questionPropositionTab,
                         tags:tags
         };
@@ -89,7 +89,7 @@ const CreateUpdateQuestion = () => {
 
     //Fonction qui complete les champs du formulaire selon les données importées
     const setQuestionForm = (data) => {
-        setQuestionDescriptionValue(data.description)
+        setQuestionDescriptionValue(data.libelle)
         setQuestionTypeValue(data.type)
         let propositions=[]
         data.reponses.forEach(element => {
@@ -112,14 +112,16 @@ const CreateUpdateQuestion = () => {
         let newQuestion={}
         newQuestion = { 
             libelle : questionDescriptionValue ,
-            question_type : questionTypeValue, 
+            type : questionTypeValue, 
             reponses: questionPropositionTab,
-            tags:tags
+            tags:tags,
+            id:id
+
         };
 
         try{
             //Requete patch pour mettre a jour des données existante de la BD
-            const response = await api.patch(`/question/${id}`, newQuestion);
+            const response = await api.patch(`/question`, newQuestion);
             console.log(response.data)
         } catch (err){
             //Erreur affichée dans la console

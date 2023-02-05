@@ -56,12 +56,14 @@ const CreateUpdateQuizz = () => {
                         description : quizzDescriptionValue , 
                         type : quizzDeroulementValue, 
                         tags:tags,
-                        timer: quizzTimerValue};
+                        timer: quizzTimerValue,
+                        };
         }else{
             newQuizz = {name: quizzNameValue , 
                         description : quizzDescriptionValue , 
                         type : quizzDeroulementValue, 
-                        tags:tags,};
+                        tags:tags
+                        };
         }
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
@@ -86,7 +88,7 @@ const CreateUpdateQuizz = () => {
                     console.log(err.response.status);
                     //Si l'id n'existe pas redirection vers la page Error 404
                     if(err.response.status===404){
-                        navigate('/missing')
+                        //navigate('/missing')
                     }
                 }
             }
@@ -118,16 +120,18 @@ const CreateUpdateQuizz = () => {
             newQuizz = {name: quizzNameValue ,
                         description : quizzDescriptionValue ,
                         type : quizzDeroulementValue,
-                        tags:tags, timer: quizzTimerValue};
+                        tags:tags, timer: quizzTimerValue,
+                        id:id};
         }else{
             newQuizz = {name: quizzNameValue ,
                         description : quizzDescriptionValue , 
                         type : quizzDeroulementValue, 
-                        tags:tags};
+                        tags:tags,
+                        id:id};
         }
         try{
             //Requete patch pour mettre a jour des données existante de la BD
-            const response = await api.patch(`/quizz/${id}`, newQuizz);
+            const response = await api.patch(`/quizz`, newQuizz);
             console.log(response.data)
         } catch (err){
             //Erreur affichée dans la console

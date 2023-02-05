@@ -24,8 +24,10 @@ useEffect(() => {
     try {
       const response = await api.get('/quizz');
       setDatas(response.data);
+      console.log(response.data)
     } catch (err) {
         console.log(err.response.status);
+        console.log("toto")
         //Si l'id n'existe pas redirection vers la page Error 404
         if(err.response.status === 404){
           navigate('./missing');
@@ -53,18 +55,18 @@ useEffect(() => {
     }
 
     /* Delete question */
-    const handleDeleteQuiz = (id) => {
+    const handleDeleteQuiz = (quizz_id) => {
         const fetchDeleteQuiz = async () => {
             try{
-                const listDatas = datas.filter((item) => item.id !== id);
-                setDatas(listDatas);
                 //Requete poste pour edit les données dans la BD
-                const response = await api.delete(`/quizz/${id}`);
+                const response = await api.delete(`/quizz`,{data: {id: quizz_id}});
                 console.log(response.data)
-
+                const listDatas = datas.filter((item) => item.id !== quizz_id);
+                setDatas(listDatas);
+        
             } catch (err){
                 //Erreur affichée dans la console
-                console.log(`Error: ${err.message}`);
+                console.log(err.response.data.message)
             }
         }
         fetchDeleteQuiz();
@@ -94,14 +96,14 @@ useEffect(() => {
                             .filter((val) => {
                             return val.name.includes(searchTerm);
                             })
-                            .map((val) => {
+                            .map((val,index) => {
                             return (
-                                <li className='quizz' key={val.id}>
+                                <li className='quizz' key={index}>
                                     <p className='quizz_name'>{val.name}</p>
                                     <button className='play_button' title='Démarrer'> <FaPlay className='Fa' alt='play button' /> </button>
-                                    <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuizz(val.id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
-                                    <button className='stats_button' title='Statistiques'> <FaEye className='Fa' alt='statistical button' /> </button>
-                                    <button className='del_button' title='Supprimer' onClick={()=>{handleDeleteQuiz(val.id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
+                                    <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuizz(val._id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
+                                    <button className='stats_button' title='Statistiques' onClick={()=>{handleEditQuizz(val._id)}}> <FaEye className='Fa' alt='statistical button' /> </button>
+                                    <button className='del_button' title='Supprimer' onClick={()=>{ navigate(`/mesquizz/quizz/${val._id}`)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                                 </li>
                             )
                         })}
