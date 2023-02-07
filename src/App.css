@@ -11,4 +11,9 @@ footer{
   min-height:100%;
   position:relative;
   padding-bottom:50px;
+
+}
+
+.disable-scroll{
+    overflow-y: hidden;
 }

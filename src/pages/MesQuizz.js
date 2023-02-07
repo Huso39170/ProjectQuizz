@@ -1,5 +1,5 @@
 import './MesQuizz.css';
-import { FaPlay, FaEdit, FaEye, FaTrashAlt } from 'react-icons/fa';
+import { FaPlay, FaEdit, FaEye, FaTrashAlt,FaLink } from 'react-icons/fa';
 import { AiOutlineFileAdd } from 'react-icons/ai';
 import { BsFillFileEarmarkArrowUpFill } from 'react-icons/bs';
 import { ImCross } from 'react-icons/im';
@@ -50,10 +50,6 @@ useEffect(() => {
         setCreateQuizz(!createQuizz);
     }
 
-    //Redirection vers la page de modification du quizz
-    const handleEditQuizz = (id) => {
-       navigate(`/mesquizz/modifier/${id}`); 
-    }
 
     /* Delete question */
     const handleDeleteQuiz = (quizz_id) => {
@@ -110,8 +106,10 @@ useEffect(() => {
                                 <li className='quizz' key={index}>
                                     <p className='quizz_name'>{val.name}</p>
                                     <button className='play_button' title='Démarrer' onClick={toggleModal}> <FaPlay className='Fa' alt='play button' /> </button>
-                                    <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuizz(val._id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
+                                    <button className='edit_button' title='Modifier' onClick={()=>{ navigate(`/mesquizz/modifier/${val._id}`)}}> <FaEdit className='Fa' alt='edit button'/> </button>
                                     <button className='stats_button' title='Statistiques'> <FaEye className='Fa' alt='statistical button' /> </button>
+                                    <button className='attach_button' title='Attacher' onClick={()=>{navigate(`/mesquizz/quizz/${val._id}`)}}> <FaLink className='Fa' alt='attach button' /> </button>
+
                                     <button className='del_button' title='Supprimer' onClick={()=>{ handleDeleteQuiz(val._id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                                 </li>
                             )
