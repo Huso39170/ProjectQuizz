@@ -21,7 +21,12 @@ const CreateUpdateQuizz = () => {
     //Recuperation de l'id dans l'url
     const { id } = useParams();
 
-
+    //Met a 0 tout les champs
+    const resetField=()=>{
+        setQuizzNameValue('');
+        setQuizzDescriptionValue('');
+        setTags([])
+    }
 
     //Fonction qui s'execute lorsque l'utilisateur soumet le formulaire de création
     const handleCreate = async (e)=>{
@@ -37,7 +42,8 @@ const CreateUpdateQuizz = () => {
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
             const response = await api.post('/quizz', newQuizz);
-            console.log(response.data)
+            resetField();
+            return response;
         } catch (err){
             //Erreur affichée dans la console
             console.log(`Error: ${err.message}`);

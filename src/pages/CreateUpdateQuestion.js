@@ -24,6 +24,9 @@ const CreateUpdateQuestion = () => {
     const [bornInf,setBornInf]=useState('')
     const [bornSup,setBornSup]=useState('')
 
+    //Initialisation de la reponse si le type est "Echelle"
+    const [reponseNum,setReponseNum]=useState('')
+
 
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
@@ -53,16 +56,63 @@ const CreateUpdateQuestion = () => {
         }
     ]
 
+    //Fonction qui complete les champs du formulaire selon les données importées
+    const setQuestionForm = (data) => {
+        setQuestionDescriptionValue(data.libelle)
+        setQuestionTypeValue(data.type)
+        if(data.type==="num"){
+            setBornInf(data.inf);
+            setBornSup(data.sup);
+            setReponseNum(data.reponse);
+        }else{
+            let propositions=[]
+            data.reponses.forEach(element => {
+                propositions.push(element.libelle)
+                if(element.isCorrect===true){
+                    setQuestionReponseValue(element.libelle)
+                }
+            });
+            setQuestionPropositionValues(propositions)
+        }
+
+        setTags(data.tags)
+        setLoader(true);
+
+    }
+    
+    const resetField=()=>{
+        setQuestionDescriptionValue('');
+        setQuestionReponseValue('');
+        setQuestionTypeValue('');
+        setTags([]);
+        setQuestionPropositionValues([]);
+        setQuestionPropositionTab([]);
+        setBornInf('');
+        setBornSup('');
+        setReponseNum('');
+    }
+
     const handleCreate = async (e)=>{
         //Empeche la page de rafraichir
         e.preventDefault();
         //Creation d'une variable dans laquel est stocké les différentes informations à propos de la question
         let newQuestion={}
-        newQuestion = { libelle : questionDescriptionValue ,
-                        type : questionTypeValue, 
-                        reponses: questionPropositionTab,
-                        tags:tags
-        };
+        if(questionTypeValue==="num"){
+            newQuestion = { libelle : questionDescriptionValue ,
+                            type : questionTypeValue, 
+                            inf:bornInf,
+                            sup:bornSup,
+                            reponse:reponseNum,
+                            tags:tags
+            };
+        }else{
+            newQuestion = { libelle : questionDescriptionValue ,
+                type : questionTypeValue, 
+                reponses: questionPropositionTab,
+                tags:tags
+            };
+        }
+        resetField();
         console.log(newQuestion)
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
@@ -74,6 +124,41 @@ const CreateUpdateQuestion = () => {
         }
     }
 
+    //Fonction qui s'execute lorsque l'utilisateur soumet le formulaire de modofication
+    const handleUpdate= async (e) =>{
+        e.preventDefault();
+        //Création d'un objet newQuestion dans lequel va être inserer toute les données correspondant au differant champs
+        let newQuestion={}
+        if(questionTypeValue==="num"){
+            newQuestion = { libelle : questionDescriptionValue ,
+                            type : questionTypeValue, 
+                            inf:bornInf,
+                            sup:bornSup,
+                            reponse:reponseNum,
+                            tags:tags,
+                            id:id
+            };
+        }else{
+            newQuestion = { 
+                libelle : questionDescriptionValue ,
+                type : questionTypeValue, 
+                reponses: questionPropositionTab,
+                tags:tags,
+                id:id
+    
+            };
+        }
+
+
+        try{
+            //Requete patch pour mettre a jour des données existante de la BD
+            const response = await api.patch(`/question`, newQuestion);
+            console.log(response.data)
+        } catch (err){
+            //Erreur affichée dans la console
+            console.log(`Error: ${err.message}`);
+        }
+    }
 
     //Fonction qui s'execute au moment du rendue de la page permet de recuperer les données de la question de l'id correspondant
     useEffect(() => {
@@ -99,48 +184,6 @@ const CreateUpdateQuestion = () => {
         }
     }, [id,navigate])
 
-    //Fonction qui complete les champs du formulaire selon les données importées
-    const setQuestionForm = (data) => {
-        setQuestionDescriptionValue(data.libelle)
-        setQuestionTypeValue(data.type)
-        let propositions=[]
-        data.reponses.forEach(element => {
-            propositions.push(element.libelle)
-            if(element.isCorrect===true){
-                setQuestionReponseValue(element.libelle)
-            }
-        });
-        setQuestionPropositionValues(propositions)
-        setTags(data.tags)
-        setLoader(true);
-
-    }
-
-
-    //Fonction qui s'execute lorsque l'utilisateur soumet le formulaire de modofication
-    const handleUpdate= async (e) =>{
-        e.preventDefault();
-        //Création d'un objet newQuestion dans lequel va être inserer toute les données correspondant au differant champs
-        let newQuestion={}
-        newQuestion = { 
-            libelle : questionDescriptionValue ,
-            type : questionTypeValue, 
-            reponses: questionPropositionTab,
-            tags:tags,
-            id:id
-
-        };
-
-        try{
-            //Requete patch pour mettre a jour des données existante de la BD
-            const response = await api.patch(`/question`, newQuestion);
-            console.log(response.data)
-        } catch (err){
-            //Erreur affichée dans la console
-            console.log(`Error: ${err.message}`);
-        }
-    }
-
     //UseEffect qui entre en jeux lorsque le tableau des proposition ou la reponse est changé
     //Si le tableau des proposition est vide alors il n'y a pas de reponse possible
     //Créé un objet proposition avec un boolean mis a true si la proposition correspond à la reponse
@@ -163,35 +206,34 @@ const CreateUpdateQuestion = () => {
 
     }, [questionPropositionValues,setQuestionReponseValue,questionReponseValue])
 
+    //Empeche les décimale et transforme en integer
+    useEffect(()=>{
+        if(bornInf!==''){
+            setBornInf(parseInt(bornInf));
+        }
+        if(bornSup!==''){
+            setBornSup(parseInt(bornSup));
+        }
+        if(reponseNum!==''){
+            setReponseNum(parseInt(reponseNum));
+        }
+
+    },[bornInf,bornSup,reponseNum])
+
     //UseEffect qui entre en jeux lorsque les borne sont changé et que le type de question est echelle
     //On affecte au tableau proposition les valeurs entre la borne inférieur et supérieur 
     //Ainsi l'utilisateur pourra choisir la bonne reponses dans l'intervalle
     useEffect(() => {
         if(questionTypeValue==="num"){
             if(bornInf!=='' && bornSup!==''){
-                //Empeche les décimale
-                setBornInf(parseInt(bornInf));
-                setBornSup(parseInt(bornSup));
-
-                if(bornSup-bornInf>100){
-                    setBornSup(bornInf+100)
+                if(bornInf>bornSup){
+                    setBornInf(bornSup-1)
                 }
-                
-                var NumPropositions=[];
-                for(let i = bornInf;i<=bornSup;i++){
-                    NumPropositions.push(i)
-                }
-                setQuestionPropositionValues(NumPropositions)
             }
         }
     }, [bornInf,bornSup,questionTypeValue])
 
-    //Reset des propositions, de la borne inferieur et de la borne superieur lors d'un changement de type
-    useEffect(()=>{
-        setQuestionPropositionValues([])
-        setBornInf('')
-        setBornSup('')
-    },[questionTypeValue])
+
 
     return (
         <div className='create_update_quizz_form'>
@@ -266,21 +308,19 @@ const CreateUpdateQuestion = () => {
                     question_type={questionTypeValue}
                 />}
 
-                {(questionPropositionValues.length>0&&
-                    questionTypeValue==="num"&&
+                {(questionTypeValue==="num"&&
                     bornInf!==''&& bornSup!=='')&&
-
-                    <InputSelectComp
-                        options={questionPropositionValues}
-                        className={'input_field'}
-                        legend={"Reponse(s) à la question"}
-                        setValue={setQuestionReponseValue}
-                        selectName={"reponse_select"}
-                        erreur={""}
-                        value={questionReponseValue}
-                        selectId={"reponse_select_id"}
-                        question_type={questionTypeValue}
-                />}
+                    <InputComp
+                    placeholder={"Saisir la bonne reponse ..."}
+                    setValue={setReponseNum}
+                    modalValue={reponseNum}
+                    inputType={"number"}
+                    required={true}
+                    erreur={""}
+                    className={'input_field'}
+                    label={"Reponse à la question"}
+                />
+                }
                 <ItemsForm
                     GlobalDivClassName={'tags_field'}    
                     aBtnClassName={'tags_plus'}

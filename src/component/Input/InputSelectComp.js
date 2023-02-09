@@ -2,7 +2,7 @@ import React,{useEffect} from 'react'
 
 const InputSelectComp = ({options,className,legend,setValue,value,selectName,erreur,selectId,question_type}) => {
 
-    //UseEffect qui entre en jeu lorsque le tableau des options et changer
+    //UseEffect qui entre en jeu lorsque le tableau des options ou le type de question est changer
     //Change la valeur selon l'options selectionnée a l'écran
     useEffect(() => {
         var e = document.getElementById(selectId);
@@ -10,7 +10,7 @@ const InputSelectComp = ({options,className,legend,setValue,value,selectName,err
         if(options.length===0){
             setValue('')
         }
-    }, [options,setValue,selectId])
+    }, [options,question_type,setValue,selectId])
 
     const handleChangeNormalSelect = e => {
         const updatedOptions = [...e.target.options]
