@@ -197,12 +197,14 @@
     min-width: 320px;
     border-radius: 20px;
     margin: auto;
-    border: solid 1px black;
+    border: solid 1px lightgrey;
+    background: white;
 }
 
 .join h2{
     text-align: center;
     font-size: 22px;
+    
 }
 
 .join_form{

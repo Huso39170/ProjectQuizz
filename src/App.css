@@ -17,3 +17,7 @@ footer{
 .disable-scroll{
     overflow-y: hidden;
 }
+
+body{
+  background:	#F5F5F5;
+}

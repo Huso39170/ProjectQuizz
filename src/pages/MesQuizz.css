@@ -1,7 +1,9 @@
 html, body, main, #root{
-    height: 100%;
+  height: 100%;
 
 }
+
+
 
 .content_main {
     width: 100%;
@@ -21,8 +23,8 @@ html, body, main, #root{
   width: 13em;
   display: block;
   position: relative;
-  background-color: #f7615900;
-  border: solid 1px black;
+  background-color: white;
+  border: solid 1px lightgrey;
   border-radius: 5px;
   background-repeat: no-repeat;
   box-sizing: border-box;
@@ -31,6 +33,7 @@ html, body, main, #root{
   font-size: 20px;
   transition: all .3s ease-in-out;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .add_quizz > button:hover {
@@ -40,7 +43,7 @@ html, body, main, #root{
 .add_quizz > input {
     font-family: inherit;
     font-size: inherit;
-    background-color: #f4f2f2;
+    background-color: white;
     border: none;
     color: #646464;
     padding: 0.7rem 1rem;
@@ -57,12 +60,10 @@ html, body, main, #root{
   
   .add_quizz > input:focus {
     outline: none;
-    background-color: #f0eeee;
+ 
   }
   
-  .add_quizz > input:focus {
-    background-color: #f0eeee;
-  }
+
   
 /* les quizz */
 
@@ -80,8 +81,8 @@ html, body, main, #root{
 
 .quizz {
   display: flex;
-  border: solid 1px black;
-  border-radius: 50px;
+  border-radius: 5px;
+  background: 	white;
   margin-top: 15px;
   margin-left: 3em;
   margin-right: 3em;
@@ -90,9 +91,9 @@ html, body, main, #root{
 .quizz_name {
   width: 80%;
   margin-left: 50px;
-  color: black;
+  color: 	#606060;
   font-weight: lighter;
-  font-family: "Poppins", sans-serif;
+  font-family: "Arial", sans-serif;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
@@ -111,6 +112,7 @@ html, body, main, #root{
 .play_button:hover {
   background-color: #6a097dc7;
   border: solid 1px #6a097dc0;
+  cursor: pointer;
 }
 
 .edit_button {
@@ -126,6 +128,7 @@ html, body, main, #root{
 .edit_button:hover {
   background-color: #c05fa0d2;
   border: solid 1px #c05fa0d0;
+  cursor: pointer;
 }
 
 
@@ -143,6 +146,7 @@ html, body, main, #root{
 .stats_button:hover {
   background-color: rgba(128, 0, 128, 0.637);
   border: solid 1px rgba(128, 0, 128, 0.637);
+  cursor: pointer;
 }
 
 .attach_button {
@@ -158,10 +162,11 @@ html, body, main, #root{
 .attach_button:hover {
   background-color: #c05fa0d2;
   border: solid 1px #c05fa0d0;
+  cursor: pointer;
 }
 
 .del_button {
-  width: 6%;
+  width: 8%;
   position: relative;
   border-radius: 0px;
   background-color: rgba(128, 0, 128, 0);
@@ -172,6 +177,7 @@ html, body, main, #root{
 
 .del_button:hover {
   background-color: rgba(255, 255, 255, 0.507);
+  cursor: pointer;
 }
 
 .Fa {
@@ -203,90 +209,6 @@ html, body, main, #root{
 }
 
 
-
-  /* Affichage des quizz 
-  li {
-    height: 10%;
-    width: 90%;
-  }
-  
-  
-  .quizz {
-    display: flex;
-    border: solid 1px black;
-    border-radius: 50px;
-    margin-top: 10px;
-    margin-left: 0em;
-  }
-  
-  .quizz_name {
-    width: 80%;
-    height: fit-content;
-    margin-left: 20px;
-    color: black;
-    font-weight: lighter;
-    font-family: "Poppins", sans-serif;
-  }
-  
-  .play_button {
-    width: 12%;
-    position: relative;
-    border-radius: 0px;
-    background-color: #6a097d;
-    border: solid 1px #6a097d;
-    text-align: center;
-    
-  }
-  
-  .play_button:hover {
-    background-color: #6a097dc7;
-    border: solid 1px #6a097dc0;
-  }
-
-  .edit_button {
-    width: 12%;
-    position: relative;
-    border-radius: 0px;
-    background-color: #c05fa0;
-    border: solid 1px #c05fa0;
-    text-align: center;
-    
-  }
-  
-  .edit_button:hover {
-    background-color: #c05fa0d2;
-    border: solid 1px #c05fa0d0;
-  }
-  
-  .stats_button {
-    width: 12%;
-    position: relative;
-    border-radius: 0px;
-    background-color: rgba(128, 0, 128, 0.788); 
-    border: solid 1px rgba(128, 0, 128, 0.788);
-    text-align: center;
-    
-  }
-  
-  .stats_button:hover {
-    background-color: rgba(128, 0, 128, 0.637);
-    border: solid 1px rgba(128, 0, 128, 0.637);
-  }
-  
-  .del_button {
-    width: 8%;
-    position: relative;
-    background-color: rgba(128, 0, 128, 0);
-    border: solid 1px rgba(128, 0, 128, 0);
-    text-align: center;
-    border-radius: 100px;
-  }
-  
-  .del_button:hover {
-    background-color: rgba(255, 255, 255, 0.507);
-  }
-  
-*/
 
 /****/
 
@@ -351,8 +273,8 @@ html, body, main, #root{
   
   .quizz {
     display: flex;
-    border: solid 1px black;
-    border-radius: 50px;
+
+    border-radius: 5px;
     margin-top: 10px;
     margin-left: auto;
   }
@@ -361,7 +283,7 @@ html, body, main, #root{
     width: 60%;
     height: fit-content;
     margin-left: 20px;
-    color: black;
+    color: #606060;
     font-weight: lighter;
     font-family: "Poppins", sans-serif;
   }
