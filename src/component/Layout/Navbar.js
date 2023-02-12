@@ -10,7 +10,6 @@ const Navbar = () => {
 	const uncheckInput = () =>{	
 		uncheckInputRef.current.checked=false;
 		setScrollable(true);
-		console.log(scrollable)
 	}
 
 	useEffect(() => {
@@ -19,7 +18,6 @@ const Navbar = () => {
 		}else{
 			document.getElementById("root").classList.remove("disable-scroll")
 		}
-		console.log(scrollable)
 	  }, [scrollable]);
 
 	//Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page

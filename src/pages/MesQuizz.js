@@ -58,7 +58,7 @@ useEffect(() => {
                 //Requete poste pour edit les données dans la BD
                 const response = await api.delete(`/quizz`,{data: {id: quizz_id}});
                 console.log(response.data)
-                const listDatas = datas.filter((item) => item.id !== quizz_id);
+                const listDatas = datas.filter((item) => item._id !== quizz_id);
                 setDatas(listDatas);
         
             } catch (err){

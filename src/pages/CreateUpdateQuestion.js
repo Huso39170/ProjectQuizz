@@ -66,12 +66,16 @@ const CreateUpdateQuestion = () => {
             setReponseNum(data.reponse);
         }else{
             let propositions=[]
+            let correctResponses=[]
             data.reponses.forEach(element => {
                 propositions.push(element.libelle)
                 if(element.isCorrect===true){
-                    setQuestionReponseValue(element.libelle)
+                    correctResponses.push(element.libelle)
+                    
                 }
             });
+            console.log(correctResponses)
+            setQuestionReponseValue(correctResponses)
             setQuestionPropositionValues(propositions)
         }
 
@@ -113,7 +117,6 @@ const CreateUpdateQuestion = () => {
             };
         }
         resetField();
-        console.log(newQuestion)
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
             const response = await api.post('/question', newQuestion);
