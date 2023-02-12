@@ -1,26 +1,27 @@
 .create_update_quizz_form {
     font-family: 'Roboto', sans-serif;
-    margin-bottom: 64px;
 }
 
 .create_update_quizz_form h2{
-    margin-left: 16px;
+    text-align: center;
+    font-size: 30px;
 }
 
 
 .input_field{
     margin-left: 16px;
+    margin-right: 16px;
 }
 
 .create_update_quizz_form .input_field input[type=text],input[type=number],textarea,select  {
-    width: 70%;
-    max-width: 500px;
+    width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     display: block;
     font-family: 'Roboto', sans-serif;
+
 
 }
 
@@ -29,14 +30,14 @@
     display: block;
 }
 
+
 .create_update_quizz_form .radio_field{
     margin-left: 16px;
     line-height: 2em;
 }
 
 .create_update_quizz_form .born_field {
-    width: 70%;
-    max-width: 500px;
+    width: 100%;
     display: inline-block;
     margin-bottom: 8px;
     
@@ -58,8 +59,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    float: left;
-    width :25%;
+    width :91%;
     min-width: 300px;
     margin-top: 32px;
     margin-left: 16px;
@@ -79,26 +79,22 @@
 
 /*Style de champs des tags*/
 .create_update_quizz_form .tags_field{
-    width: 70%;
+    width: 100%;
+
 }
 
 .create_update_quizz_form .tags_field .input_field  {
-    width: 75%;
+    width: 60%;
     display: inline-block;
-    max-width: 455px;
-
+    min-width: 295px;
 }
 
 .create_update_quizz_form .tags_field .input_field input[type=text]  {
-    width: 100%;
-    max-width: 455px;
+
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    margin-left: 0;
-
-    
 
 }
 
@@ -109,17 +105,19 @@
     border-radius: 5px;
     vertical-align: middle;
     color: white;
-    margin-left: 5px;
+    margin-left: -10px;
     
 }
 
+
+
 .tags_field .tags_name {
-    width:77%
+    width:95%
 }
 
 .tags_field .tags_name ul{
-    padding-left: 22px;
-    width: 100%;
+    padding-left: 16px;
+    width: 95%;
 }
 
 
@@ -150,3 +148,93 @@
 }
 
 
+
+@media only screen and (min-width: 630px)  {
+    .create_update_quizz_form {
+        border: 1px solid lightgray;
+        width: 600px;
+        margin: auto;
+        margin-top: 100px;
+        border-radius: 20px;
+        background-color: white;
+    }
+    
+    .create_update_quizz_form h2{
+        font-size: 35px;
+    }
+    
+    
+    .input_field{
+        margin-left: 48px;
+        margin-right: 48px;
+    
+    }
+    
+    .create_update_quizz_form .input_field input[type=text],input[type=number],textarea,select  {
+        max-width: 500px;
+    }
+    
+    
+    .create_update_quizz_form .radio_field{
+        margin-left: 48px;
+    }
+    
+
+    
+    
+    
+    /* Style the submit button */
+    .create_update_quizz_form input[type=submit] {
+        background-color: #F76059;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width :85%;
+        margin-top: 16px;
+        margin-bottom: 48px;
+        margin-left: 48px;
+    
+    }
+    
+    .create_update_quizz_form input[type=submit]:hover{
+        background-color: #f78059;
+    }
+    
+    .create_update_quizz_form .input_erreur{
+        color: red;
+        margin: 0;
+        top:-25px;
+        font-size: 12px;
+    
+    }
+    
+    /*Style de champs des tags*/
+    
+    .create_update_quizz_form .tags_field .input_field  {
+        width: 100%;
+        max-width: 460px;
+    
+    }
+    
+    .create_update_quizz_form .tags_field .input_field input[type=text]  {
+        width: 100%;
+        max-width: 460px;    
+    }
+    
+    .tags_field .tags_button_plus{
+        margin-left: -45px;
+    }
+    
+    .tags_field .tags_name {
+        width:100%;
+    }
+    
+    .tags_field .tags_name ul{
+        width: 90%;
+        padding-left: 48px;
+    }
+    
+    
+}

@@ -6,7 +6,13 @@ const InputSelectComp = ({options,className,legend,setValue,value,selectName,err
     //Change la valeur selon l'options selectionnée a l'écran
     useEffect(() => {
         var e = document.getElementById(selectId);
-        setValue(e.options[e.selectedIndex].value)
+        let selectedOptions=[];
+        for(let i=0;i<e.options.length;i++){
+            if(e.options[i].selected===true){
+                selectedOptions.push(e.options[i].value);
+            }
+        }
+        setValue(selectedOptions);
         if(options.length===0){
             setValue('')
         }
