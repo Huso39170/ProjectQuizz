@@ -1,6 +1,5 @@
 import React, {useState,useEffect} from 'react'
 import InputComp from '../component/Input/InputComp'
-import InputRadioComp from '../component/Input/InputRadioComp'
 import TextAreaComp from '../component/Input/TextAreaComp'
 import api from '../api/quizz' 
 import { useParams,useNavigate} from 'react-router-dom';
@@ -12,8 +11,6 @@ const CreateUpdateQuizz = () => {
     //Initialisation des champs de saisie nom , description le dérouelemnt du quizz ainsi que les tags
     const [quizzNameValue, setQuizzNameValue] = useState('')
     const [quizzDescriptionValue, setQuizzDescriptionValue] = useState('')
-    const [quizzDeroulementValue, setquizzDeroulementValue] = useState('')
-    const [quizzTimerValue, setquizzTimerValue] = useState('')
     const [tags,setTags] = useState([]);
     //Loader pour afficher un chargement si false
     const [loader,setLoader]=useState(false);
@@ -24,26 +21,12 @@ const CreateUpdateQuizz = () => {
     //Recuperation de l'id dans l'url
     const { id } = useParams();
 
-
-    //Initialisation des differents elements des boutons "radio"
-    const values =[
-        {
-            divClassName:"radio",
-            value :"timer",
-            label: "Timer"
-
-        },
-        {
-            divClassName:"radio",
-            value :"button",
-            label: "Boutton"
-        },
-        {
-            divClassName:"radio",
-            value :"participant",
-            label: "Participant qui passe"
-        }
-    ]
+    //Met a 0 tout les champs
+    const resetField=()=>{
+        setQuizzNameValue('');
+        setQuizzDescriptionValue('');
+        setTags([])
+    }
 
     //Fonction qui s'execute lorsque l'utilisateur soumet le formulaire de création
     const handleCreate = async (e)=>{
@@ -51,22 +34,16 @@ const CreateUpdateQuizz = () => {
         e.preventDefault();
         //Creation d'une variable dans laquel est stocké les différentes informations à propos du quizz
         let newQuizz={}
-        if(quizzTimerValue!==''){
-            newQuizz = {name: quizzNameValue , 
-                        description : quizzDescriptionValue , 
-                        type : quizzDeroulementValue, 
-                        tags:tags,
-                        timer: quizzTimerValue};
-        }else{
-            newQuizz = {name: quizzNameValue , 
-                        description : quizzDescriptionValue , 
-                        type : quizzDeroulementValue, 
-                        tags:tags,};
-        }
+        newQuizz = {name: quizzNameValue , 
+                    description : quizzDescriptionValue , 
+                    tags:tags
+                    };
+        
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
             const response = await api.post('/quizz', newQuizz);
-            console.log(response.data)
+            resetField();
+            return response;
         } catch (err){
             //Erreur affichée dans la console
             console.log(`Error: ${err.message}`);
@@ -86,7 +63,7 @@ const CreateUpdateQuizz = () => {
                     console.log(err.response.status);
                     //Si l'id n'existe pas redirection vers la page Error 404
                     if(err.response.status===404){
-                        navigate('/missing')
+                        //navigate('/missing')
                     }
                 }
             }
@@ -101,10 +78,6 @@ const CreateUpdateQuizz = () => {
     const setQuizzForm = (data) => {
         setQuizzNameValue(data.name)
         setQuizzDescriptionValue(data.description)
-        setquizzDeroulementValue(data.type)
-        if(data.type==="timer"){
-            setquizzTimerValue(data.timer)
-        }
         setTags(data.tags)
         setLoader(true);
     }
@@ -114,20 +87,15 @@ const CreateUpdateQuizz = () => {
         e.preventDefault();
         //Création d'un objet newQuizz dans lequel va être inserer toute les données correspondant au differant champs
         let newQuizz={}
-        if(quizzTimerValue!==''){
-            newQuizz = {name: quizzNameValue ,
-                        description : quizzDescriptionValue ,
-                        type : quizzDeroulementValue,
-                        tags:tags, timer: quizzTimerValue};
-        }else{
-            newQuizz = {name: quizzNameValue ,
-                        description : quizzDescriptionValue , 
-                        type : quizzDeroulementValue, 
-                        tags:tags};
-        }
+
+        newQuizz = {name: quizzNameValue ,
+                    description : quizzDescriptionValue ,
+                    tags:tags,
+                    id:id};
+
         try{
             //Requete patch pour mettre a jour des données existante de la BD
-            const response = await api.patch(`/quizz/${id}`, newQuizz);
+            const response = await api.patch(`/quizz`, newQuizz);
             console.log(response.data)
         } catch (err){
             //Erreur affichée dans la console
@@ -161,26 +129,6 @@ const CreateUpdateQuizz = () => {
                         className={"input_field"}
                         label={"Description du quizz"}
                     />
-                    <InputRadioComp
-                        values={values}
-                        className="radio_field"
-                        legend={"Comment se déroule le quizz :"}
-                        name={"radio_deroulement"}
-                        modalValue={quizzDeroulementValue}
-                        setValue={setquizzDeroulementValue}
-                        erreur={""}
-                    /> 
-                    {quizzDeroulementValue==="timer" &&
-                        <InputComp 
-                            placeholder={"Nombre de seconde"}
-                            setValue={setquizzTimerValue}
-                            modalValue={quizzTimerValue}
-                            inputType={"number"}
-                            required={true}
-                            erreur={""}
-                            className={'timer_field'}
-                        />
-                    }
                     <ItemsForm
                         GlobalDivClassName={'tags_field'}    
                         aBtnClassName={'tags_plus'}

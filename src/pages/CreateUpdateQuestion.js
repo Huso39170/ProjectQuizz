@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import InputRadioComp from '../component/Input/InputRadioComp'
+import InputComp from '../component/Input/InputComp';
 import TextAreaComp from '../component/Input/TextAreaComp'
 import { useNavigate,useParams } from 'react-router-dom';
 import api from '../api/quizz' 
@@ -19,6 +20,14 @@ const CreateUpdateQuestion = () => {
     //Loader pour afficher un chargement si false
     const [loader,setLoader]=useState(false);
 
+    //Initialisation des bornes par defaut pour le type de question echelle
+    const [bornInf,setBornInf]=useState('')
+    const [bornSup,setBornSup]=useState('')
+
+    //Initialisation de la reponse si le type est "Echelle"
+    const [reponseNum,setReponseNum]=useState('')
+
+
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
 
@@ -36,22 +45,78 @@ const CreateUpdateQuestion = () => {
         },
         {
             divClassName:"radio",
-            value :"echelle",
+            value :"qcu",
+            label: "Choix unique"
+
+        },
+        {
+            divClassName:"radio",
+            value :"num",
             label: "Echelle"
         }
     ]
+
+    //Fonction qui complete les champs du formulaire selon les données importées
+    const setQuestionForm = (data) => {
+        setQuestionDescriptionValue(data.libelle)
+        setQuestionTypeValue(data.type)
+        if(data.type==="num"){
+            setBornInf(data.inf);
+            setBornSup(data.sup);
+            setReponseNum(data.reponse);
+        }else{
+            let propositions=[]
+            let correctResponses=[]
+            data.reponses.forEach(element => {
+                propositions.push(element.libelle)
+                if(element.isCorrect===true){
+                    correctResponses.push(element.libelle)
+                    
+                }
+            });
+            console.log(correctResponses)
+            setQuestionReponseValue(correctResponses)
+            setQuestionPropositionValues(propositions)
+        }
+
+        setTags(data.tags)
+        setLoader(true);
+
+    }
+    
+    const resetField=()=>{
+        setQuestionDescriptionValue('');
+        setQuestionReponseValue('');
+        setQuestionTypeValue('');
+        setTags([]);
+        setQuestionPropositionValues([]);
+        setQuestionPropositionTab([]);
+        setBornInf('');
+        setBornSup('');
+        setReponseNum('');
+    }
 
     const handleCreate = async (e)=>{
         //Empeche la page de rafraichir
         e.preventDefault();
         //Creation d'une variable dans laquel est stocké les différentes informations à propos de la question
         let newQuestion={}
-        newQuestion = { libelle : questionDescriptionValue ,
-                        question_type : questionTypeValue, 
-                        reponses: questionPropositionTab,
-                        tags:tags
-        };
-
+        if(questionTypeValue==="num"){
+            newQuestion = { libelle : questionDescriptionValue ,
+                            type : questionTypeValue, 
+                            inf:bornInf,
+                            sup:bornSup,
+                            reponse:reponseNum,
+                            tags:tags
+            };
+        }else{
+            newQuestion = { libelle : questionDescriptionValue ,
+                type : questionTypeValue, 
+                reponses: questionPropositionTab,
+                tags:tags
+            };
+        }
+        resetField();
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
             const response = await api.post('/question', newQuestion);
@@ -62,6 +127,41 @@ const CreateUpdateQuestion = () => {
         }
     }
 
+    //Fonction qui s'execute lorsque l'utilisateur soumet le formulaire de modofication
+    const handleUpdate= async (e) =>{
+        e.preventDefault();
+        //Création d'un objet newQuestion dans lequel va être inserer toute les données correspondant au differant champs
+        let newQuestion={}
+        if(questionTypeValue==="num"){
+            newQuestion = { libelle : questionDescriptionValue ,
+                            type : questionTypeValue, 
+                            inf:bornInf,
+                            sup:bornSup,
+                            reponse:reponseNum,
+                            tags:tags,
+                            id:id
+            };
+        }else{
+            newQuestion = { 
+                libelle : questionDescriptionValue ,
+                type : questionTypeValue, 
+                reponses: questionPropositionTab,
+                tags:tags,
+                id:id
+    
+            };
+        }
+
+
+        try{
+            //Requete patch pour mettre a jour des données existante de la BD
+            const response = await api.patch(`/question`, newQuestion);
+            console.log(response.data)
+        } catch (err){
+            //Erreur affichée dans la console
+            console.log(`Error: ${err.message}`);
+        }
+    }
 
     //Fonction qui s'execute au moment du rendue de la page permet de recuperer les données de la question de l'id correspondant
     useEffect(() => {
@@ -87,46 +187,6 @@ const CreateUpdateQuestion = () => {
         }
     }, [id,navigate])
 
-    //Fonction qui complete les champs du formulaire selon les données importées
-    const setQuestionForm = (data) => {
-        setQuestionDescriptionValue(data.description)
-        setQuestionTypeValue(data.type)
-        let propositions=[]
-        data.reponses.forEach(element => {
-            propositions.push(element.libelle)
-            if(element.isCorrect===true){
-                setQuestionReponseValue(element.libelle)
-            }
-        });
-        setQuestionPropositionValues(propositions)
-        setTags(data.tags)
-        setLoader(true);
-
-    }
-
-
-    //Fonction qui s'execute lorsque l'utilisateur soumet le formulaire de modofication
-    const handleUpdate= async (e) =>{
-        e.preventDefault();
-        //Création d'un objet newQuestion dans lequel va être inserer toute les données correspondant au differant champs
-        let newQuestion={}
-        newQuestion = { 
-            libelle : questionDescriptionValue ,
-            question_type : questionTypeValue, 
-            reponses: questionPropositionTab,
-            tags:tags
-        };
-
-        try{
-            //Requete patch pour mettre a jour des données existante de la BD
-            const response = await api.patch(`/question/${id}`, newQuestion);
-            console.log(response.data)
-        } catch (err){
-            //Erreur affichée dans la console
-            console.log(`Error: ${err.message}`);
-        }
-    }
-
     //UseEffect qui entre en jeux lorsque le tableau des proposition ou la reponse est changé
     //Si le tableau des proposition est vide alors il n'y a pas de reponse possible
     //Créé un objet proposition avec un boolean mis a true si la proposition correspond à la reponse
@@ -137,8 +197,10 @@ const CreateUpdateQuestion = () => {
         let propositionsTab=[]
         questionPropositionValues.forEach(element => {
             let proposition={libelle : element , isCorrect : false}
-            if(element.toString() === questionReponseValue){
-                proposition.isCorrect = true
+            for(let i=0;i<questionReponseValue.length;i++){
+                if(element.toString() === questionReponseValue[i]){
+                    proposition.isCorrect = true
+                }
             }
             propositionsTab.push(proposition);
         });
@@ -146,6 +208,35 @@ const CreateUpdateQuestion = () => {
 
 
     }, [questionPropositionValues,setQuestionReponseValue,questionReponseValue])
+
+    //Empeche les décimale et transforme en integer
+    useEffect(()=>{
+        if(bornInf!==''){
+            setBornInf(parseInt(bornInf));
+        }
+        if(bornSup!==''){
+            setBornSup(parseInt(bornSup));
+        }
+        if(reponseNum!==''){
+            setReponseNum(parseInt(reponseNum));
+        }
+
+    },[bornInf,bornSup,reponseNum])
+
+    //UseEffect qui entre en jeux lorsque les borne sont changé et que le type de question est echelle
+    //On affecte au tableau proposition les valeurs entre la borne inférieur et supérieur 
+    //Ainsi l'utilisateur pourra choisir la bonne reponses dans l'intervalle
+    useEffect(() => {
+        if(questionTypeValue==="num"){
+            if(bornInf!=='' && bornSup!==''){
+                if(bornInf>bornSup){
+                    setBornInf(bornSup-1)
+                }
+            }
+        }
+    }, [bornInf,bornSup,questionTypeValue])
+
+
 
     return (
         <div className='create_update_quizz_form'>
@@ -167,15 +258,38 @@ const CreateUpdateQuestion = () => {
                 <InputRadioComp
                     values={values}
                     className="radio_field"
-                    legend={"type de question :"}
+                    legend={"Type de question :"}
                     name={"radio_type"}
                     modalValue={questionTypeValue}
                     setValue={setQuestionTypeValue}
                     erreur={""}
                 /> 
 
+                {questionTypeValue==="num"&&
+                <div className='born_field'>
+                    <InputComp
+                        placeholder={"Borne inferieur"}
+                        setValue={setBornInf}
+                        modalValue={bornInf}
+                        inputType={"number"}
+                        required={true}
+                        erreur={""}
+                        className={'input_field'}
+                        label={"Borne inferieur et superieur"}
+                    />
+                    <InputComp
+                        placeholder={"Borne superieur"}
+                        setValue={setBornSup}
+                        modalValue={bornSup}
+                        inputType={"number"}
+                        required={true}
+                        erreur={""}
+                        className={'input_field'}
+                    />
+                </div>
+                }
 
-                <ItemsForm
+                {(questionTypeValue==="qcm" ||questionTypeValue==="qcu")&&<ItemsForm
                     GlobalDivClassName={'tags_field'}    
                     aBtnClassName={'tags_plus'}
                     btnClassName={'tags_button_plus'}
@@ -183,9 +297,9 @@ const CreateUpdateQuestion = () => {
                     items={questionPropositionValues}
                     setItems={setQuestionPropositionValues}
                     itemNames={"Propositions"}
-                />
+                />}
 
-                {questionPropositionValues.length>0&&<InputSelectComp
+                {(questionPropositionValues.length>0&&(questionTypeValue==="qcm" ||questionTypeValue==="qcu"))&&<InputSelectComp
                     options={questionPropositionValues}
                     className={'input_field'}
                     legend={"Reponse(s) à la question"}
@@ -194,9 +308,22 @@ const CreateUpdateQuestion = () => {
                     erreur={""}
                     value={questionReponseValue}
                     selectId={"reponse_select_id"}
+                    question_type={questionTypeValue}
                 />}
 
-
+                {(questionTypeValue==="num"&&
+                    bornInf!==''&& bornSup!=='')&&
+                    <InputComp
+                    placeholder={"Saisir la bonne reponse ..."}
+                    setValue={setReponseNum}
+                    modalValue={reponseNum}
+                    inputType={"number"}
+                    required={true}
+                    erreur={""}
+                    className={'input_field'}
+                    label={"Reponse à la question"}
+                />
+                }
                 <ItemsForm
                     GlobalDivClassName={'tags_field'}    
                     aBtnClassName={'tags_plus'}

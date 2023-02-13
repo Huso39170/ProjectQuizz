@@ -11,7 +11,7 @@ const Home = () => {
     }
     const[modal,setModal]= useState(false);
     const[isLoginClicked,setIsLoginClicked]=useState(false);
-    const[isUserLoged]=useState(false);
+    const[isUserLoged]=useState(true);
 
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();

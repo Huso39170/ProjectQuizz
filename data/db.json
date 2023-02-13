@@ -1,88 +1,15 @@
 {
   "quizz": [
     {
-      "name": "gfsd",
-      "description": "grsfd",
+      "name": "Quizz Test 1",
+      "description": "Description quizz 1",
       "type": "timer",
-      "id": 2
-    },
-    {
-      "name": "jghf",
-      "description": "yhrte",
-      "type": "timer",
-      "timer": "54",
-      "id": 3
-    },
-    {
-      "name": "popo",
-      "description": "tyhd",
-      "type": "timer",
-      "timer": "85",
-      "id": 4
-    },
-    {
-      "name": "Az",
-      "description": "zaesdr",
-      "type": "timer",
-      "timer": "9",
-      "id": 5
+      "tags": [
+        "OutilsProg"
+      ],
+      "id": 1,
+      "timer": "45"
     }
   ],
-  "question": [
-    {
-      "libelle": "Quelle est la différence entre .... ?",
-      "question_type": "scale",
-      "reponses": 54,
-      "tags": [],
-      "id": 4
-    },
-    {
-      "libelle": "deuxieme questionn",
-      "question_type": "qcm",
-      "reponses": [
-        {
-          "libelle": "Réponse une",
-          "isCorrect": true
-        },
-        {
-          "libelle": "42",
-          "isCorrect": true
-        },
-        {
-          "libelle": "La loutre",
-          "isCorrect": false
-        },
-        {
-          "libelle": "La réponde D",
-          "isCorrect": false
-        }
-      ],
-      "tags": [],
-      "id": 1
-    },
-    {
-      "libelle": "deuxieme questionn",
-      "question_type": "qcu",
-      "reponses": [
-        {
-          "libelle": "Réponse une",
-          "isCorrect": false
-        },
-        {
-          "libelle": "42",
-          "isCorrect": true
-        },
-        {
-          "libelle": "La loutre",
-          "isCorrect": false
-        },
-        {
-          "libelle": "La réponde D",
-          "isCorrect": false
-        }
-      ],
-      "tags": [],
-      "id": 1
-    }
-  ]
+  "question": []
 }
