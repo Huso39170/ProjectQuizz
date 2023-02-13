@@ -19,8 +19,8 @@ html, body, main, #root{
 }
 
 .add_quizz > button {
-  margin: auto auto auto 4.5em;
-  width: 13em;
+  margin: auto auto auto 2em;
+  width: 15em;
   display: block;
   position: relative;
   background-color: white;
@@ -48,9 +48,9 @@ html, body, main, #root{
     color: #646464;
     padding: 0.7rem 1rem;
     border-radius: 10px;
-    width: 75%;
+    width: 78%;
     transition: all ease-in-out .5s;
-    margin-right: 3.5em;
+    margin-right: 2em;
     margin-left: 1em;
   }
   
@@ -66,26 +66,22 @@ html, body, main, #root{
 
   
 /* les quizz */
-
+/*
 .quizz_display, ul{
   height: auto;
 }
-
-
-
 .quizz_display > li {
-  height: 10%;
-  width: 90%;
+  width: 100%;
 }
-
+*/
 
 .quizz {
   display: flex;
   border-radius: 5px;
   background: 	white;
   margin-top: 15px;
-  margin-left: 3em;
-  margin-right: 3em;
+  margin-left: auto;
+  margin-right: 2em;
 }
 
 .quizz_name {
@@ -101,68 +97,104 @@ html, body, main, #root{
 
 .play_button {
   width: 10%;
-  position: relative;
-  border-radius: 0px;
-  background-color: #6a097d;
-  border: solid 1px #6a097d;
-  text-align: center;
+  //border-radius: 0px;
+  //background-color: #6a097d;
+
+  border: none;
   
+  height: 30px;
+  margin: auto 0px auto 30px;
+  border-radius: 3px;
+  background-color: #eb0909a4;
+  cursor: pointer;
 }
 
 .play_button:hover {
-  background-color: #6a097dc7;
-  border: solid 1px #6a097dc0;
-  cursor: pointer;
+  background-color: #eb09096e;
+}
+
+.FaPlay {
+  width: 40%;
+  height: 40%;
+  color: rgb(255, 255, 255);
+  vertical-align: middle;
 }
 
 .edit_button {
   width: 10%;
-  position: relative;
-  border-radius: 0px;
-  background-color: #c05fa0;
-  border: solid 1px #c05fa0;
-  text-align: center;
+  //border-radius: 0px;
+  //background-color: #6a097d;
+
+  border: none;
   
+  height: 30px;
+  margin: auto 0px auto 30px;
+  border-radius: 3px;
+  background-color: #ff0a0a2c;
+  cursor: pointer;
 }
 
 .edit_button:hover {
-  background-color: #c05fa0d2;
-  border: solid 1px #c05fa0d0;
-  cursor: pointer;
+  background-color: #ff0a0a23;
+}
+
+.FaEdit {
+  width: 40%;
+  height: 40%;
+  color: #ff0a0ab4;
+  vertical-align: middle;
 }
 
 
 
 .stats_button {
   width: 10%;
-  position: relative;
-  border-radius: 0px;
-  background-color: rgba(128, 0, 128, 0.788); 
-  border: solid 1px rgba(128, 0, 128, 0.788); 
-  text-align: center;
+  //border-radius: 0px;
+  //background-color: #6a097d;
+
+  border: none;
   
+  height: 30px;
+  margin: auto 0px auto 30px;
+  border-radius: 3px;
+  background-color: #1cec272c;
+  cursor: pointer;
 }
 
 .stats_button:hover {
-  background-color: rgba(128, 0, 128, 0.637);
-  border: solid 1px rgba(128, 0, 128, 0.637);
-  cursor: pointer;
+  background-color: #1cec261e;
 }
 
-.attach_button {
+.FaStats {
+  width: 40%;
+  height: 40%;
+  color: #1cec26;
+  vertical-align: middle;
+}
+
+.link_button {
   width: 10%;
-  position: relative;
-  border-radius: 0px;
-  background-color: #c05fa0;
-  border: solid 1px #c05fa0;
-  text-align: center;
+  //border-radius: 0px;
+  //background-color: #6a097d;
+
+  border: none;
   
+  height: 30px;
+  margin: auto 10px auto 30px;
+  border-radius: 3px;
+  background-color: #2692eb2c;
+  cursor: pointer;
 }
 
-.attach_button:hover {
-  background-color: #c05fa0d2;
-  border: solid 1px #c05fa0d0;
-  cursor: pointer;
+.link_button:hover {
+  background-color: #2692eb1e;
+}
+
+.FaLink {
+  width: 40%;
+  height: 40%;
+  color: #2692ebfd;
+  vertical-align: middle;
 }
 
 .del_button {
@@ -180,19 +212,12 @@ html, body, main, #root{
   cursor: pointer;
 }
 
-.Fa {
-  width: 40%;
-  height: 40%;
-  color: white;
-  vertical-align: middle;
-}
-
 .FaTrash {
   width: 40%;
   height: 40%;
+  color: #60606063;
   vertical-align: middle;
 }
-
 
 
 
@@ -244,7 +269,7 @@ html, body, main, #root{
   .add_quizz > input[type=text] {
     margin-left: auto;
     margin-right: auto;
-    width: 90%;
+    width: 85%;
   }
 
   .add_button_bis {
@@ -267,85 +292,30 @@ html, body, main, #root{
   /* Affichage des quizz */
   li {
     height: 10%;
-    width: 90%;
+    width: 95%;
   }
   
   
   .quizz {
-    display: flex;
-
-    border-radius: 5px;
-    margin-top: 10px;
-    margin-left: auto;
+    width: 98%;
+    margin-right: 2em;
+    margin-left: -1em;
   }
   
   .quizz_name {
     width: 60%;
-    height: fit-content;
     margin-left: 20px;
     color: #606060;
-    font-weight: lighter;
-    font-family: "Poppins", sans-serif;
   }
   
-  .play_button {
-    width: 15%;
-    position: relative;
-    border-radius: 0px;
-    background-color: #6a097d;
-    border: solid 1px #6a097d;
-    text-align: center;
-    
-  }
-  
-  .play_button:hover {
-    background-color: #6a097dc7;
-    border: solid 1px #6a097dc0;
+  .quizz > button {
+    width: 20%;
+    margin-left: 10px;
   }
 
-  .edit_button {
-    width: 15%;
-    position: relative;
-    border-radius: 0px;
-    background-color: #c05fa0;
-    border: solid 1px #c05fa0;
-    text-align: center;
-    
+  .link_button {
+    margin-right: -10px;
   }
-  
-  .edit_button:hover {
-    background-color: #c05fa0d2;
-    border: solid 1px #c05fa0d0;
-  }
-  
-  .stats_button {
-    width: 15%;
-    position: relative;
-    border-radius: 0px;
-    background-color: rgba(128, 0, 128, 0.788); 
-    border: solid 1px rgba(128, 0, 128, 0.788);
-    text-align: center;
-    
-  }
-  
-  .stats_button:hover {
-    background-color: rgba(128, 0, 128, 0.637);
-    border: solid 1px rgba(128, 0, 128, 0.637);
-  }
-  
-  .del_button {
-    width: 11%;
-    position: relative;
-    background-color: rgba(128, 0, 128, 0);
-    border: solid 1px rgba(128, 0, 128, 0);
-    text-align: center;
-    border-radius: 100px;
-  }
-  
-  .del_button:hover {
-    background-color: rgba(255, 255, 255, 0.507);
-  }
-  
 }
 
 /* Page 'Nouveau quizz | Importer quizz' */
