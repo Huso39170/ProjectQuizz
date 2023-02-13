@@ -107,7 +107,7 @@ useEffect(() => {
                         })}
                     </ul>
                 </div>
-                <button className='add_button_bis'>CRÉER UN QUIZ</button>
+                <button className='add_button_bis' onClick={handleCreateQuizz}>CRÉER UN QUIZ</button>
             </>
             
         ) : (

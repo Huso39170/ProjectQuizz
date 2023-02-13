@@ -1,5 +1,5 @@
 import React from 'react'
-import "./Header.css"
+import "./Navbar.css"
 import { FaUserAlt } from 'react-icons/fa'
 
 const Navbar = () => {

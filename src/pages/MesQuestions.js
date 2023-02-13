@@ -75,7 +75,7 @@ useEffect(() => {
         setQuestion(param);
     }
 
-    const handlePreviewQuestion = (param) => {
+    const handlePreviewQuestion = (param) => {
         handleQuestion(param);
         setPreview(!preview);
     }
@@ -116,7 +116,7 @@ useEffect(() => {
                         })}
                     </ul>
                 </div>
-                <button className='add_button_bis'>CRÉER UNE QUESTION</button>
+                <button className='add_button_bis' onClick={handleCreateQuestion} >CRÉER UNE QUESTION</button>
             </>
             
         ) : (

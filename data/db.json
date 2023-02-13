@@ -1,12 +1,6 @@
 {
   "quizz": [
     {
-      "name": "fergreg",
-      "description": "grsgrgrgfd",
-      "type": "timer",
-      "id": 1
-    },
-    {
       "name": "gfsd",
       "description": "grsfd",
       "type": "timer",
@@ -36,31 +30,59 @@
   ],
   "question": [
     {
-      "description": "2eme question",
-      "reponse": "",
-      "type": "echelle",
-      "proposition": "",
-      "id": 2,
-      "tags": []
-    },
-    {
-      "description": "erefed",
-      "reponse": "gerfsd",
-      "type": "qcm",
-      "proposition": "ggr;dfd",
-      "id": 3
-    },
-    {
-      "description": "grsfq",
-      "reponse": "gsfqs",
-      "type": "qcm",
-      "proposition": "1;2;3",
-      "tags": [
-        "1",
-        "2",
-        "3"
-      ],
+      "libelle": "Quelle est la différence entre .... ?",
+      "question_type": "scale",
+      "reponses": 54,
+      "tags": [],
       "id": 4
+    },
+    {
+      "libelle": "deuxieme questionn",
+      "question_type": "qcm",
+      "reponses": [
+        {
+          "libelle": "Réponse une",
+          "isCorrect": true
+        },
+        {
+          "libelle": "42",
+          "isCorrect": true
+        },
+        {
+          "libelle": "La loutre",
+          "isCorrect": false
+        },
+        {
+          "libelle": "La réponde D",
+          "isCorrect": false
+        }
+      ],
+      "tags": [],
+      "id": 1
+    },
+    {
+      "libelle": "deuxieme questionn",
+      "question_type": "qcu",
+      "reponses": [
+        {
+          "libelle": "Réponse une",
+          "isCorrect": false
+        },
+        {
+          "libelle": "42",
+          "isCorrect": true
+        },
+        {
+          "libelle": "La loutre",
+          "isCorrect": false
+        },
+        {
+          "libelle": "La réponde D",
+          "isCorrect": false
+        }
+      ],
+      "tags": [],
+      "id": 1
     }
   ]
 }
