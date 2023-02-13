@@ -11,6 +11,7 @@ const QuizzEtQuestion = () => {
     //Initialisation 
     const [quizzNameValue, setQuizzNameValue] = useState('')
     const [quizzQuestions,setQuizzQuestions]=useState([])
+    const [loader,setLoader]=useState(false)
     
     //Utilisation de la fonction useNavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
@@ -40,6 +41,7 @@ const QuizzEtQuestion = () => {
     //Fonction qui initialise quizzNameValue
     const setQuizzData = (data) => {
         setQuizzNameValue(data.name)
+        setLoader(true)
     }
 
 
@@ -53,34 +55,35 @@ const QuizzEtQuestion = () => {
     
 
     return (
-        <div>
-            <div className='title_attached_button'>
-                <h2>{quizzNameValue}</h2>
-                <input type="button"  value='AJOUTER UNE QUESTION' onClick={toggleModal}/>
-            </div>
-            
-            <hr />
+        <>
+            {loader===true?(<div>
+                <div className='title_attached_button'>
+                    <h2>{quizzNameValue}</h2>
+                    <input type="button"  value='AJOUTER UNE QUESTION' onClick={toggleModal}/>
+                </div>
+                
+                <hr />
 
-            <ul className='questions_list'>
-                {quizzQuestions.map((question,index) => 
-                    <li className='question' key={index}>
-                        <p className='question_name'>{question.libelle}</p>
-                        <button className='play_button' title='Voir'> <VscInspect className='Fa' alt='watch button' /> </button>
-                        <button className='edit_button' title='Modifier' onClick={()=>{}}> <FaEdit className='Fa' alt='edit button'/> </button>
-                        <button className='del_button' title='Supprimer' onClick={()=>{}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
-                    </li>
-                )}
-            </ul>
-            <ModalImportQuestion 
-                modal={modal} 
-                toggleModal={toggleModal}
-                setQuestions={setQuizzQuestions}
-                attachedQuestion={quizzQuestions}
-            />
-
-            
-
-        </div>
+                <ul className='questions_list'>
+                    {quizzQuestions.map((question,index) => 
+                        <li className='question' key={index}>
+                            <p className='question_name'>{question.libelle}</p>
+                            <button className='play_button' title='Voir'> <VscInspect className='Fa' alt='watch button' /> </button>
+                            <button className='edit_button' title='Modifier' onClick={()=>{}}> <FaEdit className='Fa' alt='edit button'/> </button>
+                            <button className='del_button' title='Supprimer' onClick={()=>{}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
+                        </li>
+                    )}
+                </ul>
+                <ModalImportQuestion 
+                    modal={modal} 
+                    toggleModal={toggleModal}
+                    setQuestions={setQuizzQuestions}
+                    attachedQuestion={quizzQuestions}
+                />
+            </div>):(
+                <div className="dot-flashing"></div>
+            )}
+        </>
     )
 }
 

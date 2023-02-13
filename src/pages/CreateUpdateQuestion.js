@@ -239,109 +239,110 @@ const CreateUpdateQuestion = () => {
 
 
     return (
-        <div className='create_update_quizz_form'>
-            {id === undefined  && <h2>Creation de la question</h2>}
-            {id !== undefined && <h2>Modification de la question</h2>}
-        
-            {
-            loader===true?(<form onSubmit={(e) => e.preventDefault()}>
+        <>
+            {loader===true?(<div className='create_update_quizz_form'>
+                {id === undefined  && <h2>Creation de la question</h2>}
+                {id !== undefined && <h2>Modification de la question</h2>}
+            
+               <form onSubmit={(e) => e.preventDefault()}>
 
-                <TextAreaComp 
-                    placeholder={"Description de la question..."}
-                    setValue={setQuestionDescriptionValue}
-                    modalValue={questionDescriptionValue}
-                    required={true}
-                    erreur={""}
-                    className={"input_field"}
-                    label={"Description de la question"}
-                />
-                <InputRadioComp
-                    values={values}
-                    className="radio_field"
-                    legend={"Type de question :"}
-                    name={"radio_type"}
-                    modalValue={questionTypeValue}
-                    setValue={setQuestionTypeValue}
-                    erreur={""}
-                /> 
+                    <TextAreaComp 
+                        placeholder={"Description de la question..."}
+                        setValue={setQuestionDescriptionValue}
+                        modalValue={questionDescriptionValue}
+                        required={true}
+                        erreur={""}
+                        className={"input_field"}
+                        label={"Description de la question"}
+                    />
+                    <InputRadioComp
+                        values={values}
+                        className="radio_field"
+                        legend={"Type de question :"}
+                        name={"radio_type"}
+                        modalValue={questionTypeValue}
+                        setValue={setQuestionTypeValue}
+                        erreur={""}
+                    /> 
 
-                {questionTypeValue==="num"&&
-                <div className='born_field'>
-                    <InputComp
-                        placeholder={"Borne inferieur"}
-                        setValue={setBornInf}
-                        modalValue={bornInf}
+                    {questionTypeValue==="num"&&
+                    <div className='born_field'>
+                        <InputComp
+                            placeholder={"Borne inferieur"}
+                            setValue={setBornInf}
+                            modalValue={bornInf}
+                            inputType={"number"}
+                            required={true}
+                            erreur={""}
+                            className={'input_field'}
+                            label={"Borne inferieur et superieur"}
+                        />
+                        <InputComp
+                            placeholder={"Borne superieur"}
+                            setValue={setBornSup}
+                            modalValue={bornSup}
+                            inputType={"number"}
+                            required={true}
+                            erreur={""}
+                            className={'input_field'}
+                        />
+                    </div>
+                    }
+
+                    {(questionTypeValue==="qcm" ||questionTypeValue==="qcu")&&<ItemsForm
+                        GlobalDivClassName={'tags_field'}    
+                        aBtnClassName={'tags_plus'}
+                        btnClassName={'tags_button_plus'}
+                        itemsClassName={'tags_name'}
+                        items={questionPropositionValues}
+                        setItems={setQuestionPropositionValues}
+                        itemNames={"Propositions"}
+                    />}
+
+                    {(questionPropositionValues.length>0&&(questionTypeValue==="qcm" ||questionTypeValue==="qcu"))&&<InputSelectComp
+                        options={questionPropositionValues}
+                        className={'input_field'}
+                        legend={"Reponse(s) à la question"}
+                        setValue={setQuestionReponseValue}
+                        selectName={"reponse_select"}
+                        erreur={""}
+                        value={questionReponseValue}
+                        selectId={"reponse_select_id"}
+                        question_type={questionTypeValue}
+                    />}
+
+                    {(questionTypeValue==="num"&&
+                        bornInf!==''&& bornSup!=='')&&
+                        <InputComp
+                        placeholder={"Saisir la bonne reponse ..."}
+                        setValue={setReponseNum}
+                        modalValue={reponseNum}
                         inputType={"number"}
                         required={true}
                         erreur={""}
                         className={'input_field'}
-                        label={"Borne inferieur et superieur"}
+                        label={"Reponse à la question"}
                     />
-                    <InputComp
-                        placeholder={"Borne superieur"}
-                        setValue={setBornSup}
-                        modalValue={bornSup}
-                        inputType={"number"}
-                        required={true}
-                        erreur={""}
-                        className={'input_field'}
+                    }
+                    <ItemsForm
+                        GlobalDivClassName={'tags_field'}    
+                        aBtnClassName={'tags_plus'}
+                        btnClassName={'tags_button_plus'}
+                        itemsClassName={'tags_name'}
+                        items={tags}
+                        setItems={setTags}
+                        itemNames={"Tags"}
                     />
-                </div>
-                }
-
-                {(questionTypeValue==="qcm" ||questionTypeValue==="qcu")&&<ItemsForm
-                    GlobalDivClassName={'tags_field'}    
-                    aBtnClassName={'tags_plus'}
-                    btnClassName={'tags_button_plus'}
-                    itemsClassName={'tags_name'}
-                    items={questionPropositionValues}
-                    setItems={setQuestionPropositionValues}
-                    itemNames={"Propositions"}
-                />}
-
-                {(questionPropositionValues.length>0&&(questionTypeValue==="qcm" ||questionTypeValue==="qcu"))&&<InputSelectComp
-                    options={questionPropositionValues}
-                    className={'input_field'}
-                    legend={"Reponse(s) à la question"}
-                    setValue={setQuestionReponseValue}
-                    selectName={"reponse_select"}
-                    erreur={""}
-                    value={questionReponseValue}
-                    selectId={"reponse_select_id"}
-                    question_type={questionTypeValue}
-                />}
-
-                {(questionTypeValue==="num"&&
-                    bornInf!==''&& bornSup!=='')&&
-                    <InputComp
-                    placeholder={"Saisir la bonne reponse ..."}
-                    setValue={setReponseNum}
-                    modalValue={reponseNum}
-                    inputType={"number"}
-                    required={true}
-                    erreur={""}
-                    className={'input_field'}
-                    label={"Reponse à la question"}
-                />
-                }
-                <ItemsForm
-                    GlobalDivClassName={'tags_field'}    
-                    aBtnClassName={'tags_plus'}
-                    btnClassName={'tags_button_plus'}
-                    itemsClassName={'tags_name'}
-                    items={tags}
-                    setItems={setTags}
-                    itemNames={"Tags"}
-                />
-            </form>):
+                </form>
+                
+                {id === undefined && loader===true  && <input type="submit" value="Créer" onClick={handleCreate}/>}
+                {id !== undefined && loader===true  && <input type="submit" value="Modifier" onClick={handleUpdate}/>}
+                
+                
+            </div>):(
                 <div className="dot-flashing"></div>
-            }
-            
-            {id === undefined && loader===true  && <input type="submit" value="Créer" onClick={handleCreate}/>}
-            {id !== undefined && loader===true  && <input type="submit" value="Modifier" onClick={handleUpdate}/>}
-            
-            
-        </div>
+            )}
+        </>
     )
 }
 

@@ -105,11 +105,12 @@ const CreateUpdateQuizz = () => {
     
 
     return (
-            <div className='create_update_quizz_form'>
+        <>
+            {loader===true?(<div className='create_update_quizz_form'>
                     {id === undefined  && <h2>Creation du quizz</h2>}
                     {id !== undefined && <h2>Modification du quizz</h2>}
                 
-                   {loader===true? (<form onSubmit={(e) => e.preventDefault()}>
+                    <form onSubmit={(e) => e.preventDefault()}>
                     <InputComp 
                         placeholder={"Nom du quizz"}
                         setValue={setQuizzNameValue}
@@ -139,15 +140,15 @@ const CreateUpdateQuizz = () => {
                         itemNames={"Tags"}
                     />
                     
-                    </form>):
-                    (
-                        <div className="dot-flashing"></div>
-                    )}
+                    </form>
                     
-                    {id === undefined  && loader===true &&<input type="submit" value="Créer" onClick={handleCreate}/>}
-                    {id !== undefined && loader===true && <input type="submit" value="Modifier" onClick={handleUpdate}/>}
+                    {id === undefined &&<input type="submit" value="Créer" onClick={handleCreate}/>}
+                    {id !== undefined && <input type="submit" value="Modifier" onClick={handleUpdate}/>}
                     
-            </div>
+            </div>):(
+                <div className="dot-flashing"></div>
+            )}
+        </>
     )
 }
 
