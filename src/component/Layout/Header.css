@@ -46,8 +46,7 @@
 }
 
 .nav > .nav-links > a:hover {
-  scale: 1.1;
-  transition: 0.2s;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .nav > #nav-check {
