@@ -36,12 +36,13 @@
 }
 
 .question {
-    border: solid 1px;
+
     display: flex;
     border-radius: 10px;
     margin-bottom: 15px;
     margin-left: 3em;
     margin-right: 3em;
+    background:white;
 }
 
 .question_name {

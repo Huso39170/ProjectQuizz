@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './ModalSubLog.css'
 import InputComp from '../Input/InputComp'
-
+import api from '../../api/quizz' 
 
 
 const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
@@ -9,10 +9,13 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
 
 
     const [userNameValue, setUserNameValue] = useState('')
-    const [userEmailValue, setuserEmailValue] = useState('')
+    const [userEmailValue, setUserEmailValue] = useState('')
     const [passwordValue, setPasswordValue] = useState('')
     const [passwordAgainValue, setPasswordAgainValue] = useState('')
     const [SubCode, setSubCode] = useState('')
+
+    const [isLogin,setIsLogin]=useState('');
+
 
     if(modal) {
         document.body.classList.add('active-modal')
@@ -20,17 +23,67 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
         document.body.classList.remove('active-modal')
     }
 
+
+    useEffect(() => {
+        setIsLogin(isLoginClicked)
+    }, [isLoginClicked]);
+
+    //Permet de switcher entre la connexion et l'inscription et empeche la page de rafraichir
+    const switchLog = (e,log)=>{
+        e.preventDefault();
+        setIsLogin(log);
+    }   
+
+    //Met à 0 tout les champs 
     const resetModal =  () =>{
         setUserNameValue('')
-        setuserEmailValue('')
+        setUserEmailValue('')
         setPasswordValue('')
         setPasswordAgainValue('')
         setSubCode('')
     }
 
+    //Fonction pour l'inscription
+    const handleSub = async (e) =>{
+        e.preventDefault();
+        //Création d'un objet newIser dans lequel va être inserer toute les données correspondant au differant champs
+        let newUser={}
+
+        newUser = {email: userEmailValue ,
+                    password : passwordValue };
+
+        try{
+            //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
+            const response = await api.post(`/auth/register`, newUser);
+            console.log(response.data)
+        } catch (err){
+            //Erreur affichée dans la console
+            console.log(err.response.data);
+        }
+    }
+
+        //Fonction pour l'inscription
+        const handleLog = async (e) =>{
+            e.preventDefault();
+            //Création d'un objet newIser dans lequel va être inserer toute les données correspondant au differant champs
+            let user={}
+    
+            user = {email: userEmailValue ,
+                        password : passwordValue };
+    
+            try{
+                //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
+                const response = await api.post(`/auth/login`, user);
+                console.log(response.data)
+            } catch (err){
+                //Erreur affichée dans la console
+                console.log(err.response.data);
+            }
+        }
+
     return (
         <>
-        {modal && isLoginClicked &&(
+        {modal && isLogin &&(
             <div className="modal">
                 <div onClick={()=> {toggleModal();resetModal();}} className="overlay"></div>
                 <div className="modal-content">
@@ -63,16 +116,16 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                             <div className="pass-link"><a href=" ">Mot de passe oublié ?</a></div>
                         </div>
                         <div className="LogSub-field">
-                            <input type="submit" value="Connexion"/>
+                            <input type="submit" value="Connexion" onClick={handleLog}/>
                         </div>
                         <div className="signup-link">
-                            Toujours pas inscrit ? <a href=" ">S'inscrire </a>
+                            Toujours pas inscrit ? <a href=" " onClick={(e)=>{switchLog(e,false)}}>S'inscrire </a>
                         </div>
                     </form>
                 </div>
             </div>
         )}
-        {modal && !isLoginClicked &&(
+        {modal && !isLogin &&(
             <div className="modal">
                 <div onClick={()=> {toggleModal();resetModal();}} className="overlay"></div>
                 <div className="modal-content">
@@ -92,7 +145,7 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                         />
                         <InputComp 
                             placeholder={"Email "}
-                            setValue={setuserEmailValue}
+                            setValue={setUserEmailValue}
                             inputType={"email"}
                             modalValue={userEmailValue}
                             required={true}
@@ -128,10 +181,10 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                         />
 
                         <div className="LogSub-field">
-                            <input type="submit" value="Inscription"/>
+                            <input type="submit" value="Inscription" onClick={handleSub}/>
                         </div>
                         <div className="signup-link">
-                            Vous possédez déja un compte ? <a href=" ">Connexion </a>
+                            Vous possédez déja un compte ? <a href=" " onClick={(e)=>{switchLog(e,true)}}>Connexion </a>
                         </div>
                     </form>
                 </div>

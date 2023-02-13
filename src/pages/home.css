@@ -10,65 +10,12 @@
 
 
 /*-------Bar de navigation---------*/
-.navbar{
-    height: 50px;
-    display: flex;
-    align-items: center;
-    width:100%;
-    
-}
 
 .home_page_pt1 h2 {
     color: white;
     font-family: "Poppins", sans-serif;
     margin-left: 10px;
     width: 100px;
-}
-
-
-.home_page_pt1 .login_button{
-    margin-left: auto;
-    padding:0.5em 3em;
-    border:0.16em solid #FFFFFF;
-    margin-right: 10px;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    color:#FFFFFF;
-    text-align:center;
-    transition: all 0.15s;
-}
-
-.home_page_pt1 .login_button:hover{
-    color:#DDDDDD;
-    border-color:#DDDDDD;
-}
-
-.home_page_pt1 .login_button:active{
-    color:#BBBBBB;
-    border-color:#BBBBBB;
-}
-
-
-.home_page_pt1 .MesQuizz_button{
-    margin-left: auto;
-    padding:0.5em 1em;
-    text-decoration:none;
-    font-size: 20px;
-    font-family:'Roboto',sans-serif;
-    color:#FFFFFF;
-    text-align:center;
-    transition: all 0.15s;
-}
-
-.home_page_pt1 .MesQuizz_button:hover{
-    color:#DDDDDD;
-    border-color:#DDDDDD;
-}
-
-.home_page_pt1 .MesQuizz_button:active{
-    color:#BBBBBB;
-    border-color:#BBBBBB;
 }
 
 /*-------------------------------------------------*/

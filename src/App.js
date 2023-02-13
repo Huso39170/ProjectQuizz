@@ -8,6 +8,7 @@ import { Route,Routes } from 'react-router-dom';
 import './App.css';
 import MesQuizz from './pages/MesQuizz'
 import MesQuestions from './pages/MesQuestions'
+import MonCompte from './pages/MonCompte';
 
 function App() {
     return (
@@ -22,6 +23,7 @@ function App() {
 				<Route path="mesquizz/question/creer" element={<CreateUpdateQuestion/>}/>
 				<Route path="mesquizz/question/modifier/:id" element={<CreateUpdateQuestion/>}/>
 				<Route path="mesquizz/quizz/:id" element={<QuizzEtQuestion/>}/>
+				<Route path="moncompte" element={<MonCompte/>}/>
 				<Route path="*" element={<Missing/>} />
 			</Route>
 		</Routes>

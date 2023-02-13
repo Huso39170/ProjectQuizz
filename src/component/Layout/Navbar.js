@@ -2,7 +2,7 @@ import React,{useRef,useEffect, useState} from 'react'
 import "./Header.css"
 import {useNavigate} from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({isUserLoged,toggleModal}) => {
 	const [scrollable,setScrollable]=useState(true);
 
 	const uncheckInputRef = useRef();
@@ -39,8 +39,13 @@ const Navbar = () => {
 				</div>
 
 				<div className="nav-links" onClick={uncheckInput}>
-					<a href=" " onClick={e=> {e.preventDefault();navigate("/mesquizz") }} className="MesQuizz_button">Mes Quizzs</a>
-					<a href=" " onClick={e=> {e.preventDefault();navigate("/mesquizz/question") }} className="MesQuizz_button">Mes Questions</a>
+					{isUserLoged?(<>
+						<a href=" " onClick={e=> {e.preventDefault();navigate("/mesquizz") }} >Mes Quizzs</a>
+						<a href=" " onClick={e=> {e.preventDefault();navigate("/mesquizz/question") }} >Mes Questions</a>
+						<a href=" " onClick={e=> {e.preventDefault();navigate("/moncompte ") }}>Mon Compte</a>
+					</>):(
+						<a href=" " onClick={e=> {e.preventDefault(); toggleModal(true)}}>Connexion</a>
+					)}
 				</div>
 			</div>
 	)
