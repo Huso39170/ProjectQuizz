@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import './home.css'
 import ModalSubLog from '../component/Modal/ModalSubLog'
 import {useNavigate} from 'react-router-dom';
+import Navbar from '../component/Layout/Navbar';
 
 const Home = () => {
     //Fonction qui gere la soumission du formulaire
@@ -11,7 +12,7 @@ const Home = () => {
     }
     const[modal,setModal]= useState(false);
     const[isLoginClicked,setIsLoginClicked]=useState(false);
-    const[isUserLoged]=useState(true);
+    const[isUserLoged]=useState(false);
 
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
@@ -33,14 +34,7 @@ const Home = () => {
     return (
         <main className='home'>
             <div className='home_page_pt1'>
-                <header className='navbar'>
-                    <h2>Quizzeo</h2>
-                    {isUserLoged===false?(
-                        <a href=" " onClick={e=> {e.preventDefault(); toggleModal(true)}} className="login_button">Connexion</a>
-                        ):
-                        <a href=" " onClick={e=> {e.preventDefault();navigate("/mesquizz") }} className="MesQuizz_button">MesQuizz</a>
-                    }
-                </header>
+                <Navbar isUserLoged={isUserLoged} toggleModal={toggleModal}/>
                 <section className='presentation'>
                     <h1>Créer rapidement et gratuitement votre quiz interactif en ligne</h1>
                 </section>

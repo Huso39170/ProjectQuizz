@@ -8,7 +8,7 @@ const Layout = () => {
     const location = useLocation();
     return (
         <>
-            {location.pathname!=="/" && <Navbar/>}
+            {location.pathname!=="/" && <Navbar isUserLoged={true}/>}
             <div id="App">
                 <Outlet />
             </div>

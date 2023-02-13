@@ -1,45 +1,14 @@
 
-/* Header */
-
-/*.header {
-    height: 55px; 
-    display: flex;
-    align-items: center;
-    width:100%;
-    background-color: #556BFA;
-    
-}
-
-.header > h2 {
-    font-family: "Poppins", sans-serif;
-    margin-left: 10px;
-    color: #fff;
-}
-
-.header_account {
-    width: 25px;
-    height: 25px;
-    margin-left: auto;
-    margin-right: 10px;
-    padding: 3px;
-
-}
-
-.header_account:hover {
-    opacity: 45%;
-}*/
-
-
-
 
 .nav {
     height: 50px;
     width: 100%;
-    background-color:  #556BFA;
+    background-color:  #F76059;
     position: relative;
     box-sizing: border-box;
     margin: 0px;
-    font-family: 'segoe ui';
+    font-family: "Poppins", sans-serif;
+    
     
 }
 
@@ -52,6 +21,7 @@
   font-size: 22px;
   color: #fff;
   padding: 10px 10px 10px 10px;
+  font-weight: bold;
 }
 
 .nav-title:hover{
@@ -76,7 +46,8 @@
 }
 
 .nav > .nav-links > a:hover {
-  background-color: rgba(0, 0, 0, 0.3);
+  scale: 1.1;
+  transition: 0.2s;
 }
 
 .nav > #nav-check {
@@ -109,7 +80,7 @@
     display: block;
     width: 100%;
     z-index: 1;
-    background-color:  #556BFA;
+    background-color:  #F76059;
     height: 0px;
     transition: all 0.3s ease-in;
     overflow: hidden;
@@ -119,6 +90,8 @@
   .nav > .nav-links > a {
     display: block;
     width: 100%;
+    text-align: center;
+
   }
   .nav > #nav-check:not(:checked) ~ .nav-links {
     height: 0px;
