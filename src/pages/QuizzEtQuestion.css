@@ -2,34 +2,42 @@
 
 .title_attached_button {
     display: flex;
+    background: white;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 16px;
+    border-radius: 10px;
+    display: inline-block;
+    text-align: center;
 }
 
 .title_attached_button > h2 {
     font-size: 2em;
-    margin-left: 3em;
+
 }
 
 .title_attached_button > input {
-    margin: auto 2em auto auto;
-    width: 16em;
-    display: block;
-    position: relative;
-    background-color: #f7615900;
-    border: solid 1px black;
-    border-radius: 5px;
-    background-repeat: no-repeat;
-    box-sizing: border-box;
-    height: 49px;
-    color: black;
-    font-size: 20px;
+    background-color: #F76059;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width :50%;
+    margin-top: 16px;
+    margin-bottom: 32px;
     transition: all .3s ease-in-out;
-    overflow: hidden;
   
   }
 
 .title_attached_button > input:hover {
-    background-color:#ce5e58d7;
+    background-color:#e35747;
 }
+
+.title_attached_button > input:active {
+    background-color:#e35747;
+}
+  
   
 .questions_list {
     height: 100%;
@@ -55,7 +63,7 @@
 
 hr {
     border: none;
-    border-bottom: solid 1px black;
+
     margin-bottom: 30px;
     margin-top: 0px;
     opacity: 40%;
