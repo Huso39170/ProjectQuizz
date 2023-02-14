@@ -222,7 +222,7 @@ html, body, main, #root{
 
 
 
-/****/
+/* Responsive Liste des quiz */
 
 @media all and (max-width: 640px) {
   .content_main {
@@ -305,17 +305,13 @@ html, body, main, #root{
   }
 }
 
-/* Page 'Nouveau quizz | Importer quizz' */
-
-.creation_hidden {
-  display: none;
-}
+/******* Page 'Nouveau quizz | Importer quizz' */
 
 .creation {  
   width: 100%;
-  height: 100%;
+  height: 118%;
   position: absolute;
-  top: 0px;
+  top: -66px;
   right: 0;
   background-color: white;
   z-index: 1;
@@ -323,12 +319,7 @@ html, body, main, #root{
 
 .creation_quizz {
   text-align: center;
-  margin-top: 30vh; /* poussé de la moitié de hauteur de viewport */
-}
-
-.icons {
-  width: 200px;
-  height: 200px;
+  margin-top: 100px;
 }
 
 .cross_creation_quizz {
@@ -349,13 +340,101 @@ html, body, main, #root{
 
 }
 
-h2 {
+.creation > h2 {
+  font-family: "Poppins", sans-serif;
+  margin-top: 100px;
+  text-align: center;
+}
+
+.creation > p {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  color: #606060e0;
+}
+
+.creation_quizz > section {
+  display: inline-block;
+  margin: 15px;
+  transition: transform 0.2s ease-in-out;
+  transform: translateY(0px);
+  cursor: pointer;
+}
+
+.creation_quizz > section:hover {
+  color: #556bfa;
+  transform: translateY(-5px);
+  transition: .3s;
+}
+
+.creation_quizz > section > h3 {
   font-family: "Poppins", sans-serif;
 }
 
-.new_import {
-  display: inline-block;
+.creation_quizz > section > p {
+  font-family: "Poppins", sans-serif;
+  max-width: 150px;
+  margin: auto;
+  line-height: 1.15;
+  color: #606060e0;
+  font-size: 15px;
 }
+
+.creation_quizz > section > button {
+  width: 200px;
+  height: 200px;
+  background-color: #556bfa50;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.creation_quizz > section:hover > button {
+  border: solid 1px #2839a7a9;
+}
+
+
+.icons {
+  width: 150px;
+  height: 150px;
+  color: #2839a7a9;
+}
+
+/* Reponsive page Nouveau quiz / Importer quiz */
+
+@media all and (max-width: 640px) {
+  .creation_quizz {
+    display: grid;
+  }
+
+  .creation_quizz > section {
+    width: 90%;
+    background-color: #60606018;
+    border-radius: 5px;
+  }
+
+  .creation_quizz > section > button {
+    float: left;
+    height: 100%;
+    width: 45%;
+  }
+
+  .creation_quizz > section > h3 {
+    margin-top: 10%;
+    font-size: 15px;
+  }
+
+  .creation_quizz > section > p {
+    position: relative;
+    max-width: none;
+    font-size: 12px;
+  }
+
+  .icons {
+    width: 80%;
+    height: 80%;
+  }
+}
+
 
 
 

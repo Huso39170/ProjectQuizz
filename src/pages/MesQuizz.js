@@ -132,21 +132,29 @@ useEffect(() => {
                 
                 
             )}
-
-            <div className={createQuizz ? 'creation' : 'creation_hidden'}>
+            {createQuizz ? 
+            <div className='creation'>
+                
                 <ImCross className='cross_creation_quizz' role='button' onClick={handleCreateQuizz}/>
+                <h2>Créer un Quiz</h2>
+                <p>Créez ou importez un quiz</p>
                 <div className='creation_quizz'>
-                    <h2>Créer ou importer un quiz</h2>
-                    <section className='new_import'>
+                    
+                    <section>
                     <button><AiOutlineFileAdd className='icons' onClick={()=>{navigate("/mesquizz/creer")}}/></button>
-                    <p>Nouveau Quiz</p>
+                    <h3>Nouveau Quiz</h3>
+                    <p>Vous souhaitez partir de zéro</p>
                     </section>
-                    <section className='new_import'>
+                    <section>
                     <button><BsFillFileEarmarkArrowUpFill className='icons'/></button>
-                    <p>Importer un Quiz</p>
+                    <h3>Importer un Quiz</h3>
+                    <p>Reprendre un quiz existant</p>
                     </section>
                 </div>
             </div>
+            : ""
+            }
+            
             
             <ModalSessionParameter
                 modal={modal} 
