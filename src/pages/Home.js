@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, { useState} from 'react'
 import './home.css'
 import ModalSubLog from '../component/Modal/ModalSubLog'
-import {useNavigate} from 'react-router-dom';
+
 import Navbar from '../component/Layout/Navbar';
 
-const Home = () => {
+const Home = ({isUserLoged}) => {
     //Fonction qui gere la soumission du formulaire
     const handleSubmit = (e) => {
         //Empeche la page de se rafraichir lorsque l'on soumet un formulaire
@@ -12,10 +12,8 @@ const Home = () => {
     }
     const[modal,setModal]= useState(false);
     const[isLoginClicked,setIsLoginClicked]=useState(false);
-    const[isUserLoged]=useState(false);
 
-    //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
-    const navigate = useNavigate();
+
 
 
 
@@ -29,6 +27,8 @@ const Home = () => {
         //Passe false si le bouton inscription est cliqué
         setIsLoginClicked(login);
     }
+
+
 
 
     return (

@@ -1,21 +1,70 @@
 import React from 'react'
 import './ModalPreviewQuestion.css'
 import { ImCross } from 'react-icons/im';
-import { useState } from 'react'
 
 
-const ModalPreviewQuestion = (props) => {
 
-    const [rangeValue, setRangeValue] = useState(props.Question.reponses);
-
+const ModalPreviewQuestion = ({Question, HandlePreviewQuestion}) => {
     return (
     <div className='modal__preview'>
         <ImCross className='cross_creation_quizz' role='button' onClick={()=>{props.HandlePreviewQuestion()}}/>
         <div className='preview__frame__answer'>
-            <h2>{props.Question.libelle}</h2>
-            <div className='preview__image'>insérer ici si image</div>
+            <h2>{Question.libelle}</h2>
+                <div className='preview__image'>insérer ici si image</div>
+                {Question.type==="num"&&<div className='preview__answer'>
+                        <>
+                            <span>{"55"}</span>
+                            <input 
+                                type="range" 
+                                min="0" max="100" 
+                                step='1'
+                                disabled
+                            />
+                        </> 
+                </div>}
+                {Question.type==="qcm"&&<div className='preview__answer'>
+                    <>{
+                        Question.reponses.map((val,index) =>( 
+                                <section key={index}>
+                                    <input 
+                                        type="checkbox"  
+                                        checked={val.isCorrect ? true : false}
+                                        disabled
+                                    />
+                                    <label>{val.libelle}</label>
+                                </section>
+                            ) 
+                        )
+                    }</>
+                </div>}
+                {Question.type==="qcu"&&<div className='preview__answer'>
+                    <>{ 
+                        Question.reponses.map((question, index) => (
+                            <section key={index}>
+                                <input 
+                                    type="radio" 
+                                    id={question._id} 
+                                    name="qcu"
+                                    checked= {question.isCorrect === true} 
+                                    disabled
+                                />
+                                <label>{question.libelle}</label>
+                            </section>
+                        ))
+
+                    }</>
+                </div>}
+
+        </div>
+    </div>
+  )
+}
+
+export default ModalPreviewQuestion
+/*
+
             <div className='preview__answer'>
-                {props.Question.question_type === 'scale' ? (
+                {Question.question_type === 'num' ? (
                     <>
                         <span>{rangeValue}</span>
                         <input 
@@ -41,9 +90,5 @@ const ModalPreviewQuestion = (props) => {
                 )
                 }
             </div>
-        </div>
-    </div>
-  )
-}
-
-export default ModalPreviewQuestion
+ 
+ */

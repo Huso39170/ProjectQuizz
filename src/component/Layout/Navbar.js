@@ -1,6 +1,7 @@
 import React,{useRef,useEffect, useState} from 'react'
 import "./Header.css"
 import {useNavigate} from 'react-router-dom';
+import api from '../../api/quizz'
 
 const Navbar = ({isUserLoged,toggleModal}) => {
 	const [scrollable,setScrollable]=useState(true);
@@ -10,6 +11,21 @@ const Navbar = ({isUserLoged,toggleModal}) => {
 	const uncheckInput = () =>{	
 		uncheckInputRef.current.checked=false;
 		setScrollable(true);
+	}
+
+	const handleDisconnect = async(e)=>{
+		e.preventDefault();
+		try{
+            //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
+            const response = await api.post(`/auth/logout`);
+			sessionStorage.removeItem('token')
+			localStorage.removeItem('token')
+			console.log(response);
+			window.location.href="/";
+        } catch (err){
+            //Erreur affichée dans la console
+            console.log(err.response.data);
+        }
 	}
 
 	useEffect(() => {
@@ -43,6 +59,8 @@ const Navbar = ({isUserLoged,toggleModal}) => {
 						<a href=" " onClick={e=> {e.preventDefault();navigate("/mesquizz") }} >Mes Quizzs</a>
 						<a href=" " onClick={e=> {e.preventDefault();navigate("/mesquizz/question") }} >Mes Questions</a>
 						<a href=" " onClick={e=> {e.preventDefault();navigate("/moncompte ") }}>Mon Compte</a>
+						<a href=" " onClick={handleDisconnect}>Déconnexion</a>
+
 					</>):(
 						<a href=" " onClick={e=> {e.preventDefault(); toggleModal(true)}}>Connexion</a>
 					)}

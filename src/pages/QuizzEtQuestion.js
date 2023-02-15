@@ -52,6 +52,10 @@ const QuizzEtQuestion = () => {
         setModal(!modal);
     }
 
+    /* Redirection vers la page de modification du quizz */
+    const handleEditQuestion = (id) => {
+        navigate(`/mesquizz/question/modifier/${id}`); 
+    }
     
 
     return (
@@ -69,7 +73,7 @@ const QuizzEtQuestion = () => {
                         <li className='question' key={index}>
                             <p className='question_name'>{question.libelle}</p>
                             <button className='play_button' title='Voir'> <VscInspect className='Fa' alt='watch button' /> </button>
-                            <button className='edit_button' title='Modifier' onClick={()=>{}}> <FaEdit className='Fa' alt='edit button'/> </button>
+                            <button className='edit_button' title='Modifier'onClick={()=>{handleEditQuestion(question._id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
                             <button className='del_button' title='Supprimer' onClick={()=>{}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                         </li>
                     )}

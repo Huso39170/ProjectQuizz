@@ -10,7 +10,7 @@ function MesQuestions() {
 
 const [datas, setDatas] = useState([]);
 const [searchTerm, setSearchTerm] = useState('');
-
+const [loader,setLoader]= useState(false)
 
 //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
 const navigate = useNavigate();
@@ -21,6 +21,7 @@ useEffect(() => {
     try {
       const response = await api.get('/question');
       setDatas(response.data);
+      setLoader(true);
       //console.log(response.data)
     } catch (err) {
         console.log(err.response.status);
@@ -60,6 +61,7 @@ useEffect(() => {
                 const listDatas = datas.filter((item) => item._id !== qst_id);
                 setDatas(listDatas);
 
+
             } catch (err){
                 //Erreur affichée dans la console
                 console.log(`Error: ${err.message}`);
@@ -83,61 +85,66 @@ useEffect(() => {
 
 
     return (
-        <div className='content_main'>
-            {datas.length ? (
-            <>
-                <div className='add_quizz'>
-                    <button onClick={handleCreateQuestion}>CRÉER UNE QUESTION</button>
-                    <input 
-                    type='text'
-                    placeholder='Rechercher...' 
-                    name='searchBar'
-                    onChange={handleSearchTerm}
-                    />
-                </div>
-                
-                
-                    
-                
-                <div className='quizz_display'>
-                    <ul>
-                        {datas
-                            .filter((val) => {
-                            return val.libelle.includes(searchTerm);
-                            })
-                            .map((val,index) => {
-                            return (
-                                <li className='quizz' key={index}>
-                                    <p className='quizz_name'>{val.libelle}</p>
-                                    <button className='play_button' title='Voir'> <VscInspect className='Fa' alt='watch button' /> </button>
-                                    <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuestion(val._id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
-                                    <button className='del_button' title='Supprimer' onClick={()=>{handleDeleteQuestion(val._id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
-                                </li>
-                            )
-                        })}
-                    </ul>
-                </div>
-                <button className='add_button_bis' onClick={handleCreateQuestion} >CRÉER UNE QUESTION</button>
-            </>
-            
-        ) : (
-            
-            <>
-                <p className='empty_quizz'>VOUS N'AVEZ PAS ENCORE DE QUESTION</p>
-                <button  className='add_button_quizz' onClick={handleCreateQuestion}>CRÉER UNE QUESTION</button>
-            </>
-            
-            
-        )}
-        {
-            preview ? <ModalPreview 
-                        Question = {question} 
-                        HandlePreviewQuestion = {handlePreviewQuestion} 
+        <>{loader===true?(
+            <div className='content_main'>
+                {datas.length ? (
+                <>
+                    <div className='add_quizz'>
+                        <button onClick={handleCreateQuestion}>CRÉER UNE QUESTION</button>
+                        <input 
+                        type='text'
+                        placeholder='Rechercher...' 
+                        name='searchBar'
+                        onChange={handleSearchTerm}
                         />
-                    : ''}
-    
-        </div>
+                    </div>
+                    
+                    
+                        
+                    
+                    <div className='quizz_display'>
+                        <ul>
+                            {datas
+                                .filter((val) => {
+                                return val.libelle.includes(searchTerm);
+                                })
+                                .map((val,index) => {
+                                return (
+                                    <li className='quizz' key={index}>
+                                        <p className='quizz_name'>{val.libelle}</p>
+                                        <button className='play_button' title='Voir' onClick={()=>{handlePreviewQuestion(val)}}> <VscInspect className='Fa' alt='watch button' /> </button>
+                                        <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuestion(val._id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
+                                        <button className='del_button' title='Supprimer' onClick={()=>{handleDeleteQuestion(val._id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
+                                    </li>
+                                )
+                            })}
+                        </ul>
+                    </div>
+                    <button className='add_button_bis' onClick={handleCreateQuestion} >CRÉER UNE QUESTION</button>
+                </>
+                
+            ) : (
+                
+                <>
+                    <p className='empty_quizz'>VOUS N'AVEZ PAS ENCORE DE QUESTION</p>
+                    <button  className='add_button_quizz' onClick={handleCreateQuestion}>CRÉER UNE QUESTION</button>
+                </>
+                
+                
+            )}
+            {
+                preview ? <ModalPreview 
+                            Question = {question} 
+                            HandlePreviewQuestion = {handlePreviewQuestion} 
+                            />
+                        : ''}
+        
+            </div>):(
+                <div  className="dot-flashing"></div>
+            )
+    }</>
     )
+    
 }
 
 export default MesQuestions

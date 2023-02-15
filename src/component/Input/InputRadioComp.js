@@ -15,7 +15,7 @@ const InputRadioComp = ({values,className,legend,modalValue,setValue,name,erreur
                             checked= {modalValue === item.value} 
                             onChange={()=>setValue(item.value)}
                         />
-                        <label>{item.label}</label>
+                        <label>{item.libelle}</label>
                     </div>
                 ))
             }
