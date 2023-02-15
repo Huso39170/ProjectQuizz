@@ -4,18 +4,18 @@ import { ImCross } from 'react-icons/im';
 import { useState } from 'react'
 
 
-const ModalPreviewQuestion = ({Question, HandlePreviewQuestion}) => {
+const ModalPreviewQuestion = (props) => {
 
-    const [rangeValue, setRangeValue] = useState(Question.reponses);
+    const [rangeValue, setRangeValue] = useState(props.Question.reponses);
 
     return (
     <div className='modal__preview'>
-        <ImCross className='cross_creation_quizz' role='button' onClick={()=>{HandlePreviewQuestion()}}/>
+        <ImCross className='cross_creation_quizz' role='button' onClick={()=>{props.HandlePreviewQuestion()}}/>
         <div className='preview__frame__answer'>
-            <h2>{Question.libelle}</h2>
+            <h2>{props.Question.libelle}</h2>
             <div className='preview__image'>insérer ici si image</div>
             <div className='preview__answer'>
-                {Question.question_type === 'scale' ? (
+                {props.Question.question_type === 'scale' ? (
                     <>
                         <span>{rangeValue}</span>
                         <input 
@@ -28,7 +28,7 @@ const ModalPreviewQuestion = ({Question, HandlePreviewQuestion}) => {
                     </> 
                 )
                 : (
-                       Question.reponses.map((val) =>  {
+                       props.Question.reponses.map((val) =>  {
                             return ( 
                         
                                     <section>
