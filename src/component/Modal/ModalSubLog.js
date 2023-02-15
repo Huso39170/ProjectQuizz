@@ -8,14 +8,13 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
    // const [erreurs, setErreurs] = useState([])
 
 
-    const [userNameValue, setUserNameValue] = useState('')
     const [userEmailValue, setUserEmailValue] = useState('')
     const [passwordValue, setPasswordValue] = useState('')
     const [passwordAgainValue, setPasswordAgainValue] = useState('')
     const [SubCode, setSubCode] = useState('')
-
     const [isLogin,setIsLogin]=useState('');
 
+    const [remember,setRemember]=useState(false)
 
     if(modal) {
         document.body.classList.add('active-modal')
@@ -36,7 +35,6 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
 
     //Met à 0 tout les champs 
     const resetModal =  () =>{
-        setUserNameValue('')
         setUserEmailValue('')
         setPasswordValue('')
         setPasswordAgainValue('')
@@ -55,6 +53,7 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
         try{
             //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
             const response = await api.post(`/auth/register`, newUser);
+            setIsLogin(true);
             console.log(response.data)
         } catch (err){
             //Erreur affichée dans la console
@@ -62,24 +61,38 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
         }
     }
 
-        //Fonction pour l'inscription
-        const handleLog = async (e) =>{
-            e.preventDefault();
-            //Création d'un objet newIser dans lequel va être inserer toute les données correspondant au differant champs
-            let user={}
-    
-            user = {email: userEmailValue ,
-                        password : passwordValue };
-    
-            try{
-                //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
-                const response = await api.post(`/auth/login`, user);
-                console.log(response.data)
-            } catch (err){
-                //Erreur affichée dans la console
-                console.log(err.response.data);
-            }
+    //Fonction pour l'inscription
+    const handleLog = async (e) =>{
+        e.preventDefault();
+        //Création d'un objet newIser dans lequel va être inserer toute les données correspondant au differant champs
+        let user={}
+
+        user = {email: userEmailValue ,
+                    password : passwordValue };
+
+        try{
+            //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
+            const response = await api.post(`/auth`, user);
+            stockSession(response.data.accessToken)
+
+        } catch (err){
+            //Erreur affichée dans la console
+            console.log(err.response.data);
         }
+    }
+
+    //permet de stocker le token dans le local storage ou le session storage selon si l'utilisateur à coché rester connecté
+    const stockSession = (token) => {
+        if(remember===false){
+            sessionStorage.setItem('token',token);
+        }else{
+            sessionStorage.setItem('token',token);
+            localStorage.setItem('token',token);
+        }
+        window.location.href="/";
+
+        
+    }
 
     return (
         <>
@@ -94,12 +107,13 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                     <form className='LogSub-form' onSubmit={(e) => e.preventDefault()}>
                         <InputComp 
                             placeholder={"Nom d'utilisateur"}
-                            setValue={setUserNameValue}
-                            modalValue={userNameValue}
+                            setValue={setUserEmailValue}
+                            modalValue={userEmailValue}
                             inputType={"text"}
                             required={true}
                             erreur={""}
                             className={'LogSub-field'}
+                            
                         />
                         <InputComp
                             placeholder={"Mot de passe"}
@@ -110,7 +124,12 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                             erreur={""}
                             className={'LogSub-field'}
                         />
-                        
+                        <input id='souvenir' 
+                            type="checkbox" 
+                            checked={remember} 
+                            onChange={()=>{setRemember(!remember)}}
+                        />
+                        <label htmlFor='souvenir' >Rester connecté?</label>
 
                         <div className="content">
                             <div className="pass-link"><a href=" ">Mot de passe oublié ?</a></div>
@@ -134,15 +153,6 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                         X
                     </button>
                     <form className='LogSub-form' onSubmit={(e) => e.preventDefault()}>
-                        <InputComp 
-                            placeholder={"Nom d'utilisateur "}
-                            setValue={setUserNameValue}
-                            inputType={"text"}
-                            modalValue={userNameValue}
-                            required={true}
-                            erreur={""}
-                            className={'LogSub-field'}
-                        />
                         <InputComp 
                             placeholder={"Email "}
                             setValue={setUserEmailValue}

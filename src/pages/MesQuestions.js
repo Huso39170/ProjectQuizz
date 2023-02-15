@@ -112,7 +112,7 @@ useEffect(() => {
                                 return (
                                     <li className='quizz' key={index}>
                                         <p className='quizz_name'>{val.libelle}</p>
-                                        <button className='play_button' title='Voir'> <VscInspect className='Fa' alt='watch button' /> </button>
+                                        <button className='play_button' title='Voir' onClick={()=>{handlePreviewQuestion(val)}}> <VscInspect className='Fa' alt='watch button' /> </button>
                                         <button className='edit_button' title='Modifier' onClick={()=>{handleEditQuestion(val._id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
                                         <button className='del_button' title='Supprimer' onClick={()=>{handleDeleteQuestion(val._id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                                     </li>

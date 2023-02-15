@@ -40,19 +40,19 @@ const CreateUpdateQuestion = () => {
         {
             divClassName:"radio",
             value :"qcm",
-            label: "Choix multiple"
+            libelle: "Choix multiple"
 
         },
         {
             divClassName:"radio",
             value :"qcu",
-            label: "Choix unique"
+            libelle: "Choix unique"
 
         },
         {
             divClassName:"radio",
             value :"num",
-            label: "Echelle"
+            libelle: "Echelle"
         }
     ]
 
