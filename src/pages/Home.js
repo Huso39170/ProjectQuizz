@@ -1,14 +1,20 @@
 import React, { useState} from 'react'
 import './home.css'
 import ModalSubLog from '../component/Modal/ModalSubLog'
+import useRefreshToken from '../hooks/useRefreshToken';
 
 import Navbar from '../component/Layout/Navbar';
 
 const Home = ({isUserLoged}) => {
+
+    const refresh=useRefreshToken()
+
     //Fonction qui gere la soumission du formulaire
     const handleSubmit = (e) => {
         //Empeche la page de se rafraichir lorsque l'on soumet un formulaire
         e.preventDefault();
+        refresh();
+
     }
     const[modal,setModal]= useState(false);
     const[isLoginClicked,setIsLoginClicked]=useState(false);
@@ -71,7 +77,7 @@ const Home = ({isUserLoged}) => {
                     </h2>
                     <form className='join_form' onSubmit={handleSubmit}>
                         <input className='join_text' placeholder='Entrez le code' type="text" name="name" />
-                        <input className='join_submit' type="submit" value="Submit" />
+                        <input className='join_submit' type="submit" value="Submit" onClick={handleSubmit} />
                     </form>
                 </section>
             </div>

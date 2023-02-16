@@ -2,12 +2,16 @@ import React, {useEffect, useState} from 'react'
 import './ModalSubLog.css'
 import InputComp from '../Input/InputComp'
 import api from '../../api/quizz' 
-
+import useAuth from '../../hooks/useAuth'
 
 const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
    // const [erreurs, setErreurs] = useState([])
 
+   //Initialisation du context auth pour l'authentification
+    const { setAuth } = useAuth();
 
+
+    //Initialisation des champs
     const [userEmailValue, setUserEmailValue] = useState('')
     const [passwordValue, setPasswordValue] = useState('')
     const [passwordAgainValue, setPasswordAgainValue] = useState('')
@@ -65,34 +69,35 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
     const handleLog = async (e) =>{
         e.preventDefault();
         //Création d'un objet newIser dans lequel va être inserer toute les données correspondant au differant champs
-        let user={}
+        let userInfo={}
 
-        user = {email: userEmailValue ,
+        userInfo = {email: userEmailValue ,
                     password : passwordValue };
 
         try{
             //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
-            const response = await api.post(`/auth`, user);
-            stockSession(response.data.accessToken)
-
+            const response = await api.post(`/auth`, 
+                userInfo,
+                {
+                    withCredentials: true 
+                }
+            );
+            StockToken(response.data)
         } catch (err){
             //Erreur affichée dans la console
             console.log(err.response.data);
         }
     }
 
-    //permet de stocker le token dans le local storage ou le session storage selon si l'utilisateur à coché rester connecté
-    const stockSession = (token) => {
-        if(remember===false){
-            sessionStorage.setItem('token',token);
-        }else{
-            sessionStorage.setItem('token',token);
-            localStorage.setItem('token',token);
-        }
-        window.location.href="/";
+    const StockToken = (data)=>{
+        const accessToken = data.accessToken;
+        const user = data.user;
+        setAuth({user,accessToken})
+        resetModal();
+        toggleModal();
 
-        
     }
+
 
     return (
         <>

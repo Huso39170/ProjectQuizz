@@ -18,10 +18,9 @@ const Navbar = ({isUserLoged,toggleModal}) => {
 		try{
             //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
             const response = await api.post(`/auth/logout`);
-			sessionStorage.removeItem('token')
-			localStorage.removeItem('token')
-			console.log(response);
-			window.location.href="/";
+			if(response){
+				window.location.href="/";
+			}
         } catch (err){
             //Erreur affichée dans la console
             console.log(err.response.data);
