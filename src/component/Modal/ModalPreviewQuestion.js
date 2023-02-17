@@ -4,7 +4,7 @@ import { ImCross } from 'react-icons/im';
 
 
 
-const ModalPreviewQuestion = ({Question, HandlePreviewQuestion}) => {
+const ModalPreviewQuestion = ({Question,HandlePreviewQuestion}) => {
     return (
     <div className='modal__preview'>
         <ImCross className='cross_creation_quizz' role='button' onClick={()=>{HandlePreviewQuestion()}}/>
@@ -77,7 +77,7 @@ export default ModalPreviewQuestion
                     </> 
                 )
                 : (
-                       Question.reponses.map((val) =>  {
+                       props.Question.reponses.map((val) =>  {
                             return ( 
                         
                                     <section>
