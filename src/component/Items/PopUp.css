@@ -1,3 +1,13 @@
+.pop_up {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 250px;
+  margin-top: -5px;
+  margin-right: 10px;
+  animation: disapear 6s ease-in-out;
+}
+
 
 .hidden{
   display:none;
@@ -8,33 +18,17 @@ input[type=checkbox] + label {
 } 
 
 input[type=checkbox]:checked + label {
-  animation: closing 0.3s forwards ease-in-out,
-             moving 0.3s forwards ease-in-out;
+  animation:  closing .3s forwards ease-in-out,
+              moving  .3s forwards ease-in-out;
 } 
-.pointer-cursor{
-   cursor: pointer; cursor: hand;
-}
-.close{
 
-    float:right;
-    color: #b94b45;
-    cursor: pointer; cursor: hand;
-}
 
-.alert-message{
-    background-color: #f2dede;
-    border: 1px solid rgba(#34495e, 0.25);
-    color: #b94b45;
+.alert-message {
     border-radius: 3px;
-    line-height:30px;
-    position: absolute;
-    top: 0; left: 0;
     display:block;
-    width:100%;
-    padding: 12px;
-    box-sizing: border-box;
-    color: rgba(255, 255, 255, .9);
-    background:green;
+    padding: 6px;
+    padding-left: 20px;
+    color: white;
 }
 
 @keyframes closing {
@@ -49,4 +43,9 @@ input[type=checkbox]:checked + label {
 @keyframes moving {
   0%, 90% { top: 0; left: 0; }
   100%  { top: -100px; left: 0; }
+}
+
+@keyframes disapear {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }

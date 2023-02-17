@@ -1,8 +1,8 @@
-import React,{useState,useEffect} from 'react'
+import React,{ useState,useEffect } from 'react'
 import InputRadioComp from '../component/Input/InputRadioComp'
 import InputComp from '../component/Input/InputComp';
 import TextAreaComp from '../component/Input/TextAreaComp'
-import { useNavigate,useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api/quizz' 
 import ItemsForm from '../component/Items/ItemsForm';
 import InputSelectComp from '../component/Input/InputSelectComp';
@@ -33,7 +33,6 @@ const CreateUpdateQuestion = () => {
 
     //Recuperation de l'id de la question dans l'url
     const { id } = useParams();
-
 
     //Initialisation des differents elements des boutons "radio"
     const values =[
@@ -120,8 +119,17 @@ const CreateUpdateQuestion = () => {
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
             const response = await api.post('/question', newQuestion);
-            console.log(response.data)
+
+            if(response.status === 200) {
+                console.log(response.data);
+                //Redirection
+                navigate('/mesquizz/question', { state : {notif : true, succes : true, type: 'create'}});
+            }
+
         } catch (err){
+            //Redirection
+            navigate('/mesquizz/question', { state : {notif : true, succes : false, type: 'create'}});
+
             //Erreur affichée dans la console
             console.log(`Error: ${err.message}`);
         }
@@ -156,9 +164,16 @@ const CreateUpdateQuestion = () => {
         try{
             //Requete patch pour mettre a jour des données existante de la BD
             const response = await api.patch(`/question`, newQuestion);
-            console.log(response.data)
+
+            if(response.status === 200) {
+                console.log(response.data)
+                //Redirection
+                navigate('/mesquizz/question', { state : {notif : true, succes : true, type: 'update'}});
+            }
+
         } catch (err){
-            //Erreur affichée dans la console
+            //Redirection
+            navigate('/mesquizz/question', { state : {notif : true, succes : true, type: 'update'}});
             console.log(`Error: ${err.message}`);
         }
     }
@@ -169,9 +184,12 @@ const CreateUpdateQuestion = () => {
             const fetchQuestion = async () => {
                 try {
                     const response = await api.get(`/question/${id}`);
-                    console.log(response.data);
-                    //Appelle a la fonction setQuestionForm
-                    setQuestionForm(response.data)
+
+                    if(response.status === 200) {
+                        console.log(response.data);
+                        setQuestionForm(response.data);
+                    }
+
                 } catch (err) {
                     console.log(err.response.status);
                     //Si l'id n'existe pas redirection vers la page Error 404

@@ -7,6 +7,7 @@ import './CreateUpdateQuizzForm.css'
 import ItemsForm from '../component/Items/ItemsForm'
 import '../component/Loader/Loader.css'
 
+
 const CreateUpdateQuizz = () => {
     //Initialisation des champs de saisie nom , description le dérouelemnt du quizz ainsi que les tags
     const [quizzNameValue, setQuizzNameValue] = useState('')
@@ -42,7 +43,16 @@ const CreateUpdateQuizz = () => {
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
             const response = await api.post('/quizz', newQuizz);
-            resetField();
+
+            if(response.status === 200) {
+                resetField(); //--supprimer cette ligne si on fait la redirection 2 lignes plus bas
+                console.log(response.status);
+                //Redirection vers la page du quizz créé
+                //const newQuizId = response.data._id;
+                //navigate(`/mesquizz/quizz/${newQuizId}`) //ne marche pas pour l'instant car response.data._id n'est pas renvoyé
+            }
+            
+
             return response;
         } catch (err){
             //Erreur affichée dans la console
@@ -56,9 +66,12 @@ const CreateUpdateQuizz = () => {
             const fetchQuizz = async () => {
                 try {
                     const response = await api.get(`/quizz/${id}`);
-                    console.log(response.data);
-                    //Appelle a la fonction setQuizzForm
-                    setQuizzForm(response.data)
+
+                    if(response.status === 200) {
+                        console.log(response.data);
+                        setQuizzForm(response.data)
+                    }
+
                 } catch (err) {
                     console.log(err.response.status);
                     //Si l'id n'existe pas redirection vers la page Error 404
@@ -96,8 +109,14 @@ const CreateUpdateQuizz = () => {
         try{
             //Requete patch pour mettre a jour des données existante de la BD
             const response = await api.patch(`/quizz`, newQuizz);
-            console.log(response.data)
+            if(response.status === 200) {
+                console.log(response.data)
+                //Affichage de la notif de confirmation et redirection
+                navigate('/mesquizz', { state : { notif : true , succes: true, type: 'update'}});
+            }
+            
         } catch (err){
+            navigate('/mesquizz', { state : { notif : true , succes: false, type: 'update'}});
             //Erreur affichée dans la console
             console.log(`Error: ${err.message}`);
         }
