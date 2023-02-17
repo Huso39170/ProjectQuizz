@@ -55,7 +55,7 @@ const Navbar = ({isUserLoged,toggleModal}) => {
 
 				<div className="nav-links" onClick={uncheckInput}>
 					{isUserLoged?(<>
-						<a href=" " onClick={e=> {e.preventDefault();navigate("/mesquizz") }} >Mes Quizzs</a>
+						<a href=" " onClick={e=> {e.preventDefault();navigate("/mesquizz") }} >Mes Quiz</a>
 						<a href=" " onClick={e=> {e.preventDefault();navigate("/mesquizz/question") }} >Mes Questions</a>
 						<a href=" " onClick={e=> {e.preventDefault();navigate("/moncompte ") }}>Mon Compte</a>
 						<a href=" " onClick={handleDisconnect}>Déconnexion</a>

@@ -126,12 +126,12 @@ const CreateUpdateQuizz = () => {
     return (
         <>
             {loader===true?(<div className='create_update_quizz_form'>
-                    {id === undefined  && <h2>Creation du quizz</h2>}
-                    {id !== undefined && <h2>Modification du quizz</h2>}
+                    {id === undefined  && <h2>Création du quiz</h2>}
+                    {id !== undefined && <h2>Modification du quiz</h2>}
                 
                     <form onSubmit={(e) => e.preventDefault()}>
                     <InputComp 
-                        placeholder={"Nom du quizz"}
+                        placeholder={"Nom du quiz"}
                         setValue={setQuizzNameValue}
                         modalValue={quizzNameValue}
                         inputType={"text"}
@@ -141,7 +141,7 @@ const CreateUpdateQuizz = () => {
                         label={"Nom du quizz"}
                     />
                     <TextAreaComp 
-                        placeholder={"Description du quizz"}
+                        placeholder={"Description du quiz"}
                         setValue={setQuizzDescriptionValue}
                         modalValue={quizzDescriptionValue}
                         required={true}
