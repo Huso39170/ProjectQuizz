@@ -3,7 +3,7 @@ import InputRadioComp from '../component/Input/InputRadioComp'
 import InputComp from '../component/Input/InputComp';
 import TextAreaComp from '../component/Input/TextAreaComp'
 import { useNavigate,useParams } from 'react-router-dom';
-import api from '../api/quizz' 
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import ItemsForm from '../component/Items/ItemsForm';
 import InputSelectComp from '../component/Input/InputSelectComp';
 import '../component/Loader/Loader.css'
@@ -26,6 +26,9 @@ const CreateUpdateQuestion = () => {
 
     //Initialisation de la reponse si le type est "Echelle"
     const [reponseNum,setReponseNum]=useState('')
+
+    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    const axiosPrivate=useAxiosPrivate()
 
 
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
@@ -119,8 +122,9 @@ const CreateUpdateQuestion = () => {
         resetField();
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
-            const response = await api.post('/question', newQuestion);
+            const response = await axiosPrivate.post('/question', newQuestion);
             console.log(response.data)
+            console.log(newQuestion)
         } catch (err){
             //Erreur affichée dans la console
             console.log(`Error: ${err.message}`);
@@ -155,7 +159,7 @@ const CreateUpdateQuestion = () => {
 
         try{
             //Requete patch pour mettre a jour des données existante de la BD
-            const response = await api.patch(`/question`, newQuestion);
+            const response = await axiosPrivate.patch(`/question`, newQuestion);
             console.log(response.data)
         } catch (err){
             //Erreur affichée dans la console
@@ -168,7 +172,7 @@ const CreateUpdateQuestion = () => {
         if(id!==undefined){
             const fetchQuestion = async () => {
                 try {
-                    const response = await api.get(`/question/${id}`);
+                    const response = await axiosPrivate.get(`/question/${id}`);
                     console.log(response.data);
                     //Appelle a la fonction setQuestionForm
                     setQuestionForm(response.data)
@@ -185,7 +189,7 @@ const CreateUpdateQuestion = () => {
         }else{
             setLoader(true);
         }
-    }, [id,navigate])
+    }, [id,navigate,axiosPrivate])
 
     //UseEffect qui entre en jeux lorsque le tableau des proposition ou la reponse est changé
     //Si le tableau des proposition est vide alors il n'y a pas de reponse possible

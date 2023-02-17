@@ -8,8 +8,7 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
    // const [erreurs, setErreurs] = useState([])
 
    //Initialisation du context auth pour l'authentification
-    const { setAuth } = useAuth();
-
+    const { setAuth,persist,setPersist } = useAuth();
 
     //Initialisation des champs
     const [userEmailValue, setUserEmailValue] = useState('')
@@ -18,7 +17,6 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
     const [SubCode, setSubCode] = useState('')
     const [isLogin,setIsLogin]=useState('');
 
-    const [remember,setRemember]=useState(false)
 
     if(modal) {
         document.body.classList.add('active-modal')
@@ -98,6 +96,15 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
 
     }
 
+    //Stock dans le local storage si l'utilisateur veux rester connecté ou non
+    useEffect(()=>{
+        localStorage.setItem("persist",persist)
+    },[persist])
+
+    const togglePersist = () => {
+        setPersist(prev => !prev);
+    }
+    
 
     return (
         <>
@@ -129,12 +136,13 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                             erreur={""}
                             className={'LogSub-field'}
                         />
-                        <input id='souvenir' 
-                            type="checkbox" 
-                            checked={remember} 
-                            onChange={()=>{setRemember(!remember)}}
+                        <input
+                            type="checkbox"
+                            id="persist"
+                            onChange={togglePersist}
+                            checked={persist}
                         />
-                        <label htmlFor='souvenir' >Rester connecté?</label>
+                        <label htmlFor='persist' >Rester connecté?</label>
 
                         <div className="content">
                             <div className="pass-link"><a href=" ">Mot de passe oublié ?</a></div>

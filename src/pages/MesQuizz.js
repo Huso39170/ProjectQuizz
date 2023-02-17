@@ -5,40 +5,41 @@ import { BsFillFileEarmarkArrowUpFill } from 'react-icons/bs';
 import { ImCross } from 'react-icons/im';
 import  { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import api from '../api/quizz';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import ModalSessionParameter from '../component/Modal/ModalSessionParameter';
 import '../component/Loader/Loader.css'
 
 function MesQuizz() {
 
 
-const [datas, setDatas] = useState([]);
-const [searchTerm, setSearchTerm] = useState('');
-const [loader,setLoader] = useState(false);
+    const [datas, setDatas] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [loader,setLoader] = useState(false);
+
+    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    const axiosPrivate=useAxiosPrivate()
+
+    //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
+    const navigate = useNavigate();
 
 
-//Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
-const navigate = useNavigate();
-
-
-useEffect(() => {
-  const fetchQuiz = async () => {
-    try {
-      const response = await api.get('/quizz');
-      setDatas(response.data);
-      setLoader(true)
-      console.log(response.data)
-    } catch (err) {
-        console.log(err.response.status);
-        console.log("toto")
-        //Si l'id n'existe pas redirection vers la page Error 404
-        if(err.response.status === 404){
-          navigate('./missing');
+    useEffect(() => {
+        const fetchQuiz = async () => {
+            try {
+            const response = await axiosPrivate.get('/quizz');
+            setDatas(response.data);
+            setLoader(true)
+            console.log(response.data)
+            } catch (err) {
+                console.log(err.response.status);
+                //Si l'id n'existe pas redirection vers la page Error 404
+                if(err.response.status === 404){
+                navigate('./missing');
+                }
+            }
         }
-    }
-  }
-  fetchQuiz();
-}, [navigate]);
+        fetchQuiz();
+    }, [navigate,axiosPrivate]);
 
     const handleSearchTerm = (e) => {
         let value = e.target.value;
@@ -58,7 +59,7 @@ useEffect(() => {
         const fetchDeleteQuiz = async () => {
             try{
                 //Requete poste pour edit les données dans la BD
-                const response = await api.delete(`/quizz`,{data: {id: quizz_id}});
+                const response = await axiosPrivate.delete(`/quizz`,{data: {id: quizz_id}});
                 console.log(response.data)
                 const listDatas = datas.filter((item) => item._id !== quizz_id);
                 setDatas(listDatas);

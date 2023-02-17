@@ -12,6 +12,7 @@ import MesQuestions from './pages/MesQuestions'
 import MonCompte from './pages/MonCompte';
 import RequireAuth from './component/Auth/RequireAuth';
 import useAuth from "./hooks/useAuth";
+import PersistLogin from './component/Auth/PersistLogin';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
 
 	//Verification si un utilisateur est connecté si oui on change la navbar
 	useEffect(() => {
-		if(auth.user){
+		if(auth.accessToken){
 			setIsUserLoged(true)
 		}
 	}, [auth])
@@ -30,17 +31,20 @@ function App() {
 		<>
 		<Routes>
 			<Route path="/" element={<Layout/>}>
-				<Route index element={<Home isUserLoged={isUserLoged}/>}/>
-				<Route element={<RequireAuth/>}>
-					<Route path="mesquizz" element={<MesQuizz/>}/>
-					<Route path="mesquizz/creer" element={<CreateUpdateQuizz/>}/>
-					<Route path="mesquizz/modifier/:id" element={<CreateUpdateQuizz/>}/>
-					<Route path="mesquizz/question" element={<MesQuestions/>}/>
-					<Route path="mesquizz/question/creer" element={<CreateUpdateQuestion/>}/>
-					<Route path="mesquizz/question/modifier/:id" element={<CreateUpdateQuestion/>}/>
-					<Route path="mesquizz/quizz/:id" element={<QuizzEtQuestion/>}/>
-					<Route path="moncompte" element={<MonCompte/>}/>
-				</Route>
+					<Route element={<PersistLogin />}>
+						<Route index element={<Home isUserLoged={isUserLoged}/>}/>
+						<Route element={<RequireAuth/>}>
+							<Route path="mesquizz" element={<MesQuizz/>}/>
+							<Route path="mesquizz/creer" element={<CreateUpdateQuizz/>}/>
+							<Route path="mesquizz/modifier/:id" element={<CreateUpdateQuizz/>}/>
+							<Route path="mesquizz/question" element={<MesQuestions/>}/>
+							<Route path="mesquizz/question/creer" element={<CreateUpdateQuestion/>}/>
+							<Route path="mesquizz/question/modifier/:id" element={<CreateUpdateQuestion/>}/>
+							<Route path="mesquizz/quizz/:id" element={<QuizzEtQuestion/>}/>
+							<Route path="moncompte" element={<MonCompte/>}/>
+						</Route>
+					</Route>
+					
 				<Route path="*" element={<Missing/>} />
 			</Route>
 		</Routes>

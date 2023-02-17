@@ -1,6 +1,6 @@
 import React, {useEffect,useState} from 'react'
 import { useParams,useNavigate } from 'react-router-dom';
-import api from '../api/quizz' 
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import ModalImportQuestion from '../component/Modal/ModalImportQuestion';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { VscInspect  } from 'react-icons/vsc';
@@ -18,12 +18,15 @@ const QuizzEtQuestion = () => {
     //Recuperation de l'id dans l'url
     const { id } = useParams();
 
+    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    const axiosPrivate=useAxiosPrivate()
+
     //Fonction qui s'execute au moment du rendue de la page permet de recuperer les données du quizz de l'id correspondant
     useEffect(() => {
         if(id!==undefined){
             const fetchQuizz = async () => {
                 try {
-                    const response = await api.get(`/quizz/${id}`);
+                    const response = await axiosPrivate.get(`/quizz/${id}`);
                     setQuizzData(response.data)
                 } catch (err) {
                     console.log(err.response.status);
@@ -36,7 +39,7 @@ const QuizzEtQuestion = () => {
     
             fetchQuizz();
         }
-    }, [id,navigate])
+    }, [id,navigate,axiosPrivate])
 
     //Fonction qui initialise quizzNameValue
     const setQuizzData = (data) => {
