@@ -232,6 +232,10 @@ body.active-modal {
         position: relative;
         padding: 0;
     }
+
+    .modal-content .radio_field label{
+    color:black ;
+    }
     
     
     .modal-content .Session_param-form .Session_param-field input:focus{

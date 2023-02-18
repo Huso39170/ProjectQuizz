@@ -4,8 +4,7 @@ import InputComp from '../Input/InputComp';
 import './ModalImportQuestion.css'
 import '../Loader/Loader.css'
 
-const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) => {
-
+const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion,quizz_id}) => {
 
     //Initialisation des champs de saisie de recherche, des resultats de la recherche,
     // du tableau des question récuperée dans la bd ainsi que les questions selectionné
@@ -44,7 +43,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
             }
             fetchQuestion();
         }
-    }, [modal,searchByTag])
+    }, [modal,searchByTag,axiosPrivate])
 
     //UseEffect qui entre en jeux lorsque allSessionQuestion a été initialisé,
     //compare les question déja attaché et si une question est déja attaché 
@@ -89,13 +88,36 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
         }
     }
 
+
+
     //Soumission des questions à attacher
-    const handleSubmit = (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        setQuestions(selectedQuestion)
-        toggleModal();
-        resetModal();
+
+
+        const attach = {quizzId: quizz_id ,
+                    questionId : selectedQuestion[0]._id };
+        console.log()    
+        const fetchAttachQst = async () => {
+            try{
+                //Requete poste pour edit les données dans la BD
+                const response = await axiosPrivate.post(`/quizz/question`,attach);
+                if(response.status === 200) {
+                    setQuestions(selectedQuestion)
+                    toggleModal();
+                    resetModal();
+                }
+            } catch (err){
+                //Erreur affichée dans la console
+                console.log(err.response.data.message)
+            }
+        }
+        fetchAttachQst();
     }
+
+
+
+
     //Initialiser du useRef
     const checkInputRef = useRef([]);
 

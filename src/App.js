@@ -13,6 +13,7 @@ import MonCompte from './pages/MonCompte';
 import RequireAuth from './component/Auth/RequireAuth';
 import useAuth from "./hooks/useAuth";
 import PersistLogin from './component/Auth/PersistLogin';
+import PreviewQuizz from './pages/PreviewQuizz';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
 							<Route path="mesquizz/question/creer" element={<CreateUpdateQuestion/>}/>
 							<Route path="mesquizz/question/modifier/:id" element={<CreateUpdateQuestion/>}/>
 							<Route path="mesquizz/quizz/:id" element={<QuizzEtQuestion/>}/>
+							<Route path="preview/quizz/:id" element={<PreviewQuizz/>}/>
 							<Route path="moncompte" element={<MonCompte/>}/>
 						</Route>
 					</Route>

@@ -133,7 +133,7 @@ const MesQuizz = () => {
                                         <p className='quizz_name'>{val.name}</p>
                                         <button className='play_button' title='Démarrer' onClick={toggleModal}> <FaPlay className='FaPlay' alt='play button' /> </button>
                                         <button className='edit_button' title='Modifier' onClick={()=>{ navigate(`/mesquizz/modifier/${val._id}`)}}> <FaEdit className='FaEdit' alt='edit button'/> </button>
-                                        <button className='stats_button' title='Statistiques'> <FaEye className='FaStats' alt='statistical button' /> </button>
+                                        <button className='stats_button' title='Statistiques' onClick={()=>{ navigate(`/preview/quizz/${val._id}`)}}> <FaEye className='FaStats' alt='statistical button' /> </button>
                                         <button className='link_button' title='Attacher' onClick={()=>{navigate(`/mesquizz/quizz/${val._id}`)}}> <FaLink className='FaLink' alt='attach button' /> </button>
 
                                         <button className='del_button' title='Supprimer' onClick={()=>{ handleDeleteQuiz(val._id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>

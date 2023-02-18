@@ -86,6 +86,7 @@ const QuizzEtQuestion = () => {
                     toggleModal={toggleModal}
                     setQuestions={setQuizzQuestions}
                     attachedQuestion={quizzQuestions}
+                    quizz_id={id}
                 />
             </div>):(
                 <div className="dot-flashing"></div>
