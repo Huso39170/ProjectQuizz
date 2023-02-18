@@ -86,8 +86,8 @@ body.active-modal {
     color: red;
     margin: 0;
     padding-left: 20px;
-    top:-22px;
-    font-size: 14px;
+    top:-18px;
+    font-size: 12px;
     position: absolute;
 
 }
@@ -229,6 +229,7 @@ body.active-modal {
         padding-left: 20px;
         top:-25px;
         position: absolute;
+
     
     }
     

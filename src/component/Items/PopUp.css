@@ -9,21 +9,21 @@
 }
 
 
-.hidden{
+.pop_up .hidden{
   display:none;
 }
 
-input[type=checkbox] + label {
+.pop_up input[type=checkbox] + label {
   position:relative;
 } 
 
-input[type=checkbox]:checked + label {
+.pop_up input[type=checkbox]:checked + label {
   animation:  closing .3s forwards ease-in-out,
               moving  .3s forwards ease-in-out;
 } 
 
 
-.alert-message {
+.pop_up .alert-message {
     border-radius: 3px;
     display:block;
     padding: 6px;
@@ -31,7 +31,7 @@ input[type=checkbox]:checked + label {
     color: white;
 }
 
-@keyframes closing {
+@keyframes  closing {
   from {
     opacity: 1; 
   }

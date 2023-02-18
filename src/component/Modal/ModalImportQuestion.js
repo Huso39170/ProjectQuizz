@@ -1,5 +1,5 @@
 import React,{useEffect,useState,useRef} from 'react'
-import api from '../../api/quizz'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import InputComp from '../Input/InputComp';
 import './ModalImportQuestion.css'
 import '../Loader/Loader.css'
@@ -17,6 +17,10 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
     //Loader pour afficher un chargement si false
     const [loader,setLoader]=useState(false);
 
+
+    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    const axiosPrivate=useAxiosPrivate()
+
     //Condition qui verifie si le booleen modal est vrai ou faux, si vrai active le modal
     if(modal) {
         document.body.classList.add('active-modal')
@@ -31,7 +35,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
         if(modal===true){
             const fetchQuestion = async () => {
                 try {
-                    const response = await api.get(`/question`);
+                    const response = await axiosPrivate.get(`/question`);
                     setAllSessionQuestion(response.data)
                     setLoader(true)
                 } catch (err) {
@@ -48,7 +52,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
     useEffect(() => {
         allSessionQuestion.forEach(question => {
             attachedQuestion.forEach( attached=> {
-                if(question.id===attached.id){
+                if(question._id===attached._id){
                     question["attached"]=true;
                 }
             })

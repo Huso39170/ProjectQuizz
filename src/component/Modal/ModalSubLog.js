@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import './ModalSubLog.css'
 import InputComp from '../Input/InputComp'
-import api from '../../api/quizz' 
 import useAuth from '../../hooks/useAuth'
+import useLogin from '../../hooks/useLogin'
+import useSignIn from '../../hooks/useSignIn'
 
 const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
-   // const [erreurs, setErreurs] = useState([])
 
-   //Initialisation du context auth pour l'authentification
-    const { setAuth,persist,setPersist } = useAuth();
+
+        //Initialisation du context auth pour l'authentification
+    const {persist,setPersist } = useAuth();
 
     //Initialisation des champs
     const [userEmailValue, setUserEmailValue] = useState('')
@@ -18,11 +19,29 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
     const [isLogin,setIsLogin]=useState('');
 
 
+    const [pwdError,setPwdError] = useState('')
+
     if(modal) {
         document.body.classList.add('active-modal')
     } else {
         document.body.classList.remove('active-modal')
     }
+
+    
+    //Met à 0 tout les champs 
+    const resetModal =  () =>{
+        setUserEmailValue('')
+        setPasswordValue('')
+        setPasswordAgainValue('')
+        setSubCode('')
+    }
+
+
+    //Initialisation du hook pour la connexion
+    const login = useLogin(resetModal,toggleModal);
+
+    const signin = useSignIn(setIsLogin);
+
 
 
     useEffect(() => {
@@ -35,32 +54,23 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
         setIsLogin(log);
     }   
 
-    //Met à 0 tout les champs 
-    const resetModal =  () =>{
-        setUserEmailValue('')
-        setPasswordValue('')
-        setPasswordAgainValue('')
-        setSubCode('')
-    }
 
     //Fonction pour l'inscription
     const handleSub = async (e) =>{
         e.preventDefault();
+
+        if(passwordValue!==passwordAgainValue){
+            setPwdError('Mots de passes différents');
+            return;
+        }
         //Création d'un objet newIser dans lequel va être inserer toute les données correspondant au differant champs
         let newUser={}
 
         newUser = {email: userEmailValue ,
                     password : passwordValue };
 
-        try{
-            //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
-            const response = await api.post(`/auth/register`, newUser);
-            setIsLogin(true);
-            console.log(response.data)
-        } catch (err){
-            //Erreur affichée dans la console
-            console.log(err.response.data);
-        }
+        signin(newUser)
+
     }
 
     //Fonction pour l'inscription
@@ -68,33 +78,14 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
         e.preventDefault();
         //Création d'un objet newIser dans lequel va être inserer toute les données correspondant au differant champs
         let userInfo={}
-
+        
         userInfo = {email: userEmailValue ,
                     password : passwordValue };
 
-        try{
-            //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
-            const response = await api.post(`/auth`, 
-                userInfo,
-                {
-                    withCredentials: true 
-                }
-            );
-            StockToken(response.data)
-        } catch (err){
-            //Erreur affichée dans la console
-            console.log(err.response.data);
-        }
-    }
-
-    const StockToken = (data)=>{
-        const accessToken = data.accessToken;
-        const user = data.user;
-        setAuth({user,accessToken})
-        resetModal();
-        toggleModal();
+        login(userInfo);
 
     }
+
 
     //Stock dans le local storage si l'utilisateur veux rester connecté ou non
     useEffect(()=>{
@@ -142,7 +133,7 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                             onChange={togglePersist}
                             checked={persist}
                         />
-                        <label htmlFor='persist' >Rester connecté?</label>
+                        <label htmlFor='persist'>Rester connecté?</label>
 
                         <div className="content">
                             <div className="pass-link"><a href=" ">Mot de passe oublié ?</a></div>
@@ -181,7 +172,7 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                             modalValue={passwordValue}
                             inputType={"password"}
                             required={true}
-                            erreur={""}
+                            erreur={pwdError}
                             className={'LogSub-field'}
                         />
                         <InputComp

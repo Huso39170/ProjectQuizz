@@ -1,10 +1,13 @@
 import React,{useRef,useEffect, useState} from 'react'
 import "./Header.css"
 import {useNavigate} from 'react-router-dom';
-import api from '../../api/quizz'
+import useLogout from '../../hooks/useLogout';
 
 const Navbar = ({isUserLoged,toggleModal}) => {
 	const [scrollable,setScrollable]=useState(true);
+
+	//Initialisation du hook
+	const logout = useLogout();
 
 	const uncheckInputRef = useRef();
 	//Si l'utilisateur clique nimporte ou sur le menu en mode mobile on eneleve le menu
@@ -14,17 +17,8 @@ const Navbar = ({isUserLoged,toggleModal}) => {
 	}
 
 	const handleDisconnect = async(e)=>{
-		e.preventDefault();
-		try{
-            //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
-            const response = await api.post(`/auth/logout`);
-			if(response){
-				window.location.href="/";
-			}
-        } catch (err){
-            //Erreur affichée dans la console
-            console.log(err.response.data);
-        }
+		logout();
+		
 	}
 
 	useEffect(() => {
