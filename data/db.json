@@ -9,6 +9,12 @@
       ],
       "id": 1,
       "timer": "45"
+    },
+    {
+      "name": "LE QUIZZ TEST",
+      "description": "la desc",
+      "tags": [],
+      "id": 2
     }
   ],
   "question": []
