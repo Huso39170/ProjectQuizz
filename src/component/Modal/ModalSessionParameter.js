@@ -12,18 +12,18 @@ const ModalSessionParameter = ({modal,toggleModal}) => {
         {
             divClassName:"radio",
             value :"timer",
-            label: "Timer"
+            libelle: "Timer"
 
         },
         {
             divClassName:"radio",
             value :"button",
-            label: "Boutton"
+            libelle: "Boutton"
         },
         {
             divClassName:"radio",
             value :"participant",
-            label: "Participant qui passe"
+            libelle: "Participant qui passe"
         }
     ]
 

@@ -1,11 +1,10 @@
 import React,{useEffect,useState,useRef} from 'react'
-import api from '../../api/quizz'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import InputComp from '../Input/InputComp';
 import './ModalImportQuestion.css'
 import '../Loader/Loader.css'
 
-const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) => {
-
+const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion,quizz_id}) => {
 
     //Initialisation des champs de saisie de recherche, des resultats de la recherche,
     // du tableau des question récuperée dans la bd ainsi que les questions selectionné
@@ -16,6 +15,10 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
     const [searchByTag,setSearchByTag]=useState(false);
     //Loader pour afficher un chargement si false
     const [loader,setLoader]=useState(false);
+
+
+    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    const axiosPrivate=useAxiosPrivate()
 
     //Condition qui verifie si le booleen modal est vrai ou faux, si vrai active le modal
     if(modal) {
@@ -31,7 +34,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
         if(modal===true){
             const fetchQuestion = async () => {
                 try {
-                    const response = await api.get(`/question`);
+                    const response = await axiosPrivate.get(`/question`);
                     setAllSessionQuestion(response.data)
                     setLoader(true)
                 } catch (err) {
@@ -40,7 +43,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
             }
             fetchQuestion();
         }
-    }, [modal,searchByTag])
+    }, [modal,searchByTag,axiosPrivate])
 
     //UseEffect qui entre en jeux lorsque allSessionQuestion a été initialisé,
     //compare les question déja attaché et si une question est déja attaché 
@@ -48,7 +51,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
     useEffect(() => {
         allSessionQuestion.forEach(question => {
             attachedQuestion.forEach( attached=> {
-                if(question.id===attached.id){
+                if(question._id===attached._id){
                     question["attached"]=true;
                 }
             })
@@ -85,13 +88,36 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion}) 
         }
     }
 
+
+
     //Soumission des questions à attacher
-    const handleSubmit = (e) =>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-        setQuestions(selectedQuestion)
-        toggleModal();
-        resetModal();
+
+
+        const attach = {quizzId: quizz_id ,
+                    questionId : selectedQuestion[0]._id };
+        console.log()    
+        const fetchAttachQst = async () => {
+            try{
+                //Requete poste pour edit les données dans la BD
+                const response = await axiosPrivate.post(`/quizz/question`,attach);
+                if(response.status === 200) {
+                    setQuestions(selectedQuestion)
+                    toggleModal();
+                    resetModal();
+                }
+            } catch (err){
+                //Erreur affichée dans la console
+                console.log(err.response.data.message)
+            }
+        }
+        fetchAttachQst();
     }
+
+
+
+
     //Initialiser du useRef
     const checkInputRef = useRef([]);
 

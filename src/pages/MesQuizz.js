@@ -4,59 +4,58 @@ import { AiOutlineFileAdd } from 'react-icons/ai';
 import { BsFillFileEarmarkArrowUpFill } from 'react-icons/bs';
 import { ImCross } from 'react-icons/im';
 import  { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom'
-import api from '../api/quizz';
+import { useNavigate,useLocation  } from 'react-router-dom'
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import ModalSessionParameter from '../component/Modal/ModalSessionParameter';
 import '../component/Loader/Loader.css'
 import PopUp from '../component/Items/PopUp'
 
-function MesQuizz() {
+const MesQuizz = () => {
 
 
-const [datas, setDatas] = useState([]);  //tous les quiz
-const [searchTerm, setSearchTerm] = useState(''); //Contenu de la barre de recherche
-const [loader,setLoader] = useState(false);
+    const [datas, setDatas] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [loader,setLoader] = useState(false);
 
+    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    const axiosPrivate=useAxiosPrivate()
 
-//Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
-const navigate = useNavigate();
+    //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
+    const navigate = useNavigate();
 
-//Gestion des notifications si création/modification/suppression d'un quiz
-//Partage d'état entre page
-const { state } = useLocation();
-//Reçois vrai si une modification d'un quiz à abouti dans la page 'CreateUpdateQuestion'
-const [notif, setNotif] = useState(state?.notif || false); //si vrai, affiche la notif
-const [succes, setSucces] = useState(state?.succes || false); //vrai si la requête a aboutie
-const [type, setType] = useState(state?.type || false); //update || delete
+    //Gestion des notifications si création/modification/suppression d'un quiz
+    //Partage d'état entre page
+    const { state } = useLocation();
+    //Reçois vrai si une modification d'un quiz à abouti dans la page 'CreateUpdateQuestion'
+    const [notif, setNotif] = useState(state?.notif || false); //si vrai, affiche la notif
+    const [succes, setSucces] = useState(state?.succes || false); //vrai si la requête a aboutie
+    const [type, setType] = useState(state?.type || false); //update || delete
 
-const handleDeleteNotif = (b) => {
-    setNotif(!notif);
-    setSucces(b);
-    setType('delete');
-}
-
-
-useEffect(() => {
-  const fetchQuiz = async () => {
-    try {
-      const response = await api.get('/quizz');
-
-      if(response.status === 200) {
-        setDatas(response.data);
-        setLoader(true)
-        console.log(response.data)
-      }
-
-    } catch (err) {
-        console.log(err.response.status);
-        //Si l'id n'existe pas redirection vers la page Error 404
-        if(err.response.status === 404){
-          navigate('./missing');
-        }
+    const handleDeleteNotif = (b) => {
+        setNotif(!notif);
+        setSucces(b);
+        setType('delete');
     }
-  }
-  fetchQuiz();
-}, [navigate]);
+
+    useEffect(() => {
+        const fetchQuiz = async () => {
+            try {
+            const response = await axiosPrivate.get('/quizz');
+            if(response) {
+                setDatas(response.data);
+                setLoader(true)
+                console.log(response.data)
+              }
+            } catch (err) {
+                console.log(err.response.status);
+                //Si l'id n'existe pas redirection vers la page Error 404
+                if(err.response.status === 404){
+                navigate('./missing');
+                }
+            }
+        }
+        fetchQuiz();
+    }, [navigate,axiosPrivate]);
 
     const handleSearchTerm = (e) => {
         let value = e.target.value;
@@ -76,8 +75,7 @@ useEffect(() => {
         const fetchDeleteQuiz = async () => {
             try{
                 //Requete poste pour edit les données dans la BD
-                const response = await api.delete(`/quizz`,{data: {id: quizz_id}});
-
+                const response = await axiosPrivate.delete(`/quizz`,{data: {id: quizz_id}});
                 if(response.status === 200) {
                     console.log(response.data)
                     const listDatas = datas.filter((item) => item._id !== quizz_id);
@@ -86,13 +84,10 @@ useEffect(() => {
                     //Affichage d'une notification pour confirmer la suppression
                     handleDeleteNotif(true);
                 }
-        
             } catch (err){
-                //Affichage d'une notification pour confirmer la suppression
-                handleDeleteNotif(false);
-
                 //Erreur affichée dans la console
                 console.log(err.response.data.message)
+                handleDeleteNotif(false);
             }
         }
         fetchDeleteQuiz();
@@ -138,7 +133,7 @@ useEffect(() => {
                                         <p className='quizz_name'>{val.name}</p>
                                         <button className='play_button' title='Démarrer' onClick={toggleModal}> <FaPlay className='FaPlay' alt='play button' /> </button>
                                         <button className='edit_button' title='Modifier' onClick={()=>{ navigate(`/mesquizz/modifier/${val._id}`)}}> <FaEdit className='FaEdit' alt='edit button'/> </button>
-                                        <button className='stats_button' title='Statistiques'> <FaEye className='FaStats' alt='statistical button' /> </button>
+                                        <button className='stats_button' title='Statistiques' onClick={()=>{ navigate(`/preview/quizz/${val._id}`)}}> <FaEye className='FaStats' alt='statistical button' /> </button>
                                         <button className='link_button' title='Attacher' onClick={()=>{navigate(`/mesquizz/quizz/${val._id}`)}}> <FaLink className='FaLink' alt='attach button' /> </button>
 
                                         <button className='del_button' title='Supprimer' onClick={()=>{ handleDeleteQuiz(val._id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
@@ -192,7 +187,6 @@ useEffect(() => {
                 <div  className="dot-flashing"></div>
             )
         }
-
         {
             notif ? <PopUp 
                         Succes = {succes}
@@ -200,7 +194,6 @@ useEffect(() => {
                     /> 
             : ''
         }
-       
         </>
             
     )

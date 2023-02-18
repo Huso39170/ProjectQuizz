@@ -8,7 +8,7 @@
     animation: dot-flashing 1s infinite linear alternate;
     animation-delay: 0.5s;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 300px;
 }
 
 .dot-flashing::before, .dot-flashing::after {

@@ -2,7 +2,6 @@ import React,{useState}from 'react'
 import InputComp from '../component/Input/InputComp'
 
 const MonCompte = () => {
-    const [userName, setUserName] = useState('')
     const [userEmail, setUserEmail] = useState('')
     const [loader,setLoader]= useState(true)
 
@@ -12,16 +11,7 @@ const MonCompte = () => {
 
 
         {loader===true? (<form onSubmit={(e) => e.preventDefault()}>
-            <InputComp 
-                placeholder={"Nom d'utilisateur"}
-                setValue={setUserName}
-                modalValue={userName}
-                inputType={"text"}
-                required={true}
-                erreur={""}
-                className={'input_field'}
-                label={"Nom d'utilisateur"}
-            />
+
             <InputComp 
                 placeholder={"Email"}
                 setValue={setUserEmail}

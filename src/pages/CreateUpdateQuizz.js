@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react'
 import InputComp from '../component/Input/InputComp'
 import TextAreaComp from '../component/Input/TextAreaComp'
-import api from '../api/quizz' 
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { useParams,useNavigate} from 'react-router-dom';
 import './CreateUpdateQuizzForm.css'
 import ItemsForm from '../component/Items/ItemsForm'
@@ -18,6 +18,9 @@ const CreateUpdateQuizz = () => {
 
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
+
+    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    const axiosPrivate=useAxiosPrivate()
 
     //Recuperation de l'id dans l'url
     const { id } = useParams();
@@ -42,9 +45,9 @@ const CreateUpdateQuizz = () => {
         
         try{
             //Requete poste pour injecter de nouvelle données dans la BD
-            const response = await api.post('/quizz', newQuizz);
+            const response = await axiosPrivate.post('/quizz', newQuizz);
 
-            if(response.status === 200) {
+            if(response) {
                 resetField(); //--supprimer cette ligne si on fait la redirection 2 lignes plus bas
                 console.log(response.status);
                 //Redirection vers la page du quizz créé
@@ -65,9 +68,9 @@ const CreateUpdateQuizz = () => {
         if(id!==undefined){
             const fetchQuizz = async () => {
                 try {
-                    const response = await api.get(`/quizz/${id}`);
+                    const response = await axiosPrivate.get(`/quizz/${id}`);
 
-                    if(response.status === 200) {
+                    if(response) {
                         console.log(response.data);
                         setQuizzForm(response.data)
                     }
@@ -85,7 +88,7 @@ const CreateUpdateQuizz = () => {
         }else{
             setLoader(true);
         }
-    }, [id,navigate])
+    }, [id,navigate,axiosPrivate])
 
     //Fonction qui complete les champs du formulaire selon les données importées
     const setQuizzForm = (data) => {
@@ -108,8 +111,8 @@ const CreateUpdateQuizz = () => {
 
         try{
             //Requete patch pour mettre a jour des données existante de la BD
-            const response = await api.patch(`/quizz`, newQuizz);
-            if(response.status === 200) {
+            const response = await axiosPrivate.patch(`/quizz`, newQuizz);
+            if(response) {
                 console.log(response.data)
                 //Affichage de la notif de confirmation et redirection
                 navigate('/mesquizz', { state : { notif : true , succes: true, type: 'update'}});

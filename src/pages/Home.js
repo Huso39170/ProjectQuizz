@@ -1,19 +1,15 @@
 import React, { useState} from 'react'
 import './home.css'
 import ModalSubLog from '../component/Modal/ModalSubLog'
-import useRefreshToken from '../hooks/useRefreshToken';
 
 import Navbar from '../component/Layout/Navbar';
 
 const Home = ({isUserLoged}) => {
 
-    const refresh=useRefreshToken()
-
     //Fonction qui gere la soumission du formulaire
     const handleSubmit = (e) => {
         //Empeche la page de se rafraichir lorsque l'on soumet un formulaire
         e.preventDefault();
-        refresh();
 
     }
     const[modal,setModal]= useState(false);

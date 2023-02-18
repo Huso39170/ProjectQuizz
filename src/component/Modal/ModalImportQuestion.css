@@ -279,7 +279,7 @@ body.active-modal {
         font-size: 17px;
         border: 1px solid lightgrey;
         border-radius: 25px;
-        transition: all 0.3s ease;
+        transition: all 0.3s ;
         text-indent: 20px;
         
     }

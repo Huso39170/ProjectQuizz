@@ -1,8 +1,8 @@
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { VscInspect  } from 'react-icons/vsc';
 import  { useState, useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom'
-import api from '../api/quizz';
+import { useNavigate,useLocation } from 'react-router-dom'
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import ModalPreview from '../component/Modal/ModalPreviewQuestion'
 import PopUp from '../component/Items/PopUp'
 
@@ -30,12 +30,15 @@ const handleDeleteNotif = (b) => {
 }
 
 
+//Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+const axiosPrivate=useAxiosPrivate()
+
 useEffect(() => {
   const fetchQuestions = async () => {
     try {
-      const response = await api.get('/question');
+      const response = await axiosPrivate.get('/question');
 
-      if(response.status === 200) {
+      if(response) {
         setDatas(response.data);
         setLoader(true);
       }
@@ -50,7 +53,7 @@ useEffect(() => {
     }
   }
   fetchQuestions();
-}, [navigate]);
+}, [navigate,axiosPrivate]);
 
     const handleSearchTerm = (e) => {
         let value = e.target.value;
@@ -73,9 +76,9 @@ useEffect(() => {
             try{
 
                 //Requete poste pour edit les données dans la BD
-                const response = await api.delete(`/question`,{data: {id: qst_id}});
+                const response = await axiosPrivate.delete(`/question`,{data: {id: qst_id}});
 
-                if(response.status === 200) {
+                if(response) {
                     console.log(response.data)
                     const listDatas = datas.filter((item) => item._id !== qst_id);
                     setDatas(listDatas);
