@@ -1,0 +1,15 @@
+.play_quizz .play_quizz_title {
+    display: flex;
+    background: white;
+    width: 95%;
+    margin-left: 2.5%;
+    margin-top: 16px;
+    border-radius: 10px;
+    display: inline-block;
+    text-align: center;
+}
+
+.play_quizz .play_quizz_title > h2 {
+    font-size: 2em;
+
+}
