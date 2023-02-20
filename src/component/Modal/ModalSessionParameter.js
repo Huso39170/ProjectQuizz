@@ -18,7 +18,7 @@ const ModalSessionParameter = ({modal,toggleModal}) => {
         {
             divClassName:"radio",
             value :"button",
-            libelle: "Boutton"
+            libelle: "Proffeseur qui passe"
         },
         {
             divClassName:"radio",
