@@ -51,6 +51,17 @@ const PlayQuizz = () => {
         }
 
     };
+
+    
+    //Permet de finir le quizz
+    const handleFinsih = (e) => {
+        const getLocal = JSON.parse(localStorage.getItem(`quizzReponse${id}`))
+        if(getLocal!==null){
+            localStorage.removeItem(`quizzReponse${id}`)
+        }
+        navigate('/mesquizz')
+    };
+
     //Fonction qui s'execute au moment du rendue de la page permet de recuperer les données du quizz de l'id correspondant
     useEffect(() => {
         if(id!==undefined){
@@ -58,6 +69,10 @@ const PlayQuizz = () => {
                 try {
                     const response = await axiosPrivate.get(`/quizz/${id}`);
                     setQuizzData(response.data)
+                    const getLocal = JSON.parse(localStorage.getItem(`quizzReponse${id}`))
+                    if(getLocal!==null){
+                        setQuestionsReponses(getLocal.reponse)
+                    }
                     setLoader(true);
                 } catch (err) {
                     console.log(err.response.status);
@@ -72,7 +87,7 @@ const PlayQuizz = () => {
         }
     }, [id,navigate,axiosPrivate])
 
-    
+
 
     return (
         <>{loader===true?
@@ -86,7 +101,14 @@ const PlayQuizz = () => {
                     {components[index]}
                 </div>
                 <input type="submit" value="Prev" onClick={handlePrev}  disabled={index === 0}/>
-                <input type="submit" value="Next" onClick={handleNext}  disabled={index === components.length - 1}/>
+                {
+                    index < components.length - 1?(
+                        <input type="submit" value="Next" onClick={handleNext} />
+                    ):(
+                        <input type="submit" value="Finish" onClick={handleFinsih} />
+                    )
+                }
+                
             </div>):(
                 <div  className="dot-flashing"></div>
             )
