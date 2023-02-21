@@ -14,6 +14,8 @@ import RequireAuth from './component/Auth/RequireAuth';
 import useAuth from "./hooks/useAuth";
 import PersistLogin from './component/Auth/PersistLogin';
 import PlayQuizz from './pages/PlayQuizz';
+import {  ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -46,10 +48,11 @@ function App() {
 							<Route path="moncompte" element={<MonCompte/>}/>
 						</Route>
 					</Route>
-					
 				<Route path="*" element={<Missing/>} />
 			</Route>
+			
 		</Routes>
+		<ToastContainer />
 		</>
     );
 }

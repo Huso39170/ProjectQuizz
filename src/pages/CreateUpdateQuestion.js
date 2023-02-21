@@ -7,6 +7,7 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import ItemsForm from '../component/Items/ItemsForm';
 import InputSelectComp from '../component/Input/InputSelectComp';
 import '../component/Loader/Loader.css'
+import { toast } from 'react-toastify';
 
 const CreateUpdateQuestion = () => {
     //Initialisation des champs de saisie description, reponse, proposition,
@@ -125,13 +126,15 @@ const CreateUpdateQuestion = () => {
 
             if(response) {
                 console.log(response.data);
-                //Redirection
-                navigate('/mesquizz/question', { state : {notif : true, succes : true, type: 'create'}});
+                //Redirection + notification
+                navigate('/mesquizz/question');
+                toast.success("Création réussie");
             }
 
         } catch (err){
-            //Redirection
-            navigate('/mesquizz/question', { state : {notif : true, succes : false, type: 'create'}});
+
+            //Notification
+            toast.error("La création de la question a échouée");
 
             //Erreur affichée dans la console
             console.log(`Error: ${err.message}`);
@@ -170,13 +173,14 @@ const CreateUpdateQuestion = () => {
 
             if(response) {
                 console.log(response.data)
-                //Redirection
-                navigate('/mesquizz/question', { state : {notif : true, succes : true, type: 'update'}});
+               //Redirection + notification
+               navigate('/mesquizz/question');
+               toast.success("Modification réussie")
             }
 
         } catch (err){
-            //Redirection
-            navigate('/mesquizz/question', { state : {notif : true, succes : true, type: 'update'}});
+            //Redirection + notification
+            toast.success("La modification de la question a échouée");
             console.log(`Error: ${err.message}`);
         }
     }

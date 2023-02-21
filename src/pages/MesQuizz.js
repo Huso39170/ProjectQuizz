@@ -4,11 +4,11 @@ import { AiOutlineFileAdd } from 'react-icons/ai';
 import { BsFillFileEarmarkArrowUpFill } from 'react-icons/bs';
 import { ImCross } from 'react-icons/im';
 import  { useState, useEffect } from 'react';
-import { useNavigate,useLocation  } from 'react-router-dom'
+import { useNavigate  } from 'react-router-dom'
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import ModalSessionParameter from '../component/Modal/ModalSessionParameter';
 import '../component/Loader/Loader.css'
-import PopUp from '../component/Items/PopUp'
+import { toast } from 'react-toastify';
 
 const MesQuizz = () => {
 
@@ -22,20 +22,6 @@ const MesQuizz = () => {
 
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
-
-    //Gestion des notifications si création/modification/suppression d'un quiz
-    //Partage d'état entre page
-    const { state } = useLocation();
-    //Reçois vrai si une modification d'un quiz à abouti dans la page 'CreateUpdateQuestion'
-    const [notif, setNotif] = useState(state?.notif || false); //si vrai, affiche la notif
-    const [succes, setSucces] = useState(state?.succes || false); //vrai si la requête a aboutie
-    const [type, setType] = useState(state?.type || false); //update || delete
-
-    const handleDeleteNotif = (b) => {
-        setNotif(!notif);
-        setSucces(b);
-        setType('delete');
-    }
 
     useEffect(() => {
         const fetchQuiz = async () => {
@@ -81,13 +67,15 @@ const MesQuizz = () => {
                     const listDatas = datas.filter((item) => item._id !== quizz_id);
                     setDatas(listDatas);
 
-                    //Affichage d'une notification pour confirmer la suppression
-                    handleDeleteNotif(true);
+                    //Notification
+                    toast.success('Suppression réussie');
                 }
             } catch (err){
+                //Notification
+                toast.error('La suppression du quiz a échouée');
+
                 //Erreur affichée dans la console
                 console.log(err.response.data.message)
-                handleDeleteNotif(false);
             }
         }
         fetchDeleteQuiz();
@@ -186,13 +174,6 @@ const MesQuizz = () => {
             </div>):(
                 <div  className="dot-flashing"></div>
             )
-        }
-        {
-            notif ? <PopUp 
-                        Succes = {succes}
-                        Type = {type}
-                    /> 
-            : ''
         }
         </>
             

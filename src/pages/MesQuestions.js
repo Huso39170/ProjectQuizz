@@ -1,59 +1,45 @@
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { VscInspect  } from 'react-icons/vsc';
 import  { useState, useEffect } from 'react';
-import { useNavigate,useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import ModalPreview from '../component/Modal/ModalPreviewQuestion'
-import PopUp from '../component/Items/PopUp'
+import { toast } from 'react-toastify';
+
 
 function MesQuestions() {
 
-const [datas, setDatas] = useState([]);
-const [searchTerm, setSearchTerm] = useState('');
-const [loader,setLoader]= useState(false)
+    const [datas, setDatas] = useState([]);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [loader,setLoader]= useState(false)
 
-//Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
-const navigate = useNavigate();
+    //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
+    const navigate = useNavigate();
 
-//Gestion des notifications si création/modification/suppression d'une question
-//Partage d'état entre page
-const { state } = useLocation();
-//Reçois vrai si une création/modification d'un quiz à abouti dans la page 'CreateUpdateQuestion'
-const [notif, setNotif] = useState(state?.notif || false); //si vrai, affiche la notif
-const [succes, setSucces] = useState(state?.succes || false); //vrai si la requête a aboutie
-const [type, setType] = useState(state?.type || false); // create || update || delete
+    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    const axiosPrivate = useAxiosPrivate()
 
-const handleDeleteNotif = (b) => {
-    setNotif(!notif);
-    setSucces(b);
-    setType('delete');
-}
+    useEffect(() => {
+    const fetchQuestions = async () => {
+        try {
+        const response = await axiosPrivate.get('/question');
 
+        if(response) {
+            setDatas(response.data);
+            setLoader(true);
+        }
 
-//Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
-const axiosPrivate=useAxiosPrivate()
-
-useEffect(() => {
-  const fetchQuestions = async () => {
-    try {
-      const response = await axiosPrivate.get('/question');
-
-      if(response) {
-        setDatas(response.data);
-        setLoader(true);
-      }
-
-    } catch (err) {
-        console.log(err.response.status);
-        //Si l'id n'existe pas redirection vers la page Error 404
-        if(err.response.status === 404){
-          //navigate('/missing')
-          console.log("ERROR 404");
+        } catch (err) {
+            console.log(err.response.status);
+            //Si l'id n'existe pas redirection vers la page Error 404
+            if(err.response.status === 404){
+            //navigate('/missing')
+            console.log("ERROR 404");
+            }
         }
     }
-  }
-  fetchQuestions();
-}, [navigate,axiosPrivate]);
+    fetchQuestions();
+    }, [navigate,axiosPrivate]);
 
     const handleSearchTerm = (e) => {
         let value = e.target.value;
@@ -70,6 +56,7 @@ useEffect(() => {
        navigate(`/mesquizz/question/modifier/${id}`); 
     }
 
+
     /* Delete question */
     const handleDeleteQuestion = (qst_id) => {
         const fetchDeleteQuestion = async () => {
@@ -83,13 +70,13 @@ useEffect(() => {
                     const listDatas = datas.filter((item) => item._id !== qst_id);
                     setDatas(listDatas);
 
-                    //Affichage d'une notification pour confirmer la suppression
-                    handleDeleteNotif(true);
+                    //Notification
+                    toast.success('Suppression réussie');
                 }
 
             } catch (err){
-                //Affichage d'une notification pour confirmer la suppression
-                handleDeleteNotif(false);
+                //Notification
+                toast.error('Suppression réussie');
 
                 //Erreur affichée dans la console
                 console.log(`Error: ${err.message}`);
@@ -173,14 +160,7 @@ useEffect(() => {
             )
     }
     
-    {
-        notif ? <PopUp 
-                   
-                    Succes = {succes}
-                    Type = {type}
-                /> 
-                : ''
-    }
+   
 
     
     

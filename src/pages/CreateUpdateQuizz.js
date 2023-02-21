@@ -6,6 +6,7 @@ import { useParams,useNavigate} from 'react-router-dom';
 import './CreateUpdateQuizzForm.css'
 import ItemsForm from '../component/Items/ItemsForm'
 import '../component/Loader/Loader.css'
+import { toast } from 'react-toastify';
 
 
 const CreateUpdateQuizz = () => {
@@ -50,6 +51,7 @@ const CreateUpdateQuizz = () => {
             if(response) {
                 resetField(); //--supprimer cette ligne si on fait la redirection 2 lignes plus bas
                 console.log(response.status);
+
                 //Redirection vers la page du quizz créé
                 //const newQuizId = response.data._id;
                 //navigate(`/mesquizz/quizz/${newQuizId}`) //ne marche pas pour l'instant car response.data._id n'est pas renvoyé
@@ -58,6 +60,8 @@ const CreateUpdateQuizz = () => {
 
             return response;
         } catch (err){
+            //Notification
+            toast.error("La création du quiz a échouée");
             //Erreur affichée dans la console
             console.log(`Error: ${err.message}`);
         }
@@ -114,12 +118,15 @@ const CreateUpdateQuizz = () => {
             const response = await axiosPrivate.patch(`/quizz`, newQuizz);
             if(response) {
                 console.log(response.data)
-                //Affichage de la notif de confirmation et redirection
-                navigate('/mesquizz', { state : { notif : true , succes: true, type: 'update'}});
+                //Redirection + notification
+                navigate('/mesquizz');
+                toast.success("Modification réussie");
             }
             
         } catch (err){
-            navigate('/mesquizz', { state : { notif : true , succes: false, type: 'update'}});
+            //Notification
+            toast.error("La modification du quiz a échouée");
+
             //Erreur affichée dans la console
             console.log(`Error: ${err.message}`);
         }
