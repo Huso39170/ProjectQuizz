@@ -15,7 +15,8 @@ import useAuth from "./hooks/useAuth";
 import PersistLogin from './component/Auth/PersistLogin';
 import PlayQuizz from './pages/PlayQuizz/PlayQuizz';
 import PlayQuizzAdminView from './pages/PlayQuizz/PlayQuizzAdminView';
-
+import {  ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 	//Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
@@ -49,10 +50,11 @@ function App() {
 
 						</Route>
 					</Route>
-					
 				<Route path="*" element={<Missing/>} />
 			</Route>
+			
 		</Routes>
+		<ToastContainer />
 		</>
     );
 }
