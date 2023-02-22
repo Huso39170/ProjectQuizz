@@ -1,12 +1,15 @@
 import React,{useState} from 'react'
 import './ModalSessionParameter.css'
 import InputRadioComp from '../Input/InputRadioComp'
-import InputComp
- from '../Input/InputComp'
+import InputComp from '../Input/InputComp'
+import { useNavigate } from 'react-router-dom'
 const ModalSessionParameter = ({modal,toggleModal}) => {
     const [quizzDeroulementValue, setquizzDeroulementValue] = useState('')
     const [quizzTimerValue, setquizzTimerValue] = useState('')
     
+    //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
+    const navigate = useNavigate();
+
     //Initialisation des differents elements des boutons "radio"
     const values =[
         {
@@ -17,7 +20,7 @@ const ModalSessionParameter = ({modal,toggleModal}) => {
         },
         {
             divClassName:"radio",
-            value :"button",
+            value :"profBtn",
             libelle: "Proffeseur qui passe"
         },
         {
@@ -36,6 +39,10 @@ const ModalSessionParameter = ({modal,toggleModal}) => {
     const handleLancement =()=>{
         console.log(quizzDeroulementValue)
         console.log(quizzTimerValue)
+        toggleModal();
+        resetModal();
+        navigate("/play/1")
+
     }
     return (
         <>

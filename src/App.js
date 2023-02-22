@@ -13,7 +13,8 @@ import MonCompte from './pages/MonCompte';
 import RequireAuth from './component/Auth/RequireAuth';
 import useAuth from "./hooks/useAuth";
 import PersistLogin from './component/Auth/PersistLogin';
-import PlayQuizz from './pages/PlayQuizz';
+import PlayQuizz from './pages/PlayQuizz/PlayQuizz';
+import PlayQuizzAdminView from './pages/PlayQuizz/PlayQuizzAdminView';
 
 
 function App() {
@@ -44,6 +45,8 @@ function App() {
 							<Route path="mesquizz/quizz/:id" element={<QuizzEtQuestion/>}/>
 							<Route path="preview/quizz/:id" element={<PlayQuizz/>}/>
 							<Route path="moncompte" element={<MonCompte/>}/>
+							<Route path="play/:quizzCode" element={<PlayQuizzAdminView/>}/>
+
 						</Route>
 					</Route>
 					
