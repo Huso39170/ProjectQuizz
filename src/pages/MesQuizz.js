@@ -10,12 +10,13 @@ import ModalSessionParameter from '../component/Modal/ModalSessionParameter';
 import '../component/Loader/Loader.css'
 import { toast } from 'react-toastify';
 
-const MesQuizz = () => {
+const MesQuizz = ({socket}) => {
 
 
     const [datas, setDatas] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [loader,setLoader] = useState(false);
+    const [currId,setCurrId] =useState('');
 
     //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
     const axiosPrivate=useAxiosPrivate()
@@ -84,7 +85,8 @@ const MesQuizz = () => {
     
     //Gestion du modal
     const[modal,setModal]= useState(false);
-    const toggleModal = () =>{
+    const toggleModal = (id) =>{
+        setCurrId(id)
         //Inverse le bollean de modal
         setModal(!modal);
     }
@@ -119,9 +121,9 @@ const MesQuizz = () => {
                                 return (
                                     <li className='quizz' key={index}>
                                         <p className='quizz_name'>{val.name}</p>
-                                        <button className='play_button' title='Démarrer' onClick={toggleModal}> <FaPlay className='FaPlay' alt='play button' /> </button>
+                                        <button className='play_button' title='Démarrer' onClick={()=>toggleModal(val._id)}> <FaPlay className='FaPlay' alt='play button' /> </button>
                                         <button className='edit_button' title='Modifier' onClick={()=>{ navigate(`/mesquizz/modifier/${val._id}`)}}> <FaEdit className='FaEdit' alt='edit button'/> </button>
-                                        <button className='stats_button' title='Statistiques' onClick={()=>{ navigate(`/preview/quizz/${val._id}`)}}> <FaEye className='FaStats' alt='statistical button' /> </button>
+                                        <button className='stats_button' title='Statistiques' onClick={()=>{ navigate(`/play/quizz/${val._id}`)}}> <FaEye className='FaStats' alt='statistical button' /> </button>
                                         <button className='link_button' title='Attacher' onClick={()=>{navigate(`/mesquizz/quizz/${val._id}`)}}> <FaLink className='FaLink' alt='attach button' /> </button>
 
                                         <button className='del_button' title='Supprimer' onClick={()=>{ handleDeleteQuiz(val._id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
@@ -168,7 +170,9 @@ const MesQuizz = () => {
             
             <ModalSessionParameter
                 modal={modal} 
-                toggleModal={toggleModal}    
+                toggleModal={toggleModal}
+                socket={socket}
+                quizz_id={currId}    
             />
 
             </div>):(

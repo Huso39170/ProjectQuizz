@@ -1,14 +1,18 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './ModalSessionParameter.css'
 import InputRadioComp from '../Input/InputRadioComp'
 import InputComp from '../Input/InputComp'
 import { useNavigate } from 'react-router-dom'
-const ModalSessionParameter = ({modal,toggleModal}) => {
+import useAuth from '../../hooks/useAuth'
+const ModalSessionParameter = ({modal,toggleModal,socket,quizz_id}) => {
     const [quizzDeroulementValue, setquizzDeroulementValue] = useState('')
     const [quizzTimerValue, setquizzTimerValue] = useState('')
     
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
+
+
+	const {auth} = useAuth();
 
     //Initialisation des differents elements des boutons "radio"
     const values =[
@@ -37,13 +41,17 @@ const ModalSessionParameter = ({modal,toggleModal}) => {
     }
 
     const handleLancement =()=>{
-        console.log(quizzDeroulementValue)
-        console.log(quizzTimerValue)
-        toggleModal();
-        resetModal();
-        navigate("/play/1")
-
+        socket.emit("start_quizz",{accessToken:auth.accessToken,quizz_id:quizz_id})
     }
+
+    useEffect(() => {
+        socket.on("quizz_started", (data) => {
+            toggleModal();
+            resetModal();
+            navigate(`/play/admin/${data.quizz_link}`)
+        });
+      }, [socket]);
+
     return (
         <>
             {modal  &&(

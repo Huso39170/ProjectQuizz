@@ -56,7 +56,7 @@ const PlayQuizz = () => {
             localStorage.removeItem(`quizzReponse${id}`)
         }
         console.log(questionsReponses);
-        navigate('/mesquizz')
+        navigate('/play/end')
     };
 
     //Fonction qui s'execute au moment du rendue de la page permet de recuperer les données du quizz de l'id correspondant
