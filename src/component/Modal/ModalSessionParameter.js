@@ -3,16 +3,21 @@ import './ModalSessionParameter.css'
 import InputRadioComp from '../Input/InputRadioComp'
 import InputComp from '../Input/InputComp'
 import { useNavigate } from 'react-router-dom'
-import useAuth from '../../hooks/useAuth'
-const ModalSessionParameter = ({modal,toggleModal,socket,quizz_id}) => {
-    const [quizzDeroulementValue, setquizzDeroulementValue] = useState('')
-    const [quizzTimerValue, setquizzTimerValue] = useState('')
+import useSocket from '../../hooks/useSocket'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+
+const ModalSessionParameter = ({modal,toggleModal,quizz_id}) => {
+    const [quizzDeroulementValue, setquizzDeroulementValue] = useState('');
+    const [quizzTimerValue, setquizzTimerValue] = useState('');
+    const [loader,setLoader]=useState(false)
     
+    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    const axiosPrivate=useAxiosPrivate()
+
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
 
-
-	const {auth} = useAuth();
+    const {socket} = useSocket();
 
     //Initialisation des differents elements des boutons "radio"
     const values =[
@@ -34,23 +39,63 @@ const ModalSessionParameter = ({modal,toggleModal,socket,quizz_id}) => {
         }
     ]
 
-
+    //Mise à 0 du modal 
     const resetModal =  () =>{
         setquizzDeroulementValue('')
         setquizzTimerValue('')
     }
 
-    const handleLancement =()=>{
-        socket.emit("start_quizz",{accessToken:auth.accessToken,quizz_id:quizz_id})
+    //Gestion du lancement du quizz
+    const  handleLancement = async ()=>{
+        setLoader(true);
+        const quizz_data=await fetchQuizz();
+        if(quizzDeroulementValue==="timer"){
+            socket.emit("start_quizz",{
+                                        quizz_data:quizz_data,
+                                        quizz_type:quizzDeroulementValue,
+                                        timer:quizzTimerValue})
+        }else{
+            socket.emit("start_quizz",{
+                                        quizz_data:quizz_data,
+                                        quizz_type:quizzDeroulementValue})
+        }
+        
     }
 
+
+    // La fonction asynchrone fetchQuizz récupère les données d'un quizz avec l'id spécifié et les questions associées
+    const fetchQuizz = async () => {
+        try {
+            const response = await axiosPrivate.get(`/quizz/${quizz_id}`);
+            const quizz = response.data; // Récupère les données du quizz depuis la réponse
+            // Appelle la fonction asynchrone getQuestions pour récupérer les questions liées à ce quizz
+            const questions = await getQuestions(quizz.questions);
+            quizz.questions = questions; // Ajoute les questions récupérées à l'objet quizz
+            return quizz; // Renvoie l'objet quizz complet
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // La fonction asynchrone getQuestions récupère les données de plusieurs questions avec les IDs spécifiés
+    const getQuestions = async (questions) => {
+        let promises = questions.map(question_id => {
+        return axiosPrivate.get(`/question/${question_id}`)
+        .then(response => response.data)
+        .catch(error => console.error(error));
+        });
+        return Promise.all(promises);
+    }
+
+    //Si le quizz est lancer avec succes on redirige l'utilisateur 
+    //vers la page de gestion du quizz
     useEffect(() => {
         socket.on("quizz_started", (data) => {
             toggleModal();
             resetModal();
             navigate(`/play/admin/${data.quizz_link}`)
         });
-      }, [socket]);
+      }, [socket,navigate,toggleModal]);
 
     return (
         <>
@@ -62,7 +107,7 @@ const ModalSessionParameter = ({modal,toggleModal,socket,quizz_id}) => {
                         <button className="close-modal" onClick={()=> {toggleModal();resetModal();}}>
                             X
                         </button>
-                        <form className='Session_param-form' onSubmit={(e) => e.preventDefault()}>
+                        {loader===false?(<form className='Session_param-form' onSubmit={(e) => e.preventDefault()}>
                             <InputRadioComp
                                 values={values}
                                 className="radio_field"
@@ -83,12 +128,26 @@ const ModalSessionParameter = ({modal,toggleModal,socket,quizz_id}) => {
                                     className={'Session_param-field'}
                                 />
                             } 
-                        
-                            <div className="Session_param-field">
-                                <input type="submit" value="Lancer" onClick={handleLancement}/>
-                            </div>
+                            
+                            {(quizzDeroulementValue==="timer"&& quizzTimerValue!=='')&&(
+                                <div className="Session_param-field">
+                                    <input type="submit" value="Lancer" onClick={handleLancement}/>
+                                </div>)
+                            }
 
-                        </form>
+                            {(quizzDeroulementValue!=="timer"&& quizzDeroulementValue!=='')&&(
+                                <div className="Session_param-field">
+                                    <input type="submit" value="Lancer" onClick={handleLancement}/>
+                                </div>)
+                            }
+
+                        </form>):(
+                            <>
+                                <div>Initialisation du quizz veuillez patienter ...</div>
+                                <div  className="dot-flashing"></div>
+                            </>
+
+                        )}
                     </div>
                 </div>
             )}

@@ -10,7 +10,7 @@ import ModalSessionParameter from '../component/Modal/ModalSessionParameter';
 import '../component/Loader/Loader.css'
 import { toast } from 'react-toastify';
 
-const MesQuizz = ({socket}) => {
+const MesQuizz = () => {
 
 
     const [datas, setDatas] = useState([]);
@@ -171,7 +171,6 @@ const MesQuizz = ({socket}) => {
             <ModalSessionParameter
                 modal={modal} 
                 toggleModal={toggleModal}
-                socket={socket}
                 quizz_id={currId}    
             />
 

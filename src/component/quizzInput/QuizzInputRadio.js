@@ -1,6 +1,6 @@
 import React from 'react'
 
-const QuizzInputRadio = ({questions,name,setReponse,reponse}) => {
+const QuizzInputRadio = ({questions,name,setReponse,reponse,disabled}) => {
 
     const onChangeRadio = (value)=>{
         let reponse = [];
@@ -20,6 +20,7 @@ const QuizzInputRadio = ({questions,name,setReponse,reponse}) => {
                         name={name}
                         checked={reponse.includes(question.libelle)}
                         onChange={()=>onChangeRadio(question.libelle)}
+                        disabled={disabled}
                     />
                     <label>{question.libelle}</label>
                 </section>

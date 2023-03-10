@@ -1,6 +1,6 @@
 import React from 'react'
 
-const QuizzInputCheckbox = ({questions,setReponse,reponse}) => {
+const QuizzInputCheckbox = ({questions,setReponse,reponse,disabled}) => {
 
 
     const handleCheckboxChange = (event) => {
@@ -26,6 +26,7 @@ const QuizzInputCheckbox = ({questions,setReponse,reponse}) => {
                             name={question.libelle}  
                             checked={reponse.includes(question.libelle)}
                             onChange={handleCheckboxChange}
+                            disabled={disabled}
                         />
                         <label>{question.libelle}</label>
                     </section>

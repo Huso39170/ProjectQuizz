@@ -1,22 +1,19 @@
 import React, { useState} from 'react'
 import './home.css'
 import ModalSubLog from '../component/Modal/ModalSubLog'
+import { useNavigate } from 'react-router-dom';
 
 import Navbar from '../component/Layout/Navbar';
 
 const Home = ({isUserLoged}) => {
-
-    //Fonction qui gere la soumission du formulaire
-    const handleSubmit = (e) => {
-        //Empeche la page de se rafraichir lorsque l'on soumet un formulaire
-        e.preventDefault();
-
-    }
-    const[modal,setModal]= useState(false);
-    const[isLoginClicked,setIsLoginClicked]=useState(false);
+    const [modal,setModal]= useState(false);
+    const [isLoginClicked,setIsLoginClicked]=useState(false);
+    const [joinCode,setJoinCode]=useState('')
 
 
 
+    //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
+    const navigate = useNavigate();
 
 
     /*la fonction toggleModal est appelée avec l'argument login 
@@ -30,6 +27,14 @@ const Home = ({isUserLoged}) => {
         setIsLoginClicked(login);
     }
 
+
+    //Fonction qui gere la soumission du formulaire
+    const handleSubmit = (e) => {
+        //Empeche la page de se rafraichir lorsque l'on soumet un formulaire
+        e.preventDefault();
+        navigate(`/play/quizz/${joinCode}`)
+        setJoinCode('')
+    }
 
 
 
@@ -72,7 +77,16 @@ const Home = ({isUserLoged}) => {
                         Rejoindre une partie : 
                     </h2>
                     <form className='join_form' onSubmit={handleSubmit}>
-                        <input className='join_text' placeholder='Entrez le code' type="text" name="name" />
+                        
+                    <input
+                        className='join_text'
+                        type="text"
+                        placeholder="Entrez le code"
+                        value={joinCode}
+                        onChange={(e) => {
+                            setJoinCode(e.target.value);
+                        }}
+                    />
                         <input className='join_submit' type="submit" value="Submit" onClick={handleSubmit} />
                     </form>
                 </section>

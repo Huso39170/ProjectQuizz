@@ -2,7 +2,7 @@ import React,{useEffect,useState,memo} from 'react'
 import QuizzInputRadio from '../../component/quizzInput/QuizzInputRadio';
 import QuizzInputCheckbox from '../../component/quizzInput/QuizzInputCheckbox';
 import { useParams } from 'react-router-dom';
-const PlayQuestion = memo(({qstData,questionsReponses,setQuestionsReponses}) => {
+const PlayQuestion = memo(({qstData,questionsReponses,setQuestionsReponses,quizz_id,disabled}) => {
     //Stockage des données de la question récupere via la BD
    // const [qstData,setQstData]=useState({});
     //Loader
@@ -12,7 +12,7 @@ const PlayQuestion = memo(({qstData,questionsReponses,setQuestionsReponses}) => 
     const[reponse,setReponse]=useState([])
 
     //Recuperation de l'id dans l'url
-    const { id } = useParams();
+    const { quizzCode } = useParams();
 
 
     useEffect(()=>{
@@ -26,13 +26,13 @@ const PlayQuestion = memo(({qstData,questionsReponses,setQuestionsReponses}) => 
     useEffect(()=>{
         setQuestionsReponses(currentQuestionsReponses => {
             let qst =currentQuestionsReponses.filter(question => question.id!==qstData._id);
-            qst.push({id:qstData._id, reponse : reponse});
+            qst.push({id:qstData._id, reponse : reponse, disabled:disabled});
             //Stoque dans le local storage la reponse du candidat pour le quizz;
-            localStorage.setItem(`quizzReponse${id}`,JSON.stringify({quizz_id:id,reponse:qst}))
+            localStorage.setItem(`quizzReponse${quizzCode}`,JSON.stringify({quizz_id:quizz_id,reponse:qst}))
             return qst;
             
         });
-    },[reponse,setQuestionsReponses,id]);
+    },[reponse,setQuestionsReponses,quizzCode,disabled]);
 
   
     return (
@@ -46,6 +46,7 @@ const PlayQuestion = memo(({qstData,questionsReponses,setQuestionsReponses}) => 
                         name="qcu"
                         setReponse={setReponse}
                         reponse={reponse}
+                        disabled={disabled}
                     />
                 }
                 {
@@ -54,6 +55,8 @@ const PlayQuestion = memo(({qstData,questionsReponses,setQuestionsReponses}) => 
                         questions={qstData.reponses}
                         setReponse={setReponse}
                         reponse={reponse}
+                        disabled={disabled}
+
                     />
                 }
 
