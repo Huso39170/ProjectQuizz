@@ -4,6 +4,7 @@ import useAuth from '../../hooks/useAuth'
 import useSocket from '../../hooks/useSocket';
 import useRefreshToken from '../../hooks/useRefreshToken';
 import PlayQuestionAdmin from "./PlayQuestionAdmin";
+import ModalQrCode from "../../component/Modal/ModalQrCode";
 
 const PlayQuizzAdminView = () => {
 	const {auth} = useAuth();
@@ -20,6 +21,14 @@ const PlayQuizzAdminView = () => {
     const [timer,setTimer]=useState(0);
     const [nbUser,setNbUser]=useState(0);
     const [startCounter,setStartCounter]=useState(false);
+
+        
+    //Gestion du modal
+    const[modal,setModal]= useState(false);
+    const toggleModal = () =>{
+        //Inverse le bollean de modal
+        setModal(!modal);
+    }
 
 
     //mémorise le tableau de composants enfants
@@ -74,7 +83,7 @@ const PlayQuizzAdminView = () => {
     useEffect(()=>{
         if(!loader){
             // Géstion de l'événement de connexion d'un administrateur à un quizz
-            socket.emit("admin_joined",{quizz_link:quizzCode,admin:'toto'});
+            socket.emit("admin_joined",{quizz_link:quizzCode});
         }
 
         //Reception des données du quizz
@@ -161,9 +170,13 @@ const PlayQuizzAdminView = () => {
     return (
         <>{loader===true?
             (<div>
+
+                <button onClick={()=>{toggleModal()}}>Afficher le qr code</button>
                 <p>Code : {quizzCode}</p>
                 <p>Nombre de particpant ayant fini le quizz : {nbResp}</p>
-                {quizzType!=="participant"&&(<p>Nombre de particpant ayant repondu à la question : {nbRespCurr}</p>)}
+                {quizzType!=="participant"
+                    &&(<p>Nombre de particpant ayant repondu à la question : {nbRespCurr}</p>)
+                }
                 <p>Nombre de partcipant dans le quizz :{nbUser}</p>
                 {quizzType!=="particpant"&&
                     <ul>{listeProprietes}</ul>
@@ -191,7 +204,11 @@ const PlayQuizzAdminView = () => {
                 </div>
                 <input type="submit" value="Prev" onClick={handlePrev}  disabled={index === 0 || quizzType!=="participant"}/>
                 <input type="submit" value="Next" onClick={handleNext}  disabled={index === components.length - 1}/>
-
+                <ModalQrCode
+                    modal={modal} 
+                    toggleModal={toggleModal}  
+                    qrCodeValue={"https://www.example.com"}
+                />
             </div>)
             :
             (

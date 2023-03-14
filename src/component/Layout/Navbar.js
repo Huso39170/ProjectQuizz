@@ -2,12 +2,17 @@ import React,{useRef,useEffect, useState} from 'react'
 import "./Header.css"
 import {useNavigate} from 'react-router-dom';
 import useLogout from '../../hooks/useLogout';
+import {useLocation } from 'react-router-dom'
+
 
 const Navbar = ({isUserLoged,toggleModal}) => {
 	const [scrollable,setScrollable]=useState(true);
 
 	//Initialisation du hook
 	const logout = useLogout();
+
+    const location = useLocation();
+
 
 	const uncheckInputRef = useRef();
 	//Si l'utilisateur clique nimporte ou sur le menu en mode mobile on eneleve le menu
@@ -55,7 +60,7 @@ const Navbar = ({isUserLoged,toggleModal}) => {
 						<a href=" " onClick={handleDisconnect}>Déconnexion</a>
 
 					</>):(
-						<a href=" " onClick={e=> {e.preventDefault(); toggleModal(true)}}>Connexion</a>
+						location.pathname==="/" && <a href=" " onClick={e=> {e.preventDefault(); toggleModal(true)}}>Connexion</a>
 					)}
 				</div>
 			</div>

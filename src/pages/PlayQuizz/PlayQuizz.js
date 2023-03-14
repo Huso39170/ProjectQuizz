@@ -5,15 +5,27 @@ import useSocket from '../../hooks/useSocket'
 import './PlayQuizz.css'
 const PlayQuizz = () => {
 
+    //Initialisation des variables
+    //Données du quizz
     const [quizzData,setQuizzData]=useState([]);
+    //Type du quizz
     const [quizzType,setQuizzType]=useState('');
+    //Index de la question actuel utilisé avec partcipant qui passe
     const [index, setIndex] = useState(0);
+    //Index de la question actuel recupré via la socket 
     const [currIndex, setCurrIndex] = useState(0);
+    //Nombre de questions
     const [nbQuestions,setNbQuestions]=useState(0);
+    //Reponses aux question
     const [questionsReponses,setQuestionsReponses]=useState([])
+    //Timer pour le decompte
     const [timer,setTimer]=useState('')
-    const {socket} = useSocket();
+    //Etat du bouton valider 
     const [activateValidBtn,setActivateValidBtn]=useState(true)
+
+
+    //Création de la connection au serveur
+    const {socket} = useSocket();
 
     //mémorise le tableau de composants enfants
     //utilisé pour mémoriser une valeur de retour calculée à partir de props,
@@ -64,6 +76,13 @@ const PlayQuizz = () => {
         
     };
 
+    const removeFromLocalStorage = (quizzCode)=>{
+        const getLocal = JSON.parse(localStorage.getItem(`quizzReponse${quizzCode}`))
+        if(getLocal!==null){
+            localStorage.removeItem(`quizzReponse${quizzCode}`)
+        }
+    }
+
     
     //Permet de finir le quizz
     const handleFinsih = () => {
@@ -71,17 +90,12 @@ const PlayQuizz = () => {
         if(quizzType==="participant"){
             socket.emit("send_response_finish",{questions_response:questionsReponses,quizz_link:quizzCode})
             socket.on("reponse_recieved",()=>{
-                const getLocal = JSON.parse(localStorage.getItem(`quizzReponse${quizzCode}`))
-                if(getLocal!==null){
-                    localStorage.removeItem(`quizzReponse${quizzCode}`)
-                }
+                removeFromLocalStorage(quizzCode);
                 navigate('/play/end')
             })
         }else{
-            const getLocal = JSON.parse(localStorage.getItem(`quizzReponse${quizzCode}`))
-            if(getLocal!==null){
-                localStorage.removeItem(`quizzReponse${quizzCode}`)
-            }
+            socket.emit("participant_finish",{quizz_link:quizzCode})
+            removeFromLocalStorage(quizzCode);
             navigate('/play/end')
         }
     };
@@ -106,6 +120,7 @@ const PlayQuizz = () => {
         socket.off("quizz_ended");
         socket.on("quizz_ended", () => {;
             socket.emit("send_response_ended",{questions_response:questionsReponses,quizz_link:quizzCode})
+            removeFromLocalStorage(quizzCode);
             navigate('/play/end')
         });
 
@@ -113,12 +128,14 @@ const PlayQuizz = () => {
             socket.emit("join_quizz",{quizz_link:quizzCode})
         }
 
+        //Gestion de l'evenement quizz non existant
         socket.off("quizz_not_exist");
         socket.on("quizz_not_exist",() => {
             navigate("/missing")
         });
 
         
+        //Reception des données du quizz depuis la socket
         socket.off("send_quizz_data");
         socket.on("send_quizz_data",(data)=>{
             console.log(data)
@@ -145,6 +162,7 @@ const PlayQuizz = () => {
 
         });
 
+        //Gestion de l'evenement de passage a la question suivante
         socket.off("next_question");
         socket.on("next_question",(data)=>{
             console.log(data)
@@ -154,6 +172,7 @@ const PlayQuizz = () => {
             
         });
 
+        //Gestion de l'evenement du decompte
         socket.off("give_counter");
         socket.on("give_counter",(data)=>{
             setTimer(parseInt(data.timer));

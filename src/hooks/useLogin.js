@@ -1,7 +1,7 @@
 import api from "../api/quizz";
 import useAuth from "./useAuth";
 
-const useLogin = (resetModal,toggleModal) => {
+const useLogin = (resetModal,toggleModal,setErrors) => {
     const { setAuth } = useAuth();
 
 
@@ -17,6 +17,8 @@ const useLogin = (resetModal,toggleModal) => {
             StockToken(response.data)
         } catch (err){
             //Erreur affichée dans la console
+            setErrors(err.response.data.message);
+
             console.log(err.response.data);
         }
     }
