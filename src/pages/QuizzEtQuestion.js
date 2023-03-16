@@ -23,6 +23,8 @@ const QuizzEtQuestion = () => {
     //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
     const axiosPrivate=useAxiosPrivate()
 
+    console.log("quizzQuestion === ", quizzQuestions);
+
     //Fonction qui s'execute au moment du rendue de la page permet de recuperer les données du quizz de l'id correspondant
     useEffect(() => {
         if(id!==undefined){
@@ -46,6 +48,7 @@ const QuizzEtQuestion = () => {
     //Fonction qui initialise quizzNameValue
     const setQuizzData = (data) => {
         setQuizzNameValue(data.name)
+        setQuizzQuestions(data.questions)    // data.questions renvoie seulement l'id de la question donc on ne peut pas afficher les infos de la question
         setLoader(true)
     }
 

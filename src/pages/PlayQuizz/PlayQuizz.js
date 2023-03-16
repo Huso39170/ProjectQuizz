@@ -3,6 +3,8 @@ import { useParams,useNavigate } from 'react-router-dom';
 import PlayQuestion from "./PlayQuestion";
 import useSocket from '../../hooks/useSocket'
 import './PlayQuizz.css'
+import { BsStopwatchFill } from 'react-icons/bs'
+
 const PlayQuizz = () => {
 
     const [quizzData,setQuizzData]=useState([]);
@@ -177,6 +179,7 @@ const PlayQuizz = () => {
 
 
 
+
     return (
         <>{loader===true?
             (<div className="play_quizz">
@@ -192,32 +195,37 @@ const PlayQuizz = () => {
                     {
                     quizzType==="participant"&&
                         (<>
-                            <p>Question {index+1}/{components.length} </p>
-                            <input type="submit" value="Prev" onClick={handlePrev}  disabled={index === 0}/>
-                            {
-                                index < components.length - 1?(
-                                    <input type="submit" value="Next" onClick={handleNext} />
-                                ):(
-                                    <input type="submit" value="Finish" onClick={handleFinsih} />
-                                )
-                            }
+                            <p className="question__number">Question {index+1}/{components.length} </p>
+                            
+                            <div className="set_question__manage">
+                                <input className="question__manage" type="submit" value="Précédent" onClick={handlePrev}  disabled={index === 0}/>
+                                {
+                                    index < components.length - 1?(
+                                        <input className="question__manage" type="submit" value="Suivant" onClick={handleNext} />
+                                    ):(
+                                        <input className="question__manage" type="submit" value="Finir" onClick={handleFinsih} />
+                                    )
+                                }
+                            </div>
                         </>)
                     }
                     {
                         quizzType==="profBtn"&&
                         (
                             <>  
-                                <p>Question {currIndex+1}/{nbQuestions} </p>
-                                {
-                                    (currIndex+1)!==nbQuestions?
-                                    (
-                                        <input type="submit" value="Valider" onClick={handleValid} disabled={!activateValidBtn}/>
-                                    )
-                                    :
-                                    (
-                                        <input type="submit" value="Valider et Terminer" onClick={()=>{handleValid();handleFinsih();}} disabled={!activateValidBtn}/>
-                                    )
-                                }
+                                <p className="question__number">Question {currIndex+1}/{nbQuestions} </p>
+                                <div>
+                                    {
+                                        (currIndex+1)!==nbQuestions?
+                                        (
+                                            <input className="question__validate" type="submit" value="Valider" onClick={handleValid} disabled={!activateValidBtn}/>
+                                        )
+                                        :
+                                        (
+                                            <input className="question__validate" type="submit" value="Terminer" onClick={()=>{handleValid();handleFinsih();}} disabled={!activateValidBtn}/>
+                                        )
+                                    }
+                                </div>
                             </>
                         )
                     }
@@ -226,18 +234,19 @@ const PlayQuizz = () => {
                         quizzType==="timer"&&
                         (
                             <>  
-                                { quizzType==="timer"&&<p>Timer : {timer}</p>}
-                                <p>Question {currIndex+1}/{nbQuestions} </p>
+                                <p className="question__number">Question {currIndex+1}/{nbQuestions} </p>
+                                { quizzType==="timer"&&<p className="question__timer"><BsStopwatchFill/>{timer}</p>}
+                                
                                 {
                                     (currIndex+1)!==nbQuestions?
                                     (
-                                        <input type="submit" value="Valider" onClick={handleValid} disabled={!activateValidBtn}/>
+                                        <input className="question__validate" type="submit" value="Valider" onClick={handleValid} disabled={!activateValidBtn}/>
                                     )
                                     :
                                     (
                                         <>
-                                        <input type="submit" value="Valider" onClick={()=>{handleValid()}} disabled={!activateValidBtn}/>
-                                        <input type="submit" value="Terminer" onClick={()=>{handleFinsih();}} disabled={activateValidBtn}/>
+                                        <input  className="question__validate" type="submit" value="Valider" onClick={()=>{handleValid()}} disabled={!activateValidBtn}/>
+                                        <input  className="question__validate" type="submit" value="Terminer" onClick={()=>{handleFinsih();}} disabled={activateValidBtn}/>
                                         </>
                                     )
                                         

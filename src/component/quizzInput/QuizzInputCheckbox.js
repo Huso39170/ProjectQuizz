@@ -1,4 +1,5 @@
 import React from 'react'
+import '../../pages/PlayQuizz/PlayQuestion.css'
 
 const QuizzInputCheckbox = ({questions,setReponse,reponse,disabled}) => {
 
@@ -16,11 +17,13 @@ const QuizzInputCheckbox = ({questions,setReponse,reponse,disabled}) => {
         );
       };
 
+    const lettersProposition = ['A', 'B', 'C', 'D'];
+
     return (
-        <div>
         <>{
             questions.map((question,index) =>( 
-                    <section key={index}>
+                    <section key={index} className="question__section">
+                        <div className='letter_answers'>{lettersProposition[index]}</div>
                         <input 
                             type="checkbox"
                             name={question.libelle}  
@@ -33,7 +36,7 @@ const QuizzInputCheckbox = ({questions,setReponse,reponse,disabled}) => {
                 ) 
             )
         }</>
-        </div>)
+        )
     
 }
 

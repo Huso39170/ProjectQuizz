@@ -4,34 +4,24 @@ import { ImCross } from 'react-icons/im';
 
 const ModalPreviewQuestion = (props) => {
 
+    const lettersProposition = ['A', 'B', 'C', 'D'];
 
     return (
     <div className='modal__preview'>
         <ImCross className='cross_modal_preview' role='button' onClick={()=>{props.HandlePreviewQuestion()}}/>
-        <div className='circle_frame_preview'></div>
+        
             <h2>{props.Question.libelle}</h2>
                 
-                {props.Question.type==="num"&&<div className='preview__answer'>
-                        <div> 
-                            <span>{'55'}</span> 
-                            <input 
-                                type="range" 
-                                min="0" max="100" 
-                                step='1'
-                                disabled
-                            />
-                        </div>
-                </div>
-                }
-                {props.Question.type==="qcm"&&<div className='preview__answer'>
+                {props.Question.type==="qcm"&&<div className='preview__answer'><div className="number_question">Question 1/10</div>
                     <>{
                         props.Question.reponses.map((val,index) =>( 
                                 <section key={index}> 
-                                        
+                                        <div className='letter_answers'>{lettersProposition[index]}</div>
                                         <input 
                                             type="checkbox"  
                                             id={index}
-                                            checked={val.isCorrect ? true : false}
+                                            name="qcm"
+                                            checked= {val.isCorrect === true} 
                                             disabled
                                         />
                                     
@@ -46,7 +36,9 @@ const ModalPreviewQuestion = (props) => {
                 {props.Question.type==="qcu"&&<div className='preview__answer'>
                     <>{ 
                         props.Question.reponses.map((val, index) => (
+                            
                             <section key={index}>
+                                <div className='letter_answers'>{lettersProposition[index]}</div>
                                 <input 
                                     type="radio" 
                                     id={index} 
@@ -61,6 +53,7 @@ const ModalPreviewQuestion = (props) => {
                     }</>
                 </div>
                 }
+                <div className="validate_answer">Valider</div>
 
         </div>
     

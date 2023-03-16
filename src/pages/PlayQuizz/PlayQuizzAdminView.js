@@ -4,6 +4,10 @@ import useAuth from '../../hooks/useAuth'
 import useSocket from '../../hooks/useSocket';
 import useRefreshToken from '../../hooks/useRefreshToken';
 import PlayQuestionAdmin from "./PlayQuestionAdmin";
+import './PlayQuizzAdminView.css'
+import { BsFillPersonFill, BsPersonCheckFill, BsStopwatchFill, BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs'
+import { FiCopy } from 'react-icons/fi'
+
 
 const PlayQuizzAdminView = () => {
 	const {auth} = useAuth();
@@ -21,6 +25,8 @@ const PlayQuizzAdminView = () => {
     const [nbUser,setNbUser]=useState(0);
     const [startCounter,setStartCounter]=useState(false);
 
+    const listeProprietes = Object.keys(currResponse);
+
 
     //mémorise le tableau de composants enfants
     //utilisé pour mémoriser une valeur de retour calculée à partir de props,
@@ -30,9 +36,10 @@ const PlayQuizzAdminView = () => {
             <PlayQuestionAdmin
               key={element._id}
               qstData={element}
+              currResponse = {currResponse}
             />
           )),
-        [quizzData.questions]
+        [quizzData.questions, currResponse]
     );
 
     
@@ -153,45 +160,65 @@ const PlayQuizzAdminView = () => {
         }
     }, [counter,startCounter]);
 
-
+/*
     const listeProprietes = Object.keys(currResponse).map((key) =>
         <li key={key}>{key}: {currResponse[key]}</li>
     );
+*/
+    
+    function copyClick() {
+        const codeToCopy = document.querySelector('.adm__code').innerText;
+        navigator.clipboard.writeText(codeToCopy)
+          .then(() => {
+            console.log('Code copied to clipboard');
+          })
+          .catch((err) => {
+            console.error('Error copying code: ', err);
+          });
+      }
 
     return (
         <>{loader===true?
             (<div>
-                <p>Code : {quizzCode}</p>
-                <p>Nombre de particpant ayant fini le quizz : {nbResp}</p>
-                {quizzType!=="participant"&&(<p>Nombre de particpant ayant repondu à la question : {nbRespCurr}</p>)}
-                <p>Nombre de partcipant dans le quizz :{nbUser}</p>
-                {quizzType!=="particpant"&&
+                <div className="adm__head">
+                    <p className="adm__viewers" title="Participants"><BsFillPersonFill/>{nbUser}</p>
+                    <p className="adm__code" onClick={copyClick}>{quizzCode}<FiCopy/></p>
+                    <button className="adm__exit" onClick={endQuizz}>Quitter</button>
+                </div>
+                
+                {quizzType!=="participant"&&
                     <ul>{listeProprietes}</ul>
                 }
-                <p>Type de quizz ; {quizzType}</p>
-                { quizzType==="timer"&&
-                    <>
-                        <p>Timer : {counter}</p>
-                        {startCounter?
-                            (
-                            <button onClick={()=>{setStartCounter((prev) => (!prev));}} >Arreter le timer</button>
-                            )
-                            :
-                            (
-                                <button onClick={()=>{setStartCounter((prev) => (!prev));}} >Commencer le timer</button>
-                            )
-                        }
-                    </>
-                }
-
-                <p>Question {index+1}/{components.length} </p>
-                <button onClick={endQuizz}>Arreter le quizz</button>
+                
+                <div className="adm__control_section">
+                    {quizzType==="participant"&&<p className="adm__users_question_finish" title="Participants ayant fini"><BsPersonCheckFill/>{nbResp}/{nbUser}</p>}
+                    {quizzType!=="participant"&&(<p className="adm__users_question_finish" title="Participants ayant répondu"><BsPersonCheckFill/>{nbRespCurr}/{nbUser}</p>)}
+                    { quizzType==="timer"&&
+                        <>
+                            <p className="adm__timer"><BsStopwatchFill/>{counter}</p>
+                            {startCounter?
+                                (
+                                    <button className="adm__pause_play" onClick={()=>{setStartCounter((prev) => (!prev));}} ><BsFillPauseFill/></button>
+                                )
+                                :
+                                (
+                                    <button className="adm__pause_play" onClick={()=>{setStartCounter((prev) => (!prev));}} ><BsFillPlayFill/></button>
+                                )
+                            }
+                        </>
+                    }
+                </div>
+                
                 <div>
                     {components[index]}
                 </div>
-                <input type="submit" value="Prev" onClick={handlePrev}  disabled={index === 0 || quizzType!=="participant"}/>
-                <input type="submit" value="Next" onClick={handleNext}  disabled={index === components.length - 1}/>
-
+                <p className="question__number">Question {index+1}/{components.length} </p>
+                <div className="set_question__manage">
+                    <input className="question__manage" type="submit" value="Prev" onClick={handlePrev}  disabled={index === 0 || quizzType!=="participant"}/>
+                    <input className="question__manage" type="submit" value="Next" onClick={handleNext}  disabled={index === components.length - 1}/>
+                </div>
+                
+                
             </div>)
             :
             (

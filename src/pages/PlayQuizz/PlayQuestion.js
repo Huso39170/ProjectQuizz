@@ -2,6 +2,8 @@ import React,{useEffect,useState,memo} from 'react'
 import QuizzInputRadio from '../../component/quizzInput/QuizzInputRadio';
 import QuizzInputCheckbox from '../../component/quizzInput/QuizzInputCheckbox';
 import { useParams } from 'react-router-dom';
+import './PlayQuestion.css'
+
 const PlayQuestion = memo(({qstData,questionsReponses,setQuestionsReponses,quizz_id,disabled}) => {
     //Stockage des données de la question récupere via la BD
    // const [qstData,setQstData]=useState({});
@@ -36,29 +38,32 @@ const PlayQuestion = memo(({qstData,questionsReponses,setQuestionsReponses,quizz
 
   
     return (
-        <>{loader===true?
+        <>
+        {loader===true?
             (<div>
-                {qstData.libelle}
-                {
-                    qstData.type==="qcu"&&
-                    <QuizzInputRadio
-                        questions={qstData.reponses}
-                        name="qcu"
-                        setReponse={setReponse}
-                        reponse={reponse}
-                        disabled={disabled}
-                    />
-                }
-                {
-                    qstData.type==="qcm"&&
-                    <QuizzInputCheckbox
-                        questions={qstData.reponses}
-                        setReponse={setReponse}
-                        reponse={reponse}
-                        disabled={disabled}
+                <h2 className='question__libelle'>{qstData.libelle}</h2>
+                <div className="question__answers">
+                    {
+                        qstData.type==="qcu"&&
+                        <QuizzInputRadio
+                            questions={qstData.reponses}
+                            name="qcu"
+                            setReponse={setReponse}
+                            reponse={reponse}
+                            disabled={disabled}
+                        />
+                    }
+                    {
+                        qstData.type==="qcm"&&
+                        <QuizzInputCheckbox
+                            questions={qstData.reponses}
+                            setReponse={setReponse}
+                            reponse={reponse}
+                            disabled={disabled}
 
-                    />
-                }
+                        />
+                    }
+                </div>
 
             </div>):(
                 <div  className="dot-flashing"></div>

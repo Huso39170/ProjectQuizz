@@ -8,12 +8,15 @@ const QuizzInputRadio = ({questions,name,setReponse,reponse,disabled}) => {
         setReponse(reponse);
     }
 
+    const lettersProposition = ['A', 'B', 'C', 'D'];
+
 
     return (
-        <div>
+        
         <>{ 
             questions.map((question, index) => (
-                <section key={index}>
+                <section key={index} className="question__section">
+                    <div className='letter_answers'>{lettersProposition[index]}</div>
                     <input 
                         type="radio" 
                         id={question._id} 
@@ -27,7 +30,7 @@ const QuizzInputRadio = ({questions,name,setReponse,reponse,disabled}) => {
             ))
 
         }</>
-        </div>
+        
     )
 }
 

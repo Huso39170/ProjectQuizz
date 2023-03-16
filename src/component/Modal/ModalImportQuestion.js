@@ -31,7 +31,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion,qu
     //UseEffect qui entre en jeu lorsque le modal est activé, demande à la BD 
     //toute les questions de la session et les stock dans allSessionQuestion
     useEffect(() => {
-        if(modal===true){
+        if(modal===true) {
             const fetchQuestion = async () => {
                 try {
                     const response = await axiosPrivate.get(`/question`);

@@ -206,7 +206,7 @@ html, body, main, #root{
   vertical-align: middle;
 }
 
-
+/* Si pas encore de quiz*/
 
 .empty_quizz {
   text-align: center;
@@ -214,7 +214,27 @@ html, body, main, #root{
   margin-bottom: 25px;
 }
 
+.add_button_quizz {
+  margin: auto;
+  width: 15em;
+  display: block;
+  position: relative;
+  background-color: white;
+  border: solid 1px lightgrey;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  height: 49px;
+  color: black;
+  font-size: 20px;
+  transition: all .3s ease-in-out;
+  overflow: hidden;
+  cursor: pointer;
+}
 
+.add_button_quizzhover {
+  background-color:#ce5e58d7;
+}
 
 .add_button_bis {
   display: none;
@@ -308,19 +328,20 @@ html, body, main, #root{
 /******* Page 'Nouveau quizz | Importer quizz' */
 
 .creation {  
-  width: 100%;
-  height: 118%;
+  background-color: white;
   position: absolute;
   top: -66px;
-  right: 0;
-  background-color: white;
+  width: 100%;
+  height: 200vh;
+  
+  
   z-index: 1;
 }
 
 .creation_quizz {
   text-align: center;
   margin-top: 100px;
-}
+} 
 
 .cross_creation_quizz {
   float: right;
