@@ -9,6 +9,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 const ModalSessionParameter = ({modal,toggleModal,quizz_id}) => {
     const [quizzDeroulementValue, setquizzDeroulementValue] = useState('');
     const [quizzTimerValue, setquizzTimerValue] = useState('');
+    const [sessionName, setSessionName] = useState('');
     const [loader,setLoader]=useState(false)
     
     //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
@@ -53,10 +54,12 @@ const ModalSessionParameter = ({modal,toggleModal,quizz_id}) => {
             socket.emit("start_quizz",{
                                         quizz_data:quizz_data,
                                         quizz_type:quizzDeroulementValue,
+                                        session_name:sessionName,
                                         timer:quizzTimerValue})
         }else{
             socket.emit("start_quizz",{
                                         quizz_data:quizz_data,
+                                        session_name:sessionName,
                                         quizz_type:quizzDeroulementValue})
         }
         
@@ -108,6 +111,16 @@ const ModalSessionParameter = ({modal,toggleModal,quizz_id}) => {
                             X
                         </button>
                         {loader===false?(<form className='Session_param-form' onSubmit={(e) => e.preventDefault()}>
+                            <InputComp 
+                                placeholder={"Nom de le session "}
+                                setValue={setSessionName}
+                                modalValue={sessionName}
+                                inputType={"text"}
+                                required={true}
+                                erreur={""}
+                                className={'Session_param-field'}
+                            />
+                            
                             <InputRadioComp
                                 values={values}
                                 className="radio_field"
@@ -127,15 +140,16 @@ const ModalSessionParameter = ({modal,toggleModal,quizz_id}) => {
                                     erreur={""}
                                     className={'Session_param-field'}
                                 />
+
                             } 
                             
-                            {(quizzDeroulementValue==="timer"&& quizzTimerValue!=='')&&(
+                            {(quizzDeroulementValue==="timer"&& quizzTimerValue!==''&& sessionName!=='')&&(
                                 <div className="Session_param-field">
                                     <input type="submit" value="Lancer" onClick={handleLancement}/>
                                 </div>)
                             }
 
-                            {(quizzDeroulementValue!=="timer"&& quizzDeroulementValue!=='')&&(
+                            {(quizzDeroulementValue!=="timer"&& quizzDeroulementValue!==''&& sessionName!=='')&&(
                                 <div className="Session_param-field">
                                     <input type="submit" value="Lancer" onClick={handleLancement}/>
                                 </div>)

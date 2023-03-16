@@ -1,5 +1,6 @@
 import './MesQuizz.css';
-import { FaPlay, FaEdit, FaEye, FaTrashAlt,FaLink } from 'react-icons/fa';
+import { FaPlay, FaEdit, FaTrashAlt,FaLink } from 'react-icons/fa';
+import {IoIosStats} from 'react-icons/io'
 import { AiOutlineFileAdd } from 'react-icons/ai';
 import { BsFillFileEarmarkArrowUpFill } from 'react-icons/bs';
 import { ImCross } from 'react-icons/im';
@@ -101,10 +102,10 @@ const MesQuizz = () => {
                     <div className='add_quizz'>
                         <button onClick={handleCreateQuizz}>CRÉER UN QUIZ</button>
                         <input 
-                        type='text' 
-                        placeholder='Rechercher...' 
-                        name='searchBar'
-                        onChange={handleSearchTerm}
+                            type='text' 
+                            placeholder='Rechercher...' 
+                            name='searchBar'
+                            onChange={handleSearchTerm}
                         />
                     </div>
                     
@@ -123,9 +124,8 @@ const MesQuizz = () => {
                                         <p className='quizz_name'>{val.name}</p>
                                         <button className='play_button' title='Démarrer' onClick={()=>toggleModal(val._id)}> <FaPlay className='FaPlay' alt='play button' /> </button>
                                         <button className='edit_button' title='Modifier' onClick={()=>{ navigate(`/mesquizz/modifier/${val._id}`)}}> <FaEdit className='FaEdit' alt='edit button'/> </button>
-                                        <button className='stats_button' title='Statistiques' onClick={()=>{ navigate(`/play/quizz/${val._id}`)}}> <FaEye className='FaStats' alt='statistical button' /> </button>
+                                        <button className='stats_button' title='Statistiques' onClick={()=>{ navigate(`/mesquizz/stat/${val._id}`)}}> <IoIosStats className='FaStats' alt='statistical button' /> </button>
                                         <button className='link_button' title='Attacher' onClick={()=>{navigate(`/mesquizz/quizz/${val._id}`)}}> <FaLink className='FaLink' alt='attach button' /> </button>
-
                                         <button className='del_button' title='Supprimer' onClick={()=>{ handleDeleteQuiz(val._id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                                     </li>
                                 )

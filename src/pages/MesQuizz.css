@@ -52,7 +52,7 @@ html, body, main, #root{
     transition: all ease-in-out .5s;
     margin-right: 2em;
     margin-left: 1em;
-  }
+}
   
   .add_quizz > input:hover, .add_quizz > input:focus {
     box-shadow: 0 0 1em #00000013;
@@ -62,7 +62,46 @@ html, body, main, #root{
     outline: none;
  
   }
+
   
+.search_session{
+  margin-top: 20px;
+  display:flex;
+  margin-right: 2em;
+  margin-left: 2.5em;
+  gap: 5px;
+}
+
+
+  
+.search_session > input {
+  font-family: inherit;
+  font-size: inherit;
+  background-color: white;
+  border: none;
+  color: #646464;
+  padding: 0.7rem 1rem;
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+}
+
+.search_session > select {
+  font-family: inherit;
+  font-size: inherit;
+  background-color: white;
+  color: #646464;
+  border-radius: 5px;
+  border:none;
+  width:50%
+}
+
+.search_session > input:focus {
+  outline: none;
+}
+.search_session > select:focus {
+  outline: none;
+}
 
   
 /* les quizz */
@@ -82,6 +121,11 @@ html, body, main, #root{
   margin-top: 15px;
   margin-left: auto;
   margin-right: 2em;
+}
+
+.quizz_stat:hover{
+  cursor: pointer;
+  background-color: lightgray;
 }
 
 .quizz_name {
@@ -228,6 +272,13 @@ html, body, main, #root{
   .content_main {
     width: 100%;
     border-radius: 0px;
+  }
+
+  .search_session{
+    margin-right: auto;
+    margin-left: auto;
+    width: 90%;
+
   }
 
   /* Boutons CREER QUIZZ */
