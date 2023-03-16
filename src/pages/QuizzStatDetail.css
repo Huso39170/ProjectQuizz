@@ -1,0 +1,55 @@
+
+.quizz_session_details h3 {
+    margin-left: 40px
+}
+
+.quizz_session_details .total_rep {
+    margin-left: 40px
+}
+
+.quizz_session_details ul {
+    list-style-type: none;
+}
+
+
+.quizz_session_details .progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    margin-top: 5px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+.quizz_session_details .progress-bar {
+    height: 100%;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+  }
+  
+.quizz_session_details  .percentage-label {
+    font-size: 12px;
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    z-index: 2;
+  }
+  
+.quizz_session_details  .reponse_true .progress-bar {
+    background-color: #f78059;
+  }
+  
+.quizz_session_details  .reponse_false .progress-bar {
+    background-color: lightgray;
+  }
+
+.quizz_session_details  .reponse_true .percentage-label{
+    font-weight: bold;
+}
+
+.quizz_session_details  .reponse_false .percentage-label{
+    font-weight: lighter;
+}
