@@ -7,7 +7,7 @@ import PlayQuestionAdmin from "./PlayQuestionAdmin";
 import './PlayQuizzAdminView.css'
 import { BsFillPersonFill, BsPersonCheckFill, BsStopwatchFill, BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs'
 import { FiCopy } from 'react-icons/fi'
-
+import ModalQrCode from "../../component/Modal/ModalQrCode";
 
 const PlayQuizzAdminView = () => {
 	const {auth} = useAuth();
@@ -26,6 +26,13 @@ const PlayQuizzAdminView = () => {
     const [startCounter,setStartCounter]=useState(false);
 
     const listeProprietes = Object.keys(currResponse);
+
+    //Gestion du modal
+    const[modal,setModal]= useState(false);
+    const toggleModal = () =>{
+        //Inverse le bollean de modal
+        setModal(!modal);
+    }
 
 
     //mémorise le tableau de composants enfants
@@ -81,7 +88,7 @@ const PlayQuizzAdminView = () => {
     useEffect(()=>{
         if(!loader){
             // Géstion de l'événement de connexion d'un administrateur à un quizz
-            socket.emit("admin_joined",{quizz_link:quizzCode,admin:'toto'});
+            socket.emit("admin_joined",{quizz_link:quizzCode});
         }
 
         //Reception des données du quizz
@@ -182,6 +189,7 @@ const PlayQuizzAdminView = () => {
             (<div>
                 <div className="adm__head">
                     <p className="adm__viewers" title="Participants"><BsFillPersonFill/>{nbUser}</p>
+                    <button onClick={()=>{toggleModal()}}>Afficher le qr code</button>
                     <p className="adm__code" onClick={copyClick}>{quizzCode}<FiCopy/></p>
                     <button className="adm__exit" onClick={endQuizz}>Quitter</button>
                 </div>
@@ -217,6 +225,11 @@ const PlayQuizzAdminView = () => {
                     <input className="question__manage" type="submit" value="Prev" onClick={handlePrev}  disabled={index === 0 || quizzType!=="participant"}/>
                     <input className="question__manage" type="submit" value="Next" onClick={handleNext}  disabled={index === components.length - 1}/>
                 </div>
+                <ModalQrCode
+                    modal={modal} 
+                    toggleModal={toggleModal}  
+                    qrCodeValue={"https://www.example.com"}
+                />
                 
                 
             </div>)

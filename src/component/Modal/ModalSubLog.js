@@ -18,8 +18,7 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
     const [SubCode, setSubCode] = useState('')
     const [isLogin,setIsLogin]=useState('');
 
-
-    const [pwdError,setPwdError] = useState('')
+    const [errors,setErrors]=useState('');
 
     if(modal) {
         document.body.classList.add('active-modal')
@@ -34,19 +33,25 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
         setPasswordValue('')
         setPasswordAgainValue('')
         setSubCode('')
+        setErrors('')
     }
 
 
     //Initialisation du hook pour la connexion
-    const login = useLogin(resetModal,toggleModal);
+    const login = useLogin(resetModal,toggleModal,setErrors);
 
-    const signin = useSignIn(setIsLogin);
+    //Initalisation du hook pour l'inscription
+    const signin = useSignIn(setIsLogin,setErrors);
 
 
 
     useEffect(() => {
         setIsLogin(isLoginClicked)
     }, [isLoginClicked]);
+
+    useEffect(() => {
+        setErrors('')
+    }, [userEmailValue,passwordValue,passwordAgainValue,SubCode]);
 
     //Permet de switcher entre la connexion et l'inscription et empeche la page de rafraichir
     const switchLog = (e,log)=>{
@@ -60,7 +65,7 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
         e.preventDefault();
 
         if(passwordValue!==passwordAgainValue){
-            setPwdError('Mots de passes différents');
+            setErrors("Mots de passes differents")
             return;
         }
         //Création d'un objet newIser dans lequel va être inserer toute les données correspondant au differant champs
@@ -107,6 +112,9 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                     <button className="close-modal" onClick={()=> {toggleModal();resetModal();}}>
                         X
                     </button>
+                    <div className='form_error'>
+                        {errors}
+                    </div>
                     <form className='LogSub-form' onSubmit={(e) => e.preventDefault()}>
                         <InputComp 
                             placeholder={"Nom d'utilisateur"}
@@ -156,6 +164,10 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                     <button className="close-modal" onClick={()=> {toggleModal();resetModal();}}>
                         X
                     </button>
+                    <div className='form_error'>
+                        {errors}
+                    </div>
+
                     <form className='LogSub-form' onSubmit={(e) => e.preventDefault()}>
                         <InputComp 
                             placeholder={"Email "}
@@ -172,7 +184,7 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                             modalValue={passwordValue}
                             inputType={"password"}
                             required={true}
-                            erreur={pwdError}
+                            erreur={""}
                             className={'LogSub-field'}
                         />
                         <InputComp

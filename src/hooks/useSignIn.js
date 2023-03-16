@@ -1,7 +1,7 @@
 import api from "../api/quizz";
 
 
-const useSignIn = (setIsLogin) => {
+const useSignIn = (setIsLogin,setErrors) => {
     const signin = async (newUser) => {
         try{
             //Requete post pour envoyer les données du nouvelle utilisateur dans la BD
@@ -10,6 +10,7 @@ const useSignIn = (setIsLogin) => {
             console.log(response.data)
         } catch (err){
             //Erreur affichée dans la console
+            setErrors(err.response.data.message);
             console.log(err.response.data);
         }
     }

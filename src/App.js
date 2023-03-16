@@ -19,6 +19,8 @@ import QuizzFinish from './pages/PlayQuizz/QuizzFinish';
 import { SocketProvider } from './context/SocketProvider';
 import {  ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import QuizzStat from './pages/QuizzStat';
+import QuizzStatDetail from './pages/QuizzStatDetail';
 
 function App() {
 	//Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
@@ -47,6 +49,8 @@ function App() {
 								<Route path="mesquizz/question/creer" element={<CreateUpdateQuestion/>}/>
 								<Route path="mesquizz/question/modifier/:id" element={<CreateUpdateQuestion/>}/>
 								<Route path="mesquizz/quizz/:id" element={<QuizzEtQuestion/>}/>
+								<Route path="mesquizz/stat/:id" element={<QuizzStat/>}/>
+								<Route path="mesquizz/stat/details/:id" element={<QuizzStatDetail/>}/>
 								<Route path="moncompte" element={<MonCompte/>}/>
 								<Route path="play/admin/:quizzCode" element={<PlayQuizzAdminView/>}/>
 							</Route>

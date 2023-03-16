@@ -47,6 +47,15 @@ body.active-modal {
 }
 
 
+.modal-content .form_error{
+    color : red;
+    margin: auto;
+    border-radius: 5px;
+    width: 75%;
+}
+
+
+
 
 
 .modal-content .LogSub-form{
@@ -80,16 +89,6 @@ body.active-modal {
 
 .modal-content .LogSub-form .LogSub-field input:focus{
     border-color: lightblue ;
-}
-
-.modal-content .LogSub-field .input_erreur{
-    color: red;
-    margin: 0;
-    padding-left: 20px;
-    top:-18px;
-    font-size: 12px;
-    position: absolute;
-
 }
 
 .close-modal {
@@ -223,15 +222,6 @@ body.active-modal {
       border-color: lightblue ;
     }
     
-    .modal-content .LogSub-field .input_erreur{
-        color: red;
-        margin: 0;
-        padding-left: 20px;
-        top:-25px;
-        position: absolute;
-
-    
-    }
     
     
 }
