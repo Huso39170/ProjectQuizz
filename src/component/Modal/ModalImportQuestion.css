@@ -215,6 +215,74 @@ body.active-modal {
     width: 7px;
 }
 
+
+/*Css filtrer par tags*/
+
+.modal_question .tags_field {
+    margin-top: 10px;
+
+}
+
+.modal_question_content .tags_field  select  {
+    width: 50%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+}
+
+
+.modal_question_content .tags_field .tags_button_plus{
+    width: 40px;
+    height: 40px;
+    background-color: #F76059;
+    border-radius: 5px;
+    vertical-align: middle;
+    color: white;
+    margin-left: -10px;
+    
+}
+
+
+
+.modal_question_content .tags_field .tags_name {
+    width:95%
+}
+
+.modal_question_content .tags_field .tags_name ul{
+    padding-left: 16px;
+    width: 95%;
+}
+
+
+.modal_question_content .tags_field .tags_name li{
+    display: inline-block;
+    list-style-type: none;
+    margin-right: 10px;
+    width: auto; 
+    border-left: 10px solid #F76059;
+    border-right: 10px solid #F76059;
+    border-top:5px solid #F76059 ;
+    border-bottom:5px solid #F76059 ;
+    color: white;
+    margin-bottom: 10px;
+    background-color: #F76059;
+    border-radius: 15px;
+
+}
+.modal_question_content .tags_field .tags_name li a{
+    text-decoration: none;
+    color:white;
+    margin-left: 7px; 
+}
+
+.modal_question_content .tags_field .tags_name li a:hover{
+    color: lightgrey;
+    cursor: pointer;
+}
+
+
 @media only screen and (min-width: 600px) and (min-height: 910px) {
     
     .modal_question, .overlay {
