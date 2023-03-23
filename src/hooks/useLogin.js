@@ -18,7 +18,7 @@ const useLogin = (resetModal,toggleModal,setErrors) => {
         } catch (err){
             //Erreur affichée dans la console
             setErrors(err.response.data.message);
-
+            
             console.log(err.response.data);
         }
     }
@@ -27,6 +27,7 @@ const useLogin = (resetModal,toggleModal,setErrors) => {
         const accessToken = data.accessToken;
         const user = data.user;
         setAuth({user,accessToken})
+        localStorage.setItem("user_email",user.email);
         resetModal();
         toggleModal();
     }

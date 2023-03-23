@@ -10,10 +10,10 @@ import { toast } from 'react-toastify';
 
 
 const CreateUpdateQuizz = () => {
-    //Initialisation des champs de saisie nom , description le dérouelemnt du quizz ainsi que les tags
+    //Initialisation des champs de saisie nom , description le dérouelemnt du quizz 
     const [quizzNameValue, setQuizzNameValue] = useState('')
     const [quizzDescriptionValue, setQuizzDescriptionValue] = useState('')
-    const [tags,setTags] = useState([]);
+
     //Loader pour afficher un chargement si false
     const [loader,setLoader]=useState(false);
 
@@ -30,7 +30,6 @@ const CreateUpdateQuizz = () => {
     const resetField=()=>{
         setQuizzNameValue('');
         setQuizzDescriptionValue('');
-        setTags([])
     }
 
     //Fonction qui s'execute lorsque l'utilisateur soumet le formulaire de création
@@ -41,7 +40,6 @@ const CreateUpdateQuizz = () => {
         let newQuizz={}
         newQuizz = {name: quizzNameValue , 
                     description : quizzDescriptionValue , 
-                    tags:tags
                     };
         
         try{
@@ -98,7 +96,6 @@ const CreateUpdateQuizz = () => {
     const setQuizzForm = (data) => {
         setQuizzNameValue(data.name)
         setQuizzDescriptionValue(data.description)
-        setTags(data.tags)
         setLoader(true);
     }
 
@@ -110,7 +107,6 @@ const CreateUpdateQuizz = () => {
 
         newQuizz = {name: quizzNameValue ,
                     description : quizzDescriptionValue ,
-                    tags:tags,
                     id:id};
 
         try{
@@ -159,15 +155,7 @@ const CreateUpdateQuizz = () => {
                         className={"input_field"}
                         label={"Description du quizz"}
                     />
-                    <ItemsForm
-                        GlobalDivClassName={'tags_field'}    
-                        aBtnClassName={'tags_plus'}
-                        btnClassName={'tags_button_plus'}
-                        itemsClassName={'tags_name'}
-                        items={tags}
-                        setItems={setTags}
-                        itemNames={"Tags"}
-                    />
+
                     
                     </form>
                     

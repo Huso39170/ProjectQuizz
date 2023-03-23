@@ -93,11 +93,13 @@ const PlayQuizz = () => {
             socket.emit("send_response_finish",{questions_response:questionsReponses,quizz_link:quizzCode})
             socket.on("reponse_recieved",()=>{
                 removeFromLocalStorage(quizzCode);
+                localStorage.setItem(`quizzReponse${quizzCode}Responded`,true)
                 navigate('/play/end')
             })
         }else{
             socket.emit("participant_finish",{quizz_link:quizzCode})
             removeFromLocalStorage(quizzCode);
+            localStorage.setItem(`quizzReponse${quizzCode}Responded`,true)
             navigate('/play/end')
         }
     };
@@ -127,6 +129,10 @@ const PlayQuizz = () => {
         });
 
         if(loader===false){
+            const getLocal = JSON.parse(localStorage.getItem(`quizzReponse${quizzCode}Responded`))
+            if(getLocal!==null){
+                navigate('/play/end')
+            }
             socket.emit("join_quizz",{quizz_link:quizzCode})
         }
 
