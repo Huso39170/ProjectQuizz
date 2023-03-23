@@ -15,6 +15,8 @@ const useLogout = () => {
             if(response){
                 navigate('/');
                 localStorage.removeItem('persist');
+                localStorage.removeItem("user_email");
+
             }
         } catch (err) {
             console.error(err);

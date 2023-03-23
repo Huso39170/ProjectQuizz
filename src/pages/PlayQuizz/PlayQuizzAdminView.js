@@ -21,6 +21,7 @@ const PlayQuizzAdminView = () => {
     const [timer,setTimer]=useState(0);
     const [nbUser,setNbUser]=useState(0);
     const [startCounter,setStartCounter]=useState(false);
+    const [email] = useState(localStorage.getItem("user_email")||'')
 
         
     //Gestion du modal
@@ -70,6 +71,20 @@ const PlayQuizzAdminView = () => {
             setIndex((prevIndex) => (prevIndex - 1));
         }
     };
+
+    //Permet de mettre en ordre le nombre de reponse
+    const countResponse =(data)=>{
+        const nouveauCompteur = currResponse;
+        data.forEach(reponse  => {
+            if (!nouveauCompteur.hasOwnProperty(reponse)) {
+                nouveauCompteur[reponse] = 1;
+            } else {
+                nouveauCompteur[reponse]++;
+            }
+        });
+
+        setCurrResponse(nouveauCompteur)
+    }
     
         
 
@@ -83,7 +98,7 @@ const PlayQuizzAdminView = () => {
     useEffect(()=>{
         if(!loader){
             // Géstion de l'événement de connexion d'un administrateur à un quizz
-            socket.emit("admin_joined",{quizz_link:quizzCode});
+            socket.emit("admin_joined",{quizz_link:quizzCode,email:email});
         }
 
         //Reception des données du quizz
@@ -92,6 +107,14 @@ const PlayQuizzAdminView = () => {
             setQuizzData(data.quizz_data);
             setQuizzType(data.quizz_type);
             setNbResp(data.nb_response)
+            setNbUser(data.nb_user)
+            if(data.quizz_type==="profBtn" || data.quizz_type==="timer"){
+                setIndex(data.index)
+                countResponse(data.currResponse)
+                setNbRespCurr(data.nbCurrResponse)
+
+            }
+            console.log(data)
             setLoader(true)
             
 
@@ -121,15 +144,7 @@ const PlayQuizzAdminView = () => {
         //Gestion de l'evenement de reception des nombres de reponses
         socket.off("user_responded");
         socket.on("user_responded",(data)=>{
-            const nouveauCompteur = currResponse;
-            data.response.forEach(reponse  => {
-                if (!nouveauCompteur.hasOwnProperty(reponse)) {
-                    nouveauCompteur[reponse] = 1;
-                } else {
-                    nouveauCompteur[reponse]++;
-                }
-            });
-            setCurrResponse(nouveauCompteur)
+            countResponse(data.response)
             setNbRespCurr((prev) => (prev + 1))
         })
 
@@ -148,11 +163,11 @@ const PlayQuizzAdminView = () => {
     },[socket,loader,navigate,quizzCode,currResponse])
 
 
-    useEffect(()=>{
+    /*useEffect(()=>{
         return () => {
             socket.emit("end_quizz",{quizz_link:quizzCode,accessToken:auth.accessToken})
         }
-    },[socket])
+    },[socket])*/
 
     useEffect(() => {
         if(startCounter){

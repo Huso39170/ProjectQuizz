@@ -11,6 +11,7 @@ const ModalSessionParameter = ({modal,toggleModal,quizz_id}) => {
     const [quizzTimerValue, setquizzTimerValue] = useState('');
     const [sessionName, setSessionName] = useState('');
     const [loader,setLoader]=useState(false)
+    const [email]=useState(localStorage.getItem("user_email")||'')
     
     //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
     const axiosPrivate=useAxiosPrivate()
@@ -55,12 +56,14 @@ const ModalSessionParameter = ({modal,toggleModal,quizz_id}) => {
                                         quizz_data:quizz_data,
                                         quizz_type:quizzDeroulementValue,
                                         session_name:sessionName,
-                                        timer:quizzTimerValue})
+                                        timer:quizzTimerValue,
+                                        email:email})
         }else{
             socket.emit("start_quizz",{
                                         quizz_data:quizz_data,
                                         session_name:sessionName,
-                                        quizz_type:quizzDeroulementValue})
+                                        quizz_type:quizzDeroulementValue,
+                                        email:email})
         }
         
     }
