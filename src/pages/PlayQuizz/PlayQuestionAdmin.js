@@ -13,22 +13,11 @@ const PlayQuestion = memo(({qstData, currResponse}) => {
     const { id } = useParams();
 
     const lettersProposition = ['A', 'B', 'C', 'D'];
-
-
-    console.log("currREps = ",currResponse)
-
-
-    const listeProprietes = Object.keys(currResponse).map((key) =>
-        <li key={key}>{key}: {currResponse[key]}</li>
-    );
   
     return (
         <>{loader===true?
             (<>
                 <h2 className='question__libelle'>{qstData.libelle}</h2>
-                <ul>
-                    {listeProprietes}
-                </ul>
                 
                 <div className='question__answers'>
                     {
