@@ -25,8 +25,6 @@ const PlayQuizzAdminView = () => {
     const [nbUser,setNbUser]=useState(0);
     const [startCounter,setStartCounter]=useState(false);
 
-    const listeProprietes = Object.keys(currResponse);
-
     //Gestion du modal
     const[modal,setModal]= useState(false);
     const toggleModal = () =>{
@@ -167,11 +165,11 @@ const PlayQuizzAdminView = () => {
         }
     }, [counter,startCounter]);
 
-/*
+
     const listeProprietes = Object.keys(currResponse).map((key) =>
         <li key={key}>{key}: {currResponse[key]}</li>
     );
-*/
+
     
     function copyClick() {
         const codeToCopy = document.querySelector('.adm__code').innerText;
