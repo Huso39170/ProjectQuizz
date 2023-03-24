@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import ModalPreview from '../component/Modal/ModalPreviewQuestion'
 import { toast } from 'react-toastify';
+import './MesQuizz.css'
 
 
 function MesQuestions() {

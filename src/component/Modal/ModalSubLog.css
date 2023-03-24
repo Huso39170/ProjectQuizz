@@ -32,7 +32,8 @@ body.active-modal {
     height: 100%;
     margin: 0;
     overflow-y: scroll;
-
+    overflow-x: hidden;
+    
 }
 
 .modal-content .modal-title{
@@ -89,6 +90,18 @@ body.active-modal {
 
 .modal-content .LogSub-form .LogSub-field input:focus{
     border-color: lightblue ;
+}
+
+
+.persist_login__input {
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+    padding-left: 50px;
+}
+
+.persist_login__input > input {
+    margin-right: 7px;
 }
 
 .close-modal {
@@ -190,6 +203,7 @@ body.active-modal {
         user-select: none;
         border-radius: 15px 15px 0 0;
         background:  #F76059;
+        
     }
     
     .modal-content .LogSub-form{
@@ -220,6 +234,10 @@ body.active-modal {
     
     .modal-content .LogSub-form .LogSub-field input:focus{
       border-color: lightblue ;
+    }
+
+    .persist_login__input {
+        padding-left: 0;
     }
     
     

@@ -135,13 +135,17 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                             erreur={""}
                             className={'LogSub-field'}
                         />
-                        <input
-                            type="checkbox"
-                            id="persist"
-                            onChange={togglePersist}
-                            checked={persist}
-                        />
-                        <label htmlFor='persist'>Rester connecté?</label>
+                        <div className="persist_login__input">
+                            <input
+                                type="checkbox"
+                                id="persist"
+                                onChange={togglePersist}
+                                checked={persist}
+                                
+                            />
+                            <label htmlFor='persist'>Rester connecté ?</label>
+                        </div>
+                        
 
                         <div className="content">
                             <div className="pass-link"><a href=" ">Mot de passe oublié ?</a></div>
@@ -210,7 +214,7 @@ const ModalSubLog = ({modal,toggleModal,isLoginClicked}) => {
                             <input type="submit" value="Inscription" onClick={handleSub}/>
                         </div>
                         <div className="signup-link">
-                            Vous possédez déja un compte ? <a href=" " onClick={(e)=>{switchLog(e,true)}}>Connexion </a>
+                            Vous possédez déjà un compte ? <a href=" " onClick={(e)=>{switchLog(e,true)}}>Connexion </a>
                         </div>
                     </form>
                 </div>

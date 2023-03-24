@@ -84,6 +84,10 @@ body.active-modal {
     padding-left: 50px;
 }
 
+.radio_field > legend {
+    margin-bottom: 10px;
+}
+
 
 .modal-content .Session_param-form .Session_param-field input:focus{
     border-color: lightblue ;
@@ -234,7 +238,7 @@ body.active-modal {
     }
 
     .modal-content .radio_field label{
-    color:black ;
+        color:black ;
     }
     
     

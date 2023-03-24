@@ -73,13 +73,14 @@
     width: 25px;
     height: 10px;
     border-top: 2px solid #eee;
+    margin-bottom: -3px;
   }
   .nav > .nav-links {
     position: absolute;
     display: block;
     width: 100%;
     z-index: 1;
-    background-color:  #F76059;
+    background: linear-gradient(#ED595F, #7500A3);
     height: 0px;
     transition: all 0.3s ease-in;
     overflow: hidden;

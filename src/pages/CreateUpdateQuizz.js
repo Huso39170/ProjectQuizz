@@ -144,7 +144,7 @@ const CreateUpdateQuizz = () => {
                         required={true}
                         erreur={""}
                         className={'input_field'}
-                        label={"Nom du quizz"}
+                        label={"Nom du quiz"}
                     />
                     <TextAreaComp 
                         placeholder={"Description du quiz"}
@@ -153,7 +153,7 @@ const CreateUpdateQuizz = () => {
                         required={true}
                         erreur={""}
                         className={"input_field"}
-                        label={"Description du quizz"}
+                        label={"Description du quiz"}
                     />
 
                     

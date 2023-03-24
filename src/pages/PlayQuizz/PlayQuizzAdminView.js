@@ -6,7 +6,6 @@ import useRefreshToken from '../../hooks/useRefreshToken';
 import PlayQuestionAdmin from "./PlayQuestionAdmin";
 import './PlayQuizzAdminView.css'
 import { BsFillPersonFill, BsPersonCheckFill, BsStopwatchFill, BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs'
-import { FiCopy } from 'react-icons/fi'
 import ModalQrCode from "../../component/Modal/ModalQrCode";
 
 const PlayQuizzAdminView = () => {
@@ -185,25 +184,13 @@ const PlayQuizzAdminView = () => {
         <li key={key}>{key}: {currResponse[key]}</li>
     );
 
-    
-    function copyClick() {
-        const codeToCopy = document.querySelector('.adm__code').innerText;
-        navigator.clipboard.writeText(codeToCopy)
-          .then(() => {
-            console.log('Code copied to clipboard');
-          })
-          .catch((err) => {
-            console.error('Error copying code: ', err);
-          });
-      }
 
     return (
         <>{loader===true?
             (<div>
                 <div className="adm__head">
                     <p className="adm__viewers" title="Participants"><BsFillPersonFill/>{nbUser}</p>
-                    <button onClick={()=>{toggleModal()}}>Afficher le qr code</button>
-                    <p className="adm__code" onClick={copyClick}>{quizzCode}<FiCopy/></p>
+                    <button className="adm__codes" onClick={()=>{toggleModal()}}>Montrer le code</button>
                     <button className="adm__exit" onClick={endQuizz}>Quitter</button>
                 </div>
                 
@@ -242,6 +229,7 @@ const PlayQuizzAdminView = () => {
                     modal={modal} 
                     toggleModal={toggleModal}  
                     qrCodeValue={"https://www.example.com"}
+                    code={quizzCode}
                 />
                 
                 

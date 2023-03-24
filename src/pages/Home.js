@@ -54,13 +54,13 @@ const Home = ({isUserLoged}) => {
                     <h2>Seulement quelques étapes :</h2>
                     <ul className='etape_liste'>
                         <li>
-                            1  Créer un quiz
+                            1 • Créer un quiz
                         </li>
                         <li>
-                            2  Partager le
+                            2 • Partager le
                         </li>
                         <li>
-                            3  Lancer le quiz
+                            3 • Lancer le quiz
                         </li>
                     </ul>
                 </section>
@@ -87,7 +87,7 @@ const Home = ({isUserLoged}) => {
                             setJoinCode(e.target.value);
                         }}
                     />
-                        <input className='join_submit' type="submit" value="Submit" onClick={handleSubmit} />
+                        <input className='join_submit' type="submit" value="Rejoindre" onClick={handleSubmit} />
                     </form>
                 </section>
             </div>

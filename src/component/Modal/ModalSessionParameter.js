@@ -26,18 +26,18 @@ const ModalSessionParameter = ({modal,toggleModal,quizz_id}) => {
         {
             divClassName:"radio",
             value :"timer",
-            libelle: "Timer"
+            libelle: "Définir un temps"
 
         },
         {
             divClassName:"radio",
             value :"profBtn",
-            libelle: "Proffeseur qui passe"
+            libelle: "Vous avez la main"
         },
         {
             divClassName:"radio",
             value :"participant",
-            libelle: "Participant qui passe"
+            libelle: "Les participants sont libres"
         }
     ]
 
@@ -109,7 +109,7 @@ const ModalSessionParameter = ({modal,toggleModal,quizz_id}) => {
                 <div className="modal">
                     <div onClick={()=> {toggleModal();resetModal();}} className="overlay"></div>
                     <div className="modal-content">
-                        <h2 className='modal-title'>Parametre de session</h2>
+                        <h2 className='modal-title'>Paramètres de la session</h2>
                         <button className="close-modal" onClick={()=> {toggleModal();resetModal();}}>
                             X
                         </button>
@@ -127,7 +127,7 @@ const ModalSessionParameter = ({modal,toggleModal,quizz_id}) => {
                             <InputRadioComp
                                 values={values}
                                 className="radio_field"
-                                legend={"Comment se déroule le quizz :"}
+                                legend={"Comment se déroule le quiz :"}
                                 name={"radio_deroulement"}
                                 modalValue={quizzDeroulementValue}
                                 setValue={setquizzDeroulementValue}

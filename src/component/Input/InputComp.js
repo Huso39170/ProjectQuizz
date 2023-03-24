@@ -8,9 +8,10 @@ const InputComp = ({modalValue,setValue,placeholder,required,erreur,setErreur,in
 
     return (
         <div className={className} >
-            {label!==undefined && <label> {label} </label>}
+            {label!==undefined && <label htmlFor='this'> {label} </label>}
             {erreur.length >0 && <p className='input_erreur'>{erreur}</p>}
             <input
+                id='this'
                 type={inputType}
                 required={required}
                 placeholder={placeholder}

@@ -55,7 +55,7 @@ const CreateUpdateQuestion = () => {
         {
             divClassName:"radio",
             value :"num",
-            libelle: "Echelle"
+            libelle: "Échelle"
         }
     ]
 
@@ -266,7 +266,7 @@ const CreateUpdateQuestion = () => {
     return (
         <>
             {loader===true?(<div className='create_update_quizz_form'>
-                {id === undefined  && <h2>Creation de la question</h2>}
+                {id === undefined  && <h2>Création de la question</h2>}
                 {id !== undefined && <h2>Modification de la question</h2>}
             
                <form onSubmit={(e) => e.preventDefault()}>
@@ -293,17 +293,17 @@ const CreateUpdateQuestion = () => {
                     {questionTypeValue==="num"&&
                     <div className='born_field'>
                         <InputComp
-                            placeholder={"Borne inferieur"}
+                            placeholder={"Borne inférieure"}
                             setValue={setBornInf}
                             modalValue={bornInf}
                             inputType={"number"}
                             required={true}
                             erreur={""}
                             className={'input_field'}
-                            label={"Borne inferieur et superieur"}
+                            label={"Borne inférieure et supérieure"}
                         />
                         <InputComp
-                            placeholder={"Borne superieur"}
+                            placeholder={"Borne supérieure"}
                             setValue={setBornSup}
                             modalValue={bornSup}
                             inputType={"number"}

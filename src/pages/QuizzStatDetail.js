@@ -104,7 +104,7 @@ const QuizzStatDetail = () => {
                                                 style={{ width: `${percentage}%` }}
                                                 ></div>
                                                 <span className="percentage-label">
-                                                {percentage}% {reponse.libelle}
+                                                {percentage}% ({reponse.libelle})
                                                 </span>
                                             </div>
                                         </li>
