@@ -1,5 +1,5 @@
 import axios from 'axios'
-const BASE_URL='http://quizzeo-api.onrender.com' //localhost:3500
+const BASE_URL='http://quizzeo-st-api.onrender.com' //localhost:3500
 
 
 
