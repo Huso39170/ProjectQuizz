@@ -44,7 +44,7 @@ const Navbar = ({isUserLoged,toggleModal}) => {
 					Quizzeo
 				</div>
 				</div>
-				{isUserLoged &&
+				{location.pathname==="/" &&
 					<div className="nav-btn" onClick={()=>{setScrollable(!scrollable)}}>
 						<label htmlFor="nav-check">
 							<span></span>
