@@ -1,5 +1,5 @@
 import axios from 'axios'
-const BASE_URL='https://quizzeo-api.onrender.com:10000'
+const BASE_URL='http://quizzeo-api.onrender.com' //localhost:3500
 
 
 
@@ -10,5 +10,5 @@ export default axios.create({
 export const axiosPrivate=axios.create({
     baseURL:BASE_URL,
     headers:{'Content-Type':'application/json'},
-    withCredentials: true
+    withCredentials: true,
 })
