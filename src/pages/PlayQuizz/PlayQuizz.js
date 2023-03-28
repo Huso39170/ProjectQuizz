@@ -228,7 +228,7 @@ const PlayQuizz = () => {
                                     index < components.length - 1?(
                                         <input className="question__manage" type="submit" value="Suivant" onClick={handleNext} />
                                     ):(
-                                        <input className="question__manage" type="submit" value="Finir" onClick={handleFinsih} />
+                                        <input className="question__manage" type="submit" value="Terminer" onClick={handleFinsih} />
                                     )
                                 }
                             </div>
@@ -247,7 +247,7 @@ const PlayQuizz = () => {
                                         )
                                         :
                                         (
-                                            <input className="question__validate" type="submit" value="Terminer" onClick={()=>{handleValid();handleFinsih();}} disabled={!activateValidBtn}/>
+                                            <input className="question__validate" type="submit" value="Valider et Terminer" onClick={()=>{handleValid();handleFinsih();}} disabled={!activateValidBtn}/>
                                         )
                                     }
                                 </div>
@@ -271,7 +271,7 @@ const PlayQuizz = () => {
                                     (
                                         <>
                                         <input  className="question__validate" type="submit" value="Valider" onClick={()=>{handleValid()}} disabled={!activateValidBtn}/>
-                                        <input  className="question__validate" type="submit" value="Terminer" onClick={()=>{handleFinsih();}} disabled={activateValidBtn}/>
+                                        <input  className="question__validate" type="submit" value="Valider et Terminer" onClick={()=>{handleFinsih();}} disabled={activateValidBtn}/>
                                         </>
                                     )
                                         

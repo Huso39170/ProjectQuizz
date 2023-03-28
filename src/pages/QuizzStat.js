@@ -14,9 +14,9 @@ const QuizzStat =() => {
 
 
     useEffect(() => {
-        const quizzes = [{quizz_id:'63f0db555782f0bbf9675f2a',date:'14/03/2023, 14:53',session_name:'b',_id:1},
-                        {quizz_id:'63f0db555782f0bbf9675f2a',date:'17/03/2023, 14:53',session_name:'c',_id:2},
-                        {quizz_id:'63f0db555782f0bbf9675f2a',date:'15/03/2023, 14:53',session_name:'a',_id:3}]
+        const quizzes = [{quizz_id:'63f0db555782f0bbf9675f2a',date:'14/03/2023, 08:33',session_name:'L3 TD1 Web',_id:1},
+                        {quizz_id:'63f0db555782f0bbf9675f2a',date:'17/03/2023, 14:53',session_name:'L2 TD2 Web',_id:2},
+                        {quizz_id:'63f0db555782f0bbf9675f2a',date:'15/03/2023, 11:49',session_name:'L1 TD1 Web',_id:3}]
         setQuizzData(quizzes)       
         setLoader(true)
     }, []);

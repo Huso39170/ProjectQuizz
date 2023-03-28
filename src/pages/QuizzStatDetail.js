@@ -46,13 +46,13 @@ const QuizzStatDetail = () => {
                 const reponses = [
                     {
                         _id: '63f0db605782f0bbf9675f2f',
-                        libelle: 'Question 1',
-                        reponse: { '1': 2, '2': 3, '3': 3 },
+                        libelle: 'Quelles sont les équipes qui ont déjà gagné la coupe du monde ?',
+                        reponse: { 'France': 10, 'Allemagne': 16, 'Etats-Unis': 1,'Suisse':1 },
                     },
                     {
                         _id: '63f0e5480e25fe2fbd610b2f',
-                        libelle: 'Question 2',
-                        reponse: { '1': 1, '2': 2 },
+                        libelle: 'Quelle est la capitale de la France ?',
+                        reponse: { 'Paris': 9, 'Marseille': 2,'Lyon':1,'Besançon':3 },
                     },
                 ];
                 // Récupération des données des questions correspondantes

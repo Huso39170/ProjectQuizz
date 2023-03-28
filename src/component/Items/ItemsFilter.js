@@ -28,31 +28,33 @@ const ItemsFilter = ({GlobalDivClassName,aBtnClassName,btnClassName,itemsClassNa
     }
 
     return (
-        <div className={GlobalDivClassName}>
-        <select
-                name={"selectName"}
-                id= {"selectId"}
-                onChange={(e) => {setItemInput(e.target.value)}}
-                defaultValue={"default"}
-            >
-            <option                                
-                key={"default"}
-                value={"default"}
-            >
-                {"Filtrer par tag"}
-            </option>
-            {
-                itemsOption && itemsOption.map((option) => (
-                        <option                                
-                            key={option}
-                            value={option}
-                        >
-                            {option}
-                        </option>
-                ))
-            }
-            </select>
-            <a href=" " className={aBtnClassName} title='Démarrer' onClick={addItem}><FaPlus className={btnClassName} alt='add button'/></a>
+        <>
+            <div className={GlobalDivClassName}>
+                <select
+                    name={"selectName"}
+                    id= {"selectId"}
+                    onChange={(e) => {setItemInput(e.target.value)}}
+                    defaultValue={"default"}
+                >
+                <option                                
+                    key={"default"}
+                    value={"default"}
+                >
+                    {"Filtrer par tag"}
+                </option>
+                {
+                    itemsOption && itemsOption.map((option) => (
+                            <option                                
+                                key={option}
+                                value={option}
+                            >
+                                {option}
+                            </option>
+                    ))
+                }
+                </select>
+                <a href=" " className={aBtnClassName} title='Démarrer' onClick={addItem}><FaPlus className={btnClassName} alt='add button'/></a>
+            </div>
             <div className={itemsClassName}>
                 <ul>
                     {items &&items.map((item) => (
@@ -63,7 +65,7 @@ const ItemsFilter = ({GlobalDivClassName,aBtnClassName,btnClassName,itemsClassNa
 
                 </ul>
             </div>
-        </div>
+        </>
     )
 }
 

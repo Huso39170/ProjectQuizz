@@ -51,11 +51,6 @@ const CreateUpdateQuestion = () => {
             value :"qcu",
             libelle: "Choix unique"
 
-        },
-        {
-            divClassName:"radio",
-            value :"num",
-            libelle: "Échelle"
         }
     ]
 
