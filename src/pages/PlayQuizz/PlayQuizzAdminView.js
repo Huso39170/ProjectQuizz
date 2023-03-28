@@ -191,7 +191,7 @@ const PlayQuizzAdminView = () => {
                 <div className="adm__head">
                     <p className="adm__viewers" title="Participants"><BsFillPersonFill/>{nbUser}</p>
                     <button className="adm__codes" onClick={()=>{toggleModal()}}>Montrer le code</button>
-                    <button className="adm__exit" onClick={endQuizz}>Quitter</button>
+                    <button className="adm__exit" onClick={endQuizz}>Arrêter</button>
                 </div>
                 
                 {quizzType!=="participant"&&
