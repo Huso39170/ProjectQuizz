@@ -78,6 +78,7 @@ const PlayQuizz = () => {
         
     };
 
+    //Supression du localStorage
     const removeFromLocalStorage = (quizzCode)=>{
         const getLocal = JSON.parse(localStorage.getItem(`quizzReponse${quizzCode}`))
         if(getLocal!==null){

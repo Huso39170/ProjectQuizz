@@ -165,12 +165,6 @@ const PlayQuizzAdminView = () => {
     },[socket,loader,navigate,quizzCode,currResponse])
 
 
-    /*useEffect(()=>{
-        return () => {
-            socket.emit("end_quizz",{quizz_link:quizzCode,accessToken:auth.accessToken})
-        }
-    },[socket])*/
-
     useEffect(() => {
         if(startCounter){
             const timer = counter > 0 && setInterval(() => setCounter(counter - 1), 1000);

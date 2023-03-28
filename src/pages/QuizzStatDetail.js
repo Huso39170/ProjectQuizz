@@ -3,11 +3,11 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import './QuizzStatDetail.css';
 
 const QuizzStatDetail = () => {
-    // State pour les réponses et le loader
+    //État pour stocker les réponses et gérer l'affichage du loader
     const [reponses, setReponses] = useState([]);
     const [loader, setLoader] = useState(false);
 
-    // Hook pour accéder à l'API privée avec un accès token rafraîchi automatiquement si nécessaire
+     // Hook pour accéder à l'API privée avec un token d'accès actualisé automatiquement si nécessaire
     const axiosPrivate = useAxiosPrivate();
 
     // Fonction pour récupérer les données des questions en fonction de leur ID
@@ -38,7 +38,7 @@ const QuizzStatDetail = () => {
         });
     };
 
-  // Effet pour récupérer et formater les données des réponses et des questions au chargement de la page
+  //useEffect pour récupérer et formater les données des réponses et des questions au chargement de la page
     useEffect(() => {
         const formatReponses = async () => {
             try {

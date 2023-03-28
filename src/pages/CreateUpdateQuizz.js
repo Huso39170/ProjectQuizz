@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 
 const CreateUpdateQuizz = () => {
-    //Initialisation des champs de saisie nom , description le dérouelemnt du quizz 
+    //Initialisation des état
     const [quizzNameValue, setQuizzNameValue] = useState('')
     const [quizzDescriptionValue, setQuizzDescriptionValue] = useState('')
 
@@ -20,7 +20,7 @@ const CreateUpdateQuizz = () => {
     //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
     const navigate = useNavigate();
 
-    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    ///Utilisation du hook pour gérer les requêtes Axios
     const axiosPrivate=useAxiosPrivate()
 
     //Recuperation de l'id dans l'url

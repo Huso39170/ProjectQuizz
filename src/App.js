@@ -1,3 +1,4 @@
+// Importer les hooks et les composants nécessaires
 import {useState,useEffect} from 'react';
 import Home from './pages/Home';
 import Missing from './pages/Missing';
@@ -23,11 +24,12 @@ import QuizzStat from './pages/QuizzStat';
 import QuizzStatDetail from './pages/QuizzStatDetail';
 
 function App() {
-	//Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
+	//Mise a true si l'utilisateur est connecté
     const[isUserLoged,setIsUserLoged]=useState(false);
+	//Récupération des informations d'authentification
 	const {auth} = useAuth();
 
-	//Verification si un utilisateur est connecté si oui on change la navbar
+	//Mis à jour de isUserLoged si l'utilisateur se connecte
 	useEffect(() => {
 		if(auth.accessToken){
 			setIsUserLoged(true)

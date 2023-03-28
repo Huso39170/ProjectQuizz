@@ -81,7 +81,7 @@ const CreateUpdateQuestion = () => {
         setLoader(true);
 
     }
-    
+    //Met a 0 tout les champs    
     const resetField=()=>{
         setQuestionDescriptionValue('');
         setQuestionReponseValue('');

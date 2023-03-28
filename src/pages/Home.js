@@ -32,7 +32,11 @@ const Home = ({isUserLoged}) => {
     const handleSubmit = (e) => {
         //Empeche la page de se rafraichir lorsque l'on soumet un formulaire
         e.preventDefault();
-        navigate(`/play/quizz/${joinCode}`)
+        if(isUserLoged){
+            navigate(`/play/admin/${joinCode}`)
+        }else{
+            navigate(`/play/quizz/${joinCode}`)
+        }
         setJoinCode('')
     }
 

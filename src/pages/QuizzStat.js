@@ -2,11 +2,17 @@ import React,{useState,useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const QuizzStat =() => {
+    /* Création des états pour stocker les données, contrôler le chargement,
+    gérer la recherche et l'option de tri sélectionnée */ 
     const [quizzData,setQuizzData]=useState([{}])
     const [loader,setLoader] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
 
+    // Initialiser la fonction de navigation
+    const navigate = useNavigate();
+
+    // Géstion de la mise à jour de la barre de recherche
     const handleSearchTerm = (e) => {
         let value = e.target.value;
         setSearchTerm(value);
@@ -21,16 +27,16 @@ const QuizzStat =() => {
         setLoader(true)
     }, []);
 
+     //Fonction pour convertir la date personnalisée en objet Date valide
     function parseCustomDate(dateString) {
         const [day, month, yearAndTime] = dateString.split('/');
         const [year, time] = yearAndTime.split(', ');
         return new Date(`${year}-${month}-${day}T${time}`);
     }
 
+    // Géstion du changement d'option de tri
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
-
-
         if(event.target.value==="name"){
             let quizzes = quizzData;
             quizzes.sort((a, b) => a.session_name.localeCompare(b.session_name));
@@ -48,7 +54,6 @@ const QuizzStat =() => {
         }
     };
 
-    const navigate = useNavigate();
     return (
         <>
         {loader===true?(

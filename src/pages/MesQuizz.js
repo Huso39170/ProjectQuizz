@@ -13,18 +13,19 @@ import { toast } from 'react-toastify';
 
 const MesQuizz = () => {
 
-
+    //Initialisation des états
     const [datas, setDatas] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [loader,setLoader] = useState(false);
     const [currId,setCurrId] =useState('');
 
-    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    ///Utilisation du hook pour gérer les requêtes Axios
     const axiosPrivate=useAxiosPrivate()
 
-    //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
+    //Initialisation la fonction de navigation
     const navigate = useNavigate();
 
+    //Chargement des données du quiz lors du montage du composant*
     useEffect(() => {
         const fetchQuiz = async () => {
             try {
@@ -32,8 +33,7 @@ const MesQuizz = () => {
             if(response) {
                 setDatas(response.data);
                 setLoader(true)
-                console.log(response.data)
-              }
+            }
             } catch (err) {
                 console.log(err.response.status);
                 //Si l'id n'existe pas redirection vers la page Error 404
@@ -45,12 +45,13 @@ const MesQuizz = () => {
         fetchQuiz();
     }, [navigate,axiosPrivate]);
 
+    // Géstion de la mise à jour de la barre de recherche
     const handleSearchTerm = (e) => {
         let value = e.target.value;
         setSearchTerm(value);
     }
 
-    /* Clique CREER QUIZZ */
+    // Gestion de la création de quizz
     const [createQuizz, setCreateQuizz] = useState(false);
 
     const handleCreateQuizz = () => {
@@ -58,25 +59,25 @@ const MesQuizz = () => {
     }
 
 
-    /* Delete question */
+    // Gestion de la suppression de quizz
     const handleDeleteQuiz = (quizz_id) => {
         const fetchDeleteQuiz = async () => {
             try{
-                //Requete poste pour edit les données dans la BD
+                 // Requête POST pour éditer les données dans la BD
                 const response = await axiosPrivate.delete(`/quizz`,{data: {id: quizz_id}});
                 if(response.status === 200) {
                     console.log(response.data)
                     const listDatas = datas.filter((item) => item._id !== quizz_id);
                     setDatas(listDatas);
 
-                    //Notification
+                    // Notification de suppression réussie
                     toast.success('Suppression réussie');
                 }
             } catch (err){
-                //Notification
+                // Notification de suppression échouée
                 toast.error('La suppression du quiz a échouée');
 
-                //Erreur affichée dans la console
+                // Erreur affichée dans la console
                 console.log(err.response.data.message)
             }
         }

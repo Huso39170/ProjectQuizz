@@ -5,7 +5,7 @@ import ItemsFilter from '../Items/ItemsFilter';
 import './ModalImportQuestion.css'
 import '../Loader/Loader.css'
 
-const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion,quizz_id}) => {
+const ModalImportQuestion = ({modal,toggleModal,attachedQuestion,setLoaderParent,quizz_id}) => {
 
     //Initialisation des champs de saisie de recherche, des resultats de la recherche,
     // du tableau des question récuperée dans la bd ainsi que les questions selectionné
@@ -72,7 +72,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion,qu
     useEffect(() => {
         allSessionQuestion.forEach(question => {
             attachedQuestion.forEach( attached=> {
-                if(question._id===attached._id){
+                if(question._id===attached){
                     question["attached"]=true;
                 }
             })
@@ -95,7 +95,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion,qu
     }
 
     //FOnction qui insere ou suprrime du tableau selectedQuestion les question cochées ou décochées
-    const handleCheck = (index,e,question) => {
+    const handleCheck = (index,question) => {
         if(checkInputRef.current[index].checked===false){
             const questions = [...selectedQuestion, question];
             setSelectedQuestion(questions);
@@ -126,17 +126,18 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion,qu
     //Soumission des questions à attacher
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoaderParent(false);
+        toggleModal();
+        resetModal();
 
-
-        const attach = {quizzId: quizz_id ,
-                    questionId : selectedQuestion[0]._id };
+        /*const attach = {quizzId: quizz_id ,
+                        questionId : selectedQuestion[0]._id };
         console.log()    
         const fetchAttachQst = async () => {
             try{
                 //Requete poste pour edit les données dans la BD
                 const response = await axiosPrivate.post(`/quizz/question`,attach);
                 if(response.status === 200) {
-                    setQuestions(selectedQuestion)
                     toggleModal();
                     resetModal();
                 }
@@ -145,7 +146,7 @@ const ModalImportQuestion = ({modal,toggleModal,setQuestions,attachedQuestion,qu
                 console.log(err.response.data.message)
             }
         }
-        fetchAttachQst();
+        fetchAttachQst();*/
     }
 
 
