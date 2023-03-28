@@ -9,17 +9,18 @@ import './MesQuizz.css'
 
 
 function MesQuestions() {
-
+    //Initialisation des états
     const [datas, setDatas] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [loader,setLoader]= useState(false)
 
-    //Utilisation de la fonction usenavigate afin de rediriger l'utilisateur vers une autre page
+    // Initialisation la fonction de navigation
     const navigate = useNavigate();
 
-    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    //Utilisation du hook pour gérer les requêtes Axios
     const axiosPrivate = useAxiosPrivate()
 
+    // Chargement des données des questions lors du montage du composant
     useEffect(() => {
     const fetchQuestions = async () => {
         try {
@@ -42,12 +43,13 @@ function MesQuestions() {
     fetchQuestions();
     }, [navigate,axiosPrivate]);
 
+    // Géstion de la mise à jour de la barre de recherche
     const handleSearchTerm = (e) => {
         let value = e.target.value;
         setSearchTerm(value);
     }
 
-    /* Clique CREER QUESTION */
+    // Gestion de la création de question
     const handleCreateQuestion = () => {
         navigate('creer');
     }
@@ -58,7 +60,7 @@ function MesQuestions() {
     }
 
 
-    /* Delete question */
+    // Gestion de la suppression de quizz
     const handleDeleteQuestion = (qst_id) => {
         const fetchDeleteQuestion = async () => {
             try{
@@ -71,13 +73,13 @@ function MesQuestions() {
                     const listDatas = datas.filter((item) => item._id !== qst_id);
                     setDatas(listDatas);
 
-                    //Notification
+                    // Notification de suppression réussie
                     toast.success('Suppression réussie');
                 }
 
             } catch (err){
-                //Notification
-                toast.error('Suppression réussie');
+                // Notification de suppression échouée
+                toast.error('Suppression écouée');
 
                 //Erreur affichée dans la console
                 console.log(`Error: ${err.message}`);
@@ -86,7 +88,7 @@ function MesQuestions() {
         fetchDeleteQuestion();
     }
 
-    /* preview question */
+    // Gestion de l'aperçu de la question
     const [preview, setPreview] = useState(false);
     const [question, setQuestion] = useState();
 

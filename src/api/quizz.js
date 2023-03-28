@@ -4,7 +4,7 @@ const BASE_URL='https://quizzeo-st-api.onrender.com' //localhost:3500
 
 
 export default axios.create({
-    baseURL:BASE_URL
+    baseURL:BASE_URL,
 });
 
 export const axiosPrivate=axios.create({

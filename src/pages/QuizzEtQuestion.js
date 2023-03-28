@@ -10,24 +10,24 @@ import ModalPreview from '../component/Modal/ModalPreviewQuestion'
 
 const QuizzEtQuestion = () => {
     
-    //Initialisation 
+    //Initialisation des états
     const [quizzNameValue, setQuizzNameValue] = useState('')
-    const [quizzQuestions,setQuizzQuestions]=useState([])
+    const [quizzQuestionsIds,setQuizzQuestionsIds]=useState([])
+    const [quizzQuestionsData,setQuizzQuestionsData] = useState([{}])
     const [loader,setLoader]=useState(false)
     
-    //Utilisation de la fonction useNavigate afin de rediriger l'utilisateur vers une autre page
+    // Initialisation la fonction de navigation
     const navigate = useNavigate();
-    //Recuperation de l'id dans l'url
+
+    //Recuperation de l'ID dans l'URL
     const { id } = useParams();
 
-    //Fait appel au hook qui permet de refresh l'acces token si ce dernier est expiré
+    //Utilisation du hook pour gérer les requêtes Axios
     const axiosPrivate=useAxiosPrivate()
 
-    console.log("quizzQuestion === ", quizzQuestions);
-
-    //Fonction qui s'execute au moment du rendue de la page permet de recuperer les données du quizz de l'id correspondant
+    // Chargement des données du quiz lors du montage du composant
     useEffect(() => {
-        if(id!==undefined){
+        if(id!==undefined&& loader==false){
             const fetchQuizz = async () => {
                 try {
                     const response = await axiosPrivate.get(`/quizz/${id}`);
@@ -43,29 +43,45 @@ const QuizzEtQuestion = () => {
     
             fetchQuizz();
         }
-    }, [id,navigate,axiosPrivate])
+    }, [id,navigate,axiosPrivate,loader])
 
-    //Fonction qui initialise quizzNameValue
-    const setQuizzData = (data) => {
+    // Fonction pour initialiser quizzNameValue
+    const setQuizzData = async (data) => {
         setQuizzNameValue(data.name)
-        setQuizzQuestions(data.questions)    // data.questions renvoie seulement l'id de la question donc on ne peut pas afficher les infos de la question
+        //Data.questions renvoie seulement l'id de la question donc on ne peut pas afficher les infos de la question
+        setQuizzQuestionsIds(data.questions)    
+        await getQuestions(data.questions);
         setLoader(true)
+    }
+
+    // La fonction asynchrone getQuestions récupère les données de plusieurs questions avec les IDs spécifiés
+    const getQuestions = async (questions) => {
+        let questionsData = []
+        let promises = questions.map(question_id => {
+        return axiosPrivate.get(`/question/${question_id}`)
+        .then(response => {
+            questionsData.push(response.data);
+        })
+        .catch(error => console.error(error));
+        });
+        setQuizzQuestionsData(questionsData)
+        return Promise.all(promises);
     }
 
 
     //Gestion du modal
     const[modal,setModal]= useState(false);
     const toggleModal = () =>{
-        //Inverse le bollean de modal
+        //Inverser la valeur de modal
         setModal(!modal);
     }
 
-    /* Redirection vers la page de modification du quizz */
+    /* Redirection vers la page de modification de la question */
     const handleEditQuestion = (id) => {
         navigate(`/mesquizz/question/modifier/${id}`); 
     }
 
-    /* preview question */
+    // Gestion de l'aperçu de la question
     const [preview, setPreview] = useState(false);
     const [question, setQuestion] = useState();
 
@@ -90,10 +106,10 @@ const QuizzEtQuestion = () => {
                 <hr />
 
                 <ul className='questions_list'>
-                    {quizzQuestions.map((question,index) => 
+                    {quizzQuestionsData.map((question,index) => 
                         <li className='question' key={index}>
                             <p className='question_name'>{question.libelle}</p>
-                            <button className='play_button' title='Preview' onClick={()=>{handlePreviewQuestion(question)}}> <VscInspect className='Fa' alt='watch button' /> </button>
+                            <button className='play_button' title='Preview' onClick={()=>{handlePreviewQuestion(question._id)}}> <VscInspect className='Fa' alt='watch button' /> </button>
                             <button className='edit_button' title='Modifier'onClick={()=>{handleEditQuestion(question._id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
                             <button className='del_button' title='Supprimer' onClick={()=>{}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                         </li>
@@ -102,8 +118,8 @@ const QuizzEtQuestion = () => {
                 <ModalImportQuestion 
                     modal={modal} 
                     toggleModal={toggleModal}
-                    setQuestions={setQuizzQuestions}
-                    attachedQuestion={quizzQuestions}
+                    setLoaderParent={setLoader}
+                    attachedQuestion={quizzQuestionsIds}
                     quizz_id={id}
                 />
             </div>):(

@@ -44,13 +44,15 @@ const Navbar = ({isUserLoged,toggleModal}) => {
 					Quizzeo
 				</div>
 				</div>
-				<div className="nav-btn" onClick={()=>{setScrollable(!scrollable)}}>
-				<label htmlFor="nav-check">
-					<span></span>
-					<span></span>
-					<span></span>
-				</label>
-				</div>
+				{isUserLoged &&
+					<div className="nav-btn" onClick={()=>{setScrollable(!scrollable)}}>
+						<label htmlFor="nav-check">
+							<span></span>
+							<span></span>
+							<span></span>
+						</label>
+					</div>
+				}
 
 				<div className="nav-links" onClick={uncheckInput}>
 					{isUserLoged?(<>
