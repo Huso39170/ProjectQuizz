@@ -16,10 +16,9 @@ const useLogin = (resetModal,toggleModal,setErrors) => {
             );
             StockToken(response.data)
         } catch (err){
-            //Erreur affichée dans la console
-            setErrors(err.response.data.message);
-            
-            console.log(err.response.data);
+            const errorMessage = err.response?.data?.message ?? "Une erreur s'est produite";
+            setErrors(errorMessage);
+            console.log(errorMessage);
         }
     }
     //Stock le token dans un provider puis reset et ferme le modal
