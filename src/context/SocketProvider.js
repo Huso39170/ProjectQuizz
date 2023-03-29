@@ -7,7 +7,7 @@ export const SocketProvider = ({ children }) => {
     const [loader,setLoader] = useState(false)
     useEffect(() => {
         if(!loader){
-            const socket = io.connect('http://localhost:3001', {transport: ['webSocket']}); //wss://quizzeo-socket.onrender.com
+            const socket = io.connect('wss://quizzeo-socket.onrender.com', {transport: ['webSocket']}); //http://localhost:3001
             setSocket(socket);
             setLoader(true)
         }
