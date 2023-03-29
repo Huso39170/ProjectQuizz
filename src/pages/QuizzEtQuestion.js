@@ -3,6 +3,7 @@ import { useParams,useNavigate } from 'react-router-dom';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import ModalImportQuestion from '../component/Modal/ModalImportQuestion';
 import { FaEdit, FaTrashAlt } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import { VscInspect  } from 'react-icons/vsc';
 import './QuizzEtQuestion.css'
 import ModalPreview from '../component/Modal/ModalPreviewQuestion'
@@ -93,6 +94,30 @@ const QuizzEtQuestion = () => {
         handleQuestion(param);
         setPreview(!preview);
     }
+
+    const handleDeleteQuestion =(questionId) =>{
+        const fetchDeleteQuiz = async () => {
+            try{
+                 // Requête POST pour éditer les données dans la BD
+                const response = await axiosPrivate.delete(`/quizz/question`,{data: {quizzId: id , questionId : questionId}});
+                if(response.status === 200) {
+                    console.log(response.data)
+                    const listDatas = quizzQuestionsData.filter((item) => item._id !== questionId);
+                    setQuizzQuestionsData(listDatas);
+
+                    // Notification de suppression réussie
+                    toast.success('Suppression réussie');
+                }
+            } catch (err){
+                // Notification de suppression échouée
+                toast.error('La suppression du quiz a échouée');
+
+                // Erreur affichée dans la console
+                console.log(err.response.data.message)
+            }
+        }
+        fetchDeleteQuiz();
+    }
     
 
     return (
@@ -111,7 +136,7 @@ const QuizzEtQuestion = () => {
                             <p className='question_name'>{question.libelle}</p>
                             <button className='play_button' title='Preview' onClick={()=>{handlePreviewQuestion(question._id)}}> <VscInspect className='Fa' alt='watch button' /> </button>
                             <button className='edit_button' title='Modifier'onClick={()=>{handleEditQuestion(question._id)}}> <FaEdit className='Fa' alt='edit button'/> </button>
-                            <button className='del_button' title='Supprimer' onClick={()=>{}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
+                            <button className='del_button' title='Supprimer' onClick={()=>{handleDeleteQuestion(question._id)}}> <FaTrashAlt className='FaTrash' alt='delete button' /> </button>
                         </li>
                     )}
                 </ul>

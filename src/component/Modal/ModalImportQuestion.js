@@ -124,32 +124,35 @@ const ModalImportQuestion = ({modal,toggleModal,attachedQuestion,setLoaderParent
 
 
     //Soumission des questions à attacher
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoaderParent(false);
+        await attachAllQuestion(selectedQuestion);
         toggleModal();
         resetModal();
+        setLoaderParent(false);
 
-        /*const attach = {quizzId: quizz_id ,
-                        questionId : selectedQuestion[0]._id };
-        console.log()    
-        const fetchAttachQst = async () => {
-            try{
-                //Requete poste pour edit les données dans la BD
-                const response = await axiosPrivate.post(`/quizz/question`,attach);
-                if(response.status === 200) {
-                    toggleModal();
-                    resetModal();
-                }
-            } catch (err){
-                //Erreur affichée dans la console
-                console.log(err.response.data.message)
-            }
-        }
-        fetchAttachQst();*/
     }
 
+        // La fonction asynchrone getQuestions récupère les données de plusieurs questions avec les IDs spécifiés
+        const attachAllQuestion = async (selectedQuestion) => {
+            let promises = selectedQuestion.map(question => {
 
+                const attach = {quizzId: quizz_id ,
+                                questionId : question._id };
+                try{
+                    //Requete poste pour edit les données dans la BD
+                    const response =  axiosPrivate.post(`/quizz/question`,attach);
+                    if(response.status === 200) {
+                        console.log("attacher")
+                    }
+                } catch (err){
+                    //Erreur affichée dans la console
+                    console.log(err.response.data.message)
+                }
+
+            })
+            return Promise.all(promises);
+        }
 
 
     //Initialiser du useRef
@@ -158,7 +161,7 @@ const ModalImportQuestion = ({modal,toggleModal,attachedQuestion,setLoaderParent
     //Lorsque l'utilisateur clique sur le block de la question appel de la fonction handleCheck
     //et ajout de la class checked dans la liste de classe
     const handleLiClick=(index,e,question)=>{
-        handleCheck(index,e,question)
+        handleCheck(index,question)
         checkInputRef.current[index].checked=!checkInputRef.current[index].checked
         if(checkInputRef.current[index].checked===true){
             e.target.classList.add('checked')
