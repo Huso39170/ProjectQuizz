@@ -146,7 +146,7 @@ const MesQuizz = () => {
                 
             )}
             {createQuizz ? 
-            <div className='creation'>
+            <div className={datas.length ? 'creation' : 'creation_empy'}>
                 
                 <ImCross className='cross_creation_quizz' role='button' onClick={handleCreateQuizz}/>
                 <h2>Créer un Quiz</h2>
