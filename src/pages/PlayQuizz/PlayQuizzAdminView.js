@@ -61,7 +61,7 @@ const PlayQuizzAdminView = () => {
             setNbRespCurr(0);
             setCounter(timer);
             setCurrResponse({})
-            socket.emit("give_next_question",{quizz_link:quizzCode,index:index+1})
+            if(quizzType!=="participant")socket.emit("give_next_question",{quizz_link:quizzCode,index:index+1})
         }
 
     };
@@ -93,7 +93,8 @@ const PlayQuizzAdminView = () => {
     //Mettre fin au quizz
     const  endQuizz = async () =>{
         await refresh();
-        socket.emit("end_quizz",{quizz_link:quizzCode,accessToken:auth.accessToken})
+        const accesToken = auth.accessToken
+        socket.emit("end_quizz",{quizz_link:quizzCode,accessToken:accesToken})
     }
 
 

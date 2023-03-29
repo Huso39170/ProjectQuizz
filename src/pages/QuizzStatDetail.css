@@ -53,3 +53,7 @@
 .quizz_session_details  .reponse_false .percentage-label{
     font-weight: lighter;
 }
+
+.quizz_stat .del_button{
+  z-index: 1;
+}

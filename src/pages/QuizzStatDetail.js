@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import './QuizzStatDetail.css';
 
@@ -7,6 +8,9 @@ const QuizzStatDetail = () => {
     const [reponses, setReponses] = useState([]);
     const [loader, setLoader] = useState(false);
 
+    //Recuperation de l'id dans l'url
+    const { id } = useParams();
+
      // Hook pour accéder à l'API privée avec un token d'accès actualisé automatiquement si nécessaire
     const axiosPrivate = useAxiosPrivate();
 
@@ -14,7 +18,7 @@ const QuizzStatDetail = () => {
     const getQuestions = async (questions) => {
         const promises = questions.map((question) => {
         return axiosPrivate
-            .get(`/question/${question._id}`)
+            .get(`/question/${question.id}`)
             .then((response) => response.data)
             .catch((error) => console.error(error));
         });
@@ -22,52 +26,51 @@ const QuizzStatDetail = () => {
     };
 
   // Fonction pour fusionner les réponses avec les données des questions correspondantes
-    const assemble = (array1, array2) => {
-        return array1.map((question) => {
-        const question2 = array2.find((q) => q._id === question._id);
-        if (question2) {
-            return {
-                ...question2,
-                reponses: question2.reponses.map((reponse) => {
-                    const nb_rep = question.reponse[reponse.libelle] || 0;
-                    return { ...reponse, nb_rep };
-                }),
-            };
-        }
-        return question;
+    const assemble = (answers, questions) => {
+
+        const mergedArray = questions.map((question) => {
+            const answerObj = answers.find((answer) => answer.id === question._id);
+          
+            if (answerObj) {
+              question.reponses = question.reponses.map((reponse) => {
+                const answerCount = answerObj.reponse[reponse.libelle];
+                return { ...reponse, nb_rep: answerCount ? answerCount : 0 };
+              });
+            } else {
+              question.reponses = question.reponses.map((reponse) => {
+                return { ...reponse, nb_rep: 0 };
+              });
+            }
+          
+            return question;
         });
+        return mergedArray
+
     };
 
   //useEffect pour récupérer et formater les données des réponses et des questions au chargement de la page
     useEffect(() => {
-        const formatReponses = async () => {
+        const fetchSession = async () => {
             try {
-                // Données des réponses initiales
-                const reponses = [
-                    {
-                        _id: '63f0db605782f0bbf9675f2f',
-                        libelle: 'Quelles sont les équipes qui ont déjà gagné la coupe du monde ?',
-                        reponse: { 'France': 10, 'Allemagne': 16, 'Etats-Unis': 1,'Suisse':1 },
-                    },
-                    {
-                        _id: '63f0e5480e25fe2fbd610b2f',
-                        libelle: 'Quelle est la capitale de la France ?',
-                        reponse: { 'Paris': 9, 'Marseille': 2,'Lyon':1,'Besançon':3 },
-                    },
-                ];
-                // Récupération des données des questions correspondantes
-                const questions = await getQuestions(reponses);
-                // Fusion des données des réponses et des questions
-                const result = assemble(reponses, questions);
-                // Enregistrement des données des réponses formatées dans le state
-                setReponses(result);
-                // Changement de l'état du loader à "true"
-                setLoader(true);
-            } catch (error) {
-                console.error(error);
+                const response = await axiosPrivate.get(`/session/${id}`);
+                if(response) {
+                    // Récupération des données des questions correspondantes
+                    const questions = await getQuestions(response.data.reponses);
+                    const result = assemble(response.data.reponses, questions);
+                    // Enregistrement des données des réponses formatées dans le state
+                    setReponses(result);
+                    console.log(result)
+                    // Changement de l'état du loader à "true"
+                    setLoader(true);
+
+                }
+                } catch (err) {
+                    console.log(err);
+                    
             }
+
         };
-        formatReponses();
+        fetchSession();
     }, [axiosPrivate]);
 
   // Rendu conditionnel en fonction de l'état du loader
