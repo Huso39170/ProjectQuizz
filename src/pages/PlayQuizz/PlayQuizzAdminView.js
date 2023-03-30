@@ -223,7 +223,7 @@ const PlayQuizzAdminView = () => {
                 <ModalQrCode
                     modal={modal} 
                     toggleModal={toggleModal}  
-                    qrCodeValue={`https://quizzeo-st.onrender/play/quizz/${quizzcode}.com`}
+                    qrCodeValue={`https://quizzeo-st.onrender/play/quizz/${quizzCode}.com`}
                     code={quizzCode}
                 />
                 
